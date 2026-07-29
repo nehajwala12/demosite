@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>CreditSwan.AI — Project Summit · Integrated Credit &amp; Operational Diligence (Sample)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#f6f4ef; --card:#e9e4da; --card2:#fdfcf8; --ink:#0f1b2d; --gold:#2e7d8f;
+  --gold-lt:#93bcc6; --red:#b0413a; --green:#3f6e4e; --amber:#c9963f; --muted:#6f6a60;
+  --line:#dcd6ca; --warn:#fff3df; --warnline:#c9963f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.sans{font-family:'Helvetica Neue',Arial,sans-serif}
+
+/* ---------- header ---------- */
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 40px;border-bottom:2px solid var(--gold);position:sticky;top:0;background:var(--bg);z-index:60}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .mark{width:34px;height:34px;flex:0 0 34px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:26px;line-height:1}
+.brand h1{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;letter-spacing:3.5px;font-weight:700}
+.brand h1 span{color:var(--gold);font-weight:400}
+.brand small{display:block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:2.4px;color:var(--muted);text-transform:uppercase;font-weight:400;margin-top:3px}
+header .tag{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;text-align:right;line-height:1.7}
+.confbar{background:var(--ink);color:#efe9dd;font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;text-align:center;padding:7px 14px}
+.confbar b{color:var(--gold-lt)}
+
+/* ---------- sample ribbon ---------- */
+.ribbon{position:fixed;top:20px;right:-52px;transform:rotate(45deg);background:var(--red);color:#fff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:2px;font-weight:700;padding:5px 60px;z-index:80;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
+
+/* ---------- hero ---------- */
+.hero{padding:40px 40px 22px;max-width:1250px;margin:0 auto}
+.hero .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.hero h2{font-size:38px;font-weight:400;line-height:1.16;max-width:1000px}
+.hero h2 em{color:var(--gold);font-style:italic}
+.hero p{margin-top:14px;max-width:920px;color:#3c4655;font-size:15px}
+.meta{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap;font-family:'Helvetica Neue',Arial,sans-serif;font-size:11.5px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+
+/* ---------- tabs ---------- */
+nav.tabs{display:flex;gap:2px;padding:0 40px;max-width:1250px;margin:20px auto 0;flex-wrap:wrap;border-bottom:1px solid var(--line);position:sticky;top:69px;background:var(--bg);z-index:55}
+nav.tabs button{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11.5px;letter-spacing:1.2px;text-transform:uppercase;background:none;border:none;padding:12px 13px;cursor:pointer;color:var(--muted);border-bottom:3px solid transparent;transition:color .15s}
+nav.tabs button:hover{color:var(--ink)}
+nav.tabs button.active{color:var(--ink);border-bottom-color:var(--gold);font-weight:700}
+
+/* ---------- layout ---------- */
+main{max-width:1250px;margin:0 auto;padding:26px 40px 80px}
+.panel{display:none;animation:fade .25s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sec-eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+h3.sec{font-size:26px;font-weight:400;margin-bottom:6px;line-height:1.2}
+h3.sec em{color:var(--gold);font-style:italic}
+.lead{color:#3c4655;font-size:14.5px;max-width:920px;margin-bottom:22px}
+
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ---------- KPI ---------- */
+.kpi{background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--gold);padding:16px 18px;border-radius:2px}
+.kpi .lbl{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.kpi .val{font-size:30px;font-weight:400;letter-spacing:-.5px;display:flex;align-items:baseline;gap:8px}
+.kpi .val small{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:600}
+.kpi .val small.up{color:var(--green)} .kpi .val small.down{color:var(--red)}
+.kpi .note{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+/* ---------- cards ---------- */
+.card{background:var(--card2);border:1px solid var(--line);padding:22px 24px;border-radius:3px}
+.card h4{font-size:18px;font-weight:400;margin-bottom:4px}
+.card h4 em{color:var(--gold);font-style:italic}
+.card .sub{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.chartbox{position:relative;height:300px;margin:8px 0 14px}
+.chartbox.tall{height:340px}
+.read{font-size:13.5px;color:#374252;border-top:1px solid var(--line);padding-top:12px;margin-top:6px}
+.read b{color:var(--ink)}
+
+/* ---------- callouts ---------- */
+.finding{background:#12233b;color:#eef2f6;border-radius:4px;padding:26px 30px;margin-bottom:24px}
+.finding .k{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:12px}
+.finding h3{font-size:27px;font-weight:400;line-height:1.28;max-width:960px}
+.finding h3 em{color:var(--gold-lt);font-style:italic;font-weight:400}
+.finding .fnote{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#aeb9c6;margin-top:14px;max-width:900px}
+
+.callout{background:var(--warn);border:1px solid var(--warnline);border-left:4px solid var(--warnline);padding:16px 20px;border-radius:3px;font-size:13.5px;color:#5c4a24}
+.callout b{color:#3d3010}
+.callout.good{background:#eef5ef;border-color:var(--green);border-left-color:var(--green);color:#2c4433}
+.callout.good b{color:#1f3325}
+
+/* ---------- four quadrant ---------- */
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.quad .q{background:var(--card2);padding:20px 22px}
+.quad .q .qt{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.dot.g{background:var(--green)} .dot.r{background:var(--red)} .dot.a{background:var(--amber)} .dot.b{background:var(--gold)}
+.quad .q ul{list-style:none;font-size:13px;color:#374252}
+.quad .q li{padding:5px 0 5px 16px;position:relative}
+.quad .q li:before{content:"—";position:absolute;left:0;color:var(--gold)}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr:hover td{background:#faf8f3}
+.tag-pill{font-family:'Helvetica Neue',Arial,sans-serif;font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-weight:600;white-space:nowrap}
+.p-green{background:#e4efe6;color:var(--green)} .p-red{background:#f3e2e1;color:var(--red)}
+.p-amber{background:#fbf0da;color:#9a6c17} .p-blue{background:#e2edf0;color:#1f6070} .p-grey{background:#eceae4;color:var(--muted)}
+
+/* verification chain */
+.chain{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 4px}
+.chain .step{flex:1;min-width:150px;background:var(--card2);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:3px;padding:14px 16px}
+.chain .step .n{font-family:'Helvetica Neue',Arial,sans-serif;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+.chain .step .t{font-size:15px;margin:6px 0 4px}
+.chain .step .d{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#4a5462;line-height:1.4}
+
+/* AI answer layer */
+.ai{background:#12233b;border-radius:5px;padding:26px 28px;color:#e9eef3}
+.ai .aihead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.ai .aihead .mk{color:var(--gold-lt);font-size:20px}
+.ai .aihead h4{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-lt);font-weight:700}
+.ai .aisub{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#9fb0bf;margin-bottom:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;background:#1c3350;border:1px solid #2c4a6a;color:#cdd9e4;padding:8px 14px;border-radius:18px;cursor:pointer;transition:.15s}
+.chip:hover{background:#264566;border-color:var(--gold-lt);color:#fff}
+.chip.active{background:var(--gold);border-color:var(--gold);color:#06222a;font-weight:600}
+.answer{background:#0c1a2c;border:1px solid #24405f;border-radius:5px;padding:20px 22px;min-height:120px}
+.answer .q{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px}
+.answer .a{font-size:14.5px;line-height:1.6;color:#e4ebf1}
+.answer .a b{color:#fff}
+.answer .cites{margin-top:14px;padding-top:12px;border-top:1px solid #24405f;font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;color:#8aa0b3}
+.answer .cites span{display:inline-block;background:#17293f;border:1px solid #2c4a6a;border-radius:3px;padding:2px 8px;margin:2px 4px 2px 0}
+.blink{display:inline-block;width:8px;height:15px;background:var(--gold-lt);animation:bl 1s steps(2) infinite;vertical-align:middle;margin-left:2px}
+@keyframes bl{50%{opacity:0}}
+
+/* misc */
+.divider{height:1px;background:var(--line);margin:32px 0}
+.footwrap{max-width:1250px;margin:0 auto;padding:24px 40px 60px;border-top:1px solid var(--line);font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:var(--muted);line-height:1.7}
+.footwrap b{color:var(--ink)}
+.smallcaps{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.pgrid{display:grid;grid-template-columns:auto 1fr auto;gap:0;font-size:13px}
+.xref{color:var(--gold);text-decoration:none;border-bottom:1px dotted var(--gold);cursor:pointer;font-weight:600}.xref:hover{color:#1f5763;border-bottom-style:solid}.opsmap td{vertical-align:top}
+</style>
+</head>
+<body>
+
+<div class="ribbon">SAMPLE</div>
+
+<div class="confbar">Illustrative demonstration &nbsp;·&nbsp; Fictional company &amp; sponsor &nbsp;·&nbsp; <b>All figures invented for capability showcase</b> &nbsp;·&nbsp; Not investment advice</div>
+
+<header>
+  <div class="brand">
+    <div class="mark">&#9670;</div>
+    <div>
+      <h1>CREDIT<span>SWAN</span>.AI</h1>
+      <small>Decision-Grade Credit Diligence</small>
+    </div>
+  </div>
+  <div class="tag">Project Summit<br>Prepared for Meridian Ridge Capital</div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Integrated Credit &amp; Operational Diligence · Unitranche Committee Pack · LTM Jun-2026</div>
+  <h2>The headline is <em>4.3&times;</em>. The credit is <em>5.8&times;</em>.<br>The difference is a denominator no one reconciled.</h2>
+  <p>A single omnichannel consumer-brand credit, read five different ways depending on which EBITDA you trust. CreditSwan reconciles the marketed number to what a lender can actually attach a claim to — then pressure-tests the growth story, the customer book, and the covenant package against live external evidence.</p>
+  <div class="meta">
+    <div><b>Target</b> &nbsp;Northwind Provisions Co.</div>
+    <div><b>Sector</b> &nbsp;Better-for-you snacking (CPG)</div>
+    <div><b>Sponsor</b> &nbsp;Meridian Ridge Capital</div>
+    <div><b>Facility</b> &nbsp;$180.0MM unitranche TLB, 5-yr</div>
+    <div><b>Status</b> &nbsp;<span class="tag-pill p-amber">Conditional — 3 asks open</span></div>
+  </div>
+</section>
+
+<nav class="tabs" id="tabs">
+  <button class="active" data-tab="overview">Overview</button>
+  <button data-tab="ebitda">EBITDA Quality</button>
+  <button data-tab="revenue">Customer &amp; Revenue</button>
+  <button data-tab="digital">Digital Marketing</button>
+  <button data-tab="seo">SEO &amp; Organic</button>
+  <button data-tab="brand">Brand Health</button>
+  <button data-tab="merch">Merchandising</button>
+  <button data-tab="trade">Trade &amp; Retail Media</button>
+  <button data-tab="supply">Supply Chain</button>
+  <button data-tab="sourcing">Global Sourcing</button>
+  <button data-tab="field">Competitive Field</button>
+  <button data-tab="cases">Operating Cases</button>
+  <button data-tab="structure">Structure &amp; Terms</button>
+  <button data-tab="stress">Stress Test</button>
+  <button data-tab="ai">AI Answer Layer</button>
+</nav>
+
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel active" id="overview">
+
+  <div class="finding">
+    <div class="k">The governing finding</div>
+    <h3>Marketed leverage of <em>4.3&times;</em> holds only on management EBITDA of $42.0MM. On the EBITDA a secured lender can actually attach — <em>$31.2MM</em> — the same $180MM facility is <em>5.8&times;</em>. Every covenant, every case, and the price of this deal moves with that one choice.</h3>
+    <div class="fnote">CreditSwan does not tell the committee which denominator to use. It shows all three, reconciles the walk between them line-by-line, and flags where the bridge depends on synergies, unowned periods, or add-backs that recur. The committee decides — on evidence, not on a teaser.</div>
+  </div>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Facility Size</div><div class="val">$180.0<small>MM</small></div><div class="note">Unitranche TLB · 5-yr · SOFR+550</div></div>
+    <div class="kpi"><div class="lbl">Leverage — Marketed</div><div class="val">4.3&times;</div><div class="note">On mgmt EBITDA $42.0MM</div></div>
+    <div class="kpi"><div class="lbl">Leverage — Attributable</div><div class="val" style="color:var(--red)">5.8&times;<small class="down">+1.5x</small></div><div class="note">On lender-attributable $31.2MM</div></div>
+    <div class="kpi"><div class="lbl">LTM Revenue</div><div class="val">$310<small>MM</small></div><div class="note"><span style="color:var(--green)">+18%</span> reported · +11% organic ex-price</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card">
+      <h4>The one chart that decides the meeting</h4>
+      <div class="sub">Turns of leverage on the same $180MM facility, by EBITDA basis</div>
+      <div class="chartbox"><canvas id="leverageBasisChart"></canvas></div>
+      <div class="read"><b>Read:</b> The gap between the outer bars is not a rounding difference — it is a 35% haircut to the earnings base, driven by unrealized synergies and an unowned acquisition period. The covenant is set at 5.25&times;. On the marketed basis there is 0.9 turns of headroom at close; on the attributable basis there is <b>none</b>.</div>
+    </div>
+    <div class="card">
+      <h4>Who actually owns the cash flows</h4>
+      <div class="sub">Contribution to attributable EBITDA vs. share of the risk</div>
+      <div class="chartbox"><canvas id="ownershipChart"></canvas></div>
+      <div class="read"><b>Read:</b> 46% of attributable EBITDA rides on the two largest customers, one of which (a national club retailer at 21% of revenue) reauthorizes on an annual cycle. Concentration is the single largest swing factor in the downside case — larger than input costs or promo.</div>
+    </div>
+  </div>
+
+  <div class="sec-eyebrow">The evidence in four quadrants</div>
+  <div class="quad" style="margin-bottom:24px">
+    <div class="q">
+      <div class="qt"><span class="dot g"></span>What supports the credit</div>
+      <ul>
+        <li>Category growing 7% p.a.; Northwind gaining 180bps of share over 24 months on velocity, not just distribution</li>
+        <li>38.2% gross margin, +240bps YoY — pricing has stuck through two list increases with no volume loss</li>
+        <li>Positive FCF in each of the last 6 quarters; low maintenance capex (1.4% of sales)</li>
+        <li>Founder-CEO rolling 40% of equity — meaningful alignment below the debt</li>
+      </ul>
+    </div>
+    <div class="q">
+      <div class="qt"><span class="dot r"></span>What pressures the credit</div>
+      <ul>
+        <li>$10.8MM of the $42.0MM EBITDA is add-backs; $6.2MM does not clear CreditSwan's recurrence test</li>
+        <li>Top-3 customers = 47% of revenue; largest reauthorizes Q1 each year</li>
+        <li>Base case assumes $3.1MM of synergies not yet in run-rate financials</li>
+        <li>Two input costs (oats, packaging film) are 100% single-sourced</li>
+      </ul>
+    </div>
+    <div class="q">
+      <div class="qt"><span class="dot a"></span>What the data room does not resolve</div>
+      <ul>
+        <li>Trade-spend accruals reconcile to the TB but not to the customer deduction detail — $1.2MM unexplained</li>
+        <li>The acquired co-man line has 4 months of unowned EBITDA in LTM</li>
+        <li>No third-party confirmation of the club reauthorization beyond a verbal from management</li>
+        <li>Stock-comp normalization applied inconsistently across the two adjustment schedules</li>
+      </ul>
+    </div>
+    <div class="q">
+      <div class="qt"><span class="dot b"></span>What external evidence says</div>
+      <ul>
+        <li>Retail scanner data (52-wk) corroborates the +11% organic volume claim within 60bps</li>
+        <li>Job-posting and review signal shows the club relationship active and expanding SKUs as of Jul-26</li>
+        <li>Two named competitors cut list prices in Q2 — a margin watch item, not yet a breach risk</li>
+        <li>No litigation, lien, or UCC red flags in the external sweep (26 Jul)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-eyebrow">Operational diligence — how it feeds the credit</div>
+  <h3 class="sec" style="margin-bottom:6px">The thesis is built on <em>operational evidence</em>, not just the financials</h3>
+  <p class="lead">CreditSwan's operational workstreams are not a separate appendix. Every operational signal below maps to a specific credit conclusion — a gating ask, an operating case, or a covenant. This is the connective tissue between what the business <em>does</em> and what the committee is <em>lending against</em>.</p>
+  <div class="card" style="margin-bottom:24px">
+    <h4>Operational signal &rarr; credit conclusion</h4>
+    <div class="sub">Each finding traces to the tab that evidences it and the credit decision it drives</div>
+    <table class="opsmap">
+      <thead><tr><th>Operational signal</th><th>Evidenced in</th><th>Reads into the credit as</th></tr></thead>
+      <tbody>
+        <tr><td>Blended DTC CAC up <b>+50%</b> in 18 months; LTV:CAC compressed <b>5.3&times; &rarr; 3.6&times;</b></td><td><a class="xref" onclick="gotoTab('digital');return false">Digital Marketing</a></td><td>Durability of the +11% organic growth (<a class="xref" onclick="gotoTab('cases');return false">Operating Cases</a>); confirms the $2.5MM marketing add-back <b>recurs</b> (<a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a>)</td></tr>
+        <tr><td>Top <b>12 SKUs = 68%</b> of revenue; 40+ tail SKUs sub-scale</td><td><a class="xref" onclick="gotoTab('merch');return false">Merchandising</a></td><td>Revenue concentration risk, and an assortment-rationalization margin lever in the <a class="xref" onclick="gotoTab('cases');return false">upside case</a></td></tr>
+        <tr><td>Promo volume at the club account is <b>42%</b></td><td><a class="xref" onclick="gotoTab('merch');return false">Merchandising</a></td><td>Margin durability (<a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a>) and the promo-intensification <a class="xref" onclick="gotoTab('stress');return false">stress scenario</a></td></tr>
+        <tr><td>Primary co-manufacturer at <b>88%</b> capacity vs. ~90% ceiling</td><td><a class="xref" onclick="gotoTab('supply');return false">Supply Chain</a></td><td>A hard ceiling on <a class="xref" onclick="gotoTab('cases');return false">upside-case</a> volume; growth beyond it requires capex (<a class="xref" onclick="gotoTab('structure');return false">Structure &amp; Terms</a>)</td></tr>
+        <tr><td>OTIF to the club retailer slipped to <b>91%</b> (95% target)</td><td><a class="xref" onclick="gotoTab('supply');return false">Supply Chain</a></td><td>Chargeback exposure and reauthorization risk — <b>gating ask #1</b> (<a class="xref" onclick="gotoTab('revenue');return false">Customer &amp; Revenue</a>)</td></tr>
+        <tr><td>Packaging film <b>100% single-sourced</b> from one country</td><td><a class="xref" onclick="gotoTab('sourcing');return false">Global Sourcing</a></td><td>The input-cost <a class="xref" onclick="gotoTab('stress');return false">stress scenario</a> and <b>gating ask #4</b> (<a class="xref" onclick="gotoTab('ai');return false">diligence tracker</a>)</td></tr>
+        <tr><td>Inventory DIO up <b>+13 days</b> YoY</td><td><a class="xref" onclick="gotoTab('supply');return false">Supply Chain</a></td><td>Working-capital drag in cash available for debt service (<a class="xref" onclick="gotoTab('structure');return false">Structure &amp; Terms</a>)</td></tr>
+        <tr><td>Branded search is <b>58%</b> of organic; brand cited in <b>22%</b> of category AI answers</td><td><a class="xref" onclick="gotoTab('seo');return false">SEO &amp; Organic</a></td><td>Structural offset to rising paid CAC (<a class="xref" onclick="gotoTab('digital');return false">Digital Marketing</a>); underwrites organic-growth durability (<a class="xref" onclick="gotoTab('cases');return false">Operating Cases</a>)</td></tr>
+        <tr><td>Aided awareness <b>41%</b>, NPS <b>62</b>, <b>4.6&#9733;</b> — but &ldquo;availability&rdquo; complaints rising</td><td><a class="xref" onclick="gotoTab('brand');return false">Brand Health</a></td><td>Evidences the pricing power behind two list increases (<a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a>); sentiment corroborates the OTIF slip (<a class="xref" onclick="gotoTab('supply');return false">Supply Chain</a>)</td></tr>
+        <tr><td><b>$1.2MM</b> trade accrual unreconciled to customer deduction detail</td><td><a class="xref" onclick="gotoTab('trade');return false">Trade &amp; Retail Media</a></td><td>This <b>is</b> gating ask #3 (<a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a>); resolves to a margin lever or a haircut</td></tr>
+      </tbody>
+    </table>
+    <div class="read"><b>Read:</b> Two of the three gating asks and the single largest stress event all originate in operational diligence, not the financial statements. The operational tabs are where those conclusions are evidenced.</div>
+  </div>
+
+  <div class="callout"><b>Advisory conclusion — stated up front, conditional by design.</b> The credit is financeable at $180MM <b>if</b> three things resolve: (1) the club reauthorization is confirmed in writing; (2) the $6.2MM of non-clearing add-backs are either evidenced or the facility is resized to 5.25&times; on the attributable basis (~$164MM); (3) the trade-spend reconciliation gap is closed. Absent those, the committee is underwriting to a 5.8&times; entry with no covenant headroom. See <b>Structure &amp; Terms</b> for the resized option.</div>
+
+</section>
+
+<!-- ============ EBITDA QUALITY ============ -->
+<section class="panel" id="ebitda">
+  <div class="sec-eyebrow">Quality of earnings</div>
+  <h3 class="sec">From <em>$42.0MM marketed</em> to <em>$31.2MM attributable</em></h3>
+  <p class="lead">Six adjustments separate the number in the CIM from the number a secured lender can build a claim around. CreditSwan reconciles each one to source and applies a single test: <em>would this dollar of EBITDA recur, unaided, if the sponsor changed nothing?</em></p>
+
+  <div class="card" style="margin-bottom:22px">
+    <h4>EBITDA bridge — marketed to lender-attributable</h4>
+    <div class="sub">$MM · LTM Jun-26 · each step reconciled to data-room source</div>
+    <div class="chartbox tall"><canvas id="ebitdaBridgeChart"></canvas></div>
+    <div class="read"><b>Read:</b> The two largest deductions — $2.8MM of unrealized synergies and $2.5MM of founder-discretionary marketing added back as "one-time" — together move leverage by roughly 0.8 turns. Neither is wrong to present; both are wrong to lend against without evidence.</div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h4>Add-back register — what clears, what does not</h4>
+      <div class="sub">$10.8MM total add-backs · CreditSwan recurrence test</div>
+      <table>
+        <thead><tr><th>Add-back</th><th class="num">$MM</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Founder-discretionary marketing</td><td class="num">2.5</td><td><span class="tag-pill p-red">Recurs</span></td></tr>
+          <tr><td>Run-rate synergies (unrealized)</td><td class="num">2.8</td><td><span class="tag-pill p-red">Not in run-rate</span></td></tr>
+          <tr><td>Acquired co-man, unowned period</td><td class="num">2.2</td><td><span class="tag-pill p-amber">Pro-forma</span></td></tr>
+          <tr><td>Capitalized R&amp;D reclass</td><td class="num">1.4</td><td><span class="tag-pill p-amber">Reclass</span></td></tr>
+          <tr><td>Slotting / trade timing</td><td class="num">1.1</td><td><span class="tag-pill p-amber">Timing</span></td></tr>
+          <tr><td>Non-recurring legal &amp; severance</td><td class="num">0.8</td><td><span class="tag-pill p-green">Clears</span></td></tr>
+        </tbody>
+      </table>
+      <div class="read"><b>Read:</b> Only $0.8MM of $10.8MM clears cleanly. $6.2MM fails the recurrence test outright; $3.8MM is defensible with evidence the committee has asked for.</div>
+    </div>
+    <div class="card">
+      <h4>Margin durability — has pricing actually stuck?</h4>
+      <div class="sub">Gross margin % by quarter, with list-price actions marked</div>
+      <div class="chartbox"><canvas id="marginChart"></canvas></div>
+      <div class="read"><b>Read:</b> Two list increases (Q3-25, Q1-26) held with no measurable volume loss in scanner data — the strongest single fact in the credit's favor. This is what supports the base case holding.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUSTOMER & REVENUE ============ -->
+<section class="panel" id="revenue">
+  <div class="sec-eyebrow">The actual credit exposure</div>
+  <h3 class="sec">The customer book <em>is</em> the credit</h3>
+  <p class="lead">A consumer brand's revenue quality is its customer concentration and channel mix. CreditSwan sizes the exposure the way a workout desk would read it — by asking which customers, if lost, break the covenant.</p>
+
+  <div class="grid g3" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Top Customer</div><div class="val">21%</div><div class="note">National club retailer · annual reauth</div></div>
+    <div class="kpi"><div class="lbl">Top 3 Concentration</div><div class="val" style="color:var(--amber)">47%</div><div class="note">Club + 2 mass grocers</div></div>
+    <div class="kpi"><div class="lbl">DTC + Amazon</div><div class="val">19%</div><div class="note">Highest-margin channel · +34% YoY</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card">
+      <h4>Channel mix — where the revenue sits</h4>
+      <div class="sub">% of LTM revenue by channel</div>
+      <div class="chartbox"><canvas id="channelChart"></canvas></div>
+      <div class="read"><b>Read:</b> Club drives volume but carries the lowest margin and the highest single-point-of-failure risk. DTC/Amazon is small but the margin and growth engine — and the part least visible in the CIM's blended numbers.</div>
+    </div>
+    <div class="card">
+      <h4>Customer concentration — sized as credit exposure</h4>
+      <div class="sub">% of revenue · red line marks covenant-break threshold</div>
+      <div class="chartbox"><canvas id="concentrationChart"></canvas></div>
+      <div class="read"><b>Read:</b> Loss of the top customer alone (21%) pushes attributable leverage past the 5.25&times; covenant within two quarters absent mitigation. This is the exposure the club reauthorization ask is protecting.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>Revenue build — reported vs. organic vs. lender-attributable</h4>
+    <div class="sub">$MM by fiscal year · stripping price and unowned periods</div>
+    <div class="chartbox tall"><canvas id="revBuildChart"></canvas></div>
+    <div class="read"><b>Read:</b> The reported 18% growth is real but flattered by ~4 points of price and ~3 points of the acquired line's unowned period. Organic volume growth of 11% is the number the base case should compound — still healthy, and corroborated by external scanner data to within 60bps.</div>
+  </div>
+</section>
+
+<!-- ============ DIGITAL MARKETING ============ -->
+<section class="panel" id="digital">
+  <div class="sec-eyebrow">Demand generation &amp; the DTC engine</div>
+  <h3 class="sec">The growth channel is real — but it is getting <em>more expensive</em></h3>
+  <p class="lead">DTC and Amazon are 19% of revenue, the highest-margin channel, and the fastest-growing at +34%. They are also the part of the story least visible in blended CIM numbers. The diligence question is not whether it grows — it is whether that growth is efficiently acquired, and whether it holds if paid efficiency keeps sliding.</p>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Blended CAC</div><div class="val">$27<small class="down">+50%</small></div><div class="note">Up from $18 · trailing 18 months</div></div>
+    <div class="kpi"><div class="lbl">LTV : CAC</div><div class="val" style="color:var(--amber)">3.6&times;<small class="down">from 5.3x</small></div><div class="note">Still accretive, trend is the watch</div></div>
+    <div class="kpi"><div class="lbl">Repeat Revenue (DTC)</div><div class="val">48%<small class="up">+9pts</small></div><div class="note">Subscription 31% of DTC</div></div>
+    <div class="kpi"><div class="lbl">Owned Audience</div><div class="val">640K</div><div class="note">Email + SMS · zero-CAC channel</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Customer acquisition cost vs. LTV:CAC</h4><div class="sub">Blended CAC ($, left) and LTV:CAC ratio (right) by quarter</div><div class="chartbox"><canvas id="dmCacLtv"></canvas></div><div class="read"><b>Read:</b> CAC has risen every quarter as the efficient audiences saturate; LTV:CAC has compressed from a very healthy 5.3&times; to 3.6&times;. Still above the 3.0&times; threshold, but the slope is the story.</div></div>
+    <div class="card"><h4>Channel efficiency</h4><div class="sub">Blended ROAS / MER by acquisition channel</div><div class="chartbox"><canvas id="dmChannelEff"></canvas></div><div class="read"><b>Read:</b> Owned email/SMS is the standout — near-zero marginal cost. Meta has decayed below a 3&times; return, dragging the blend; Amazon and TikTok are carrying paid growth.</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>New vs. repeat revenue — DTC</h4><div class="sub">$MM DTC revenue by customer type, by quarter</div><div class="chartbox"><canvas id="dmMix"></canvas></div><div class="read"><b>Read:</b> The repeat base is growing faster than new acquisition — the healthiest possible mix shift, and the reason DTC economics still work despite rising CAC.</div></div>
+    <div class="card"><h4>Subscription share of DTC</h4><div class="sub">% of DTC revenue on active subscription</div><div class="chartbox"><canvas id="dmSubs"></canvas></div><div class="read"><b>Read:</b> Subscription has climbed to 31% of DTC, locking in recurring, high-retention revenue that is far less CAC-sensitive than one-time orders.</div></div>
+  </div>
+
+  <div class="callout"><b>How this reads in the credit.</b> Rising CAC is the operational reason the base case (<a class="xref" onclick="gotoTab('cases');return false">Operating Cases</a>) must assume paid efficiency <em>stabilizes</em> rather than improves. It also confirms that the $2.5MM founder-marketing add-back is largely ongoing acquisition spend — recurring, not one-time — which is why it fails the recurrence test on <a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a>. The offset: a growing 48% repeat base and 640K owned audience diversify demand away from the club-account concentration on <a class="xref" onclick="gotoTab('revenue');return false">Customer &amp; Revenue</a>.</div>
+</section>
+
+<!-- ============ MERCHANDISING ============ -->
+<section class="panel" id="merch">
+  <div class="sec-eyebrow">Assortment, velocity &amp; price architecture</div>
+  <h3 class="sec">A few SKUs carry the business; promo carries the club</h3>
+  <p class="lead">Merchandising diligence sizes where the revenue and margin actually live at the item level — and where they are propped up by promotion. It surfaces both a concentration risk and a margin lever, and it explains the price-architecture tension underneath the competitive field.</p>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Top 12 SKUs</div><div class="val">68%</div><div class="note">of revenue · 84 active SKUs total</div></div>
+    <div class="kpi"><div class="lbl">Promo Volume — Club</div><div class="val" style="color:var(--amber)">42%</div><div class="note">vs 9% on DTC</div></div>
+    <div class="kpi"><div class="lbl">New-Line Margin Gap</div><div class="val" style="color:var(--red)">-940bps</div><div class="note">Keto line vs. core bars</div></div>
+    <div class="kpi"><div class="lbl">Tail SKUs</div><div class="val">40+</div><div class="note">Sub-scale · rationalization candidates</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>SKU productivity — Pareto</h4><div class="sub">% of revenue by SKU tier, with cumulative curve</div><div class="chartbox"><canvas id="mcPareto"></canvas></div><div class="read"><b>Read:</b> The top 12 SKUs drive 68% of revenue; the bottom 52 contribute 12%. Classic long tail — a concentration risk and a rationalization opportunity in the same chart.</div></div>
+    <div class="card"><h4>Gross margin by product line</h4><div class="sub">Contribution margin % by line</div><div class="chartbox"><canvas id="mcMargin"></canvas></div><div class="read"><b>Read:</b> Core bars and minis carry the margin. The newer keto line runs 940bps below core, and club multipacks are the lowest-margin format — both dilutive to the blended number.</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Promo dependency by channel</h4><div class="sub">% of volume sold on promotion</div><div class="chartbox"><canvas id="mcPromo"></canvas></div><div class="read"><b>Read:</b> The club account moves 42% of its volume on promo — the single biggest structural drag on realized margin, and the reason the promo stress scenario hits hardest through this channel.</div></div>
+    <div class="card"><h4>Price architecture</h4><div class="sub">Price per ounce by pack format / channel</div><div class="chartbox"><canvas id="mcPrice"></canvas></div><div class="read"><b>Read:</b> The club multipack undercuts single-serve and DTC on a per-ounce basis. It drives volume but trains the consumer to the low price and creates channel conflict when competitors discount.</div></div>
+  </div>
+
+  <div class="callout"><b>How this reads in the credit.</b> The 42% club promo rate is a direct input to margin durability on <a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a> and to the promo-intensification <a class="xref" onclick="gotoTab('stress');return false">stress scenario</a>. The price-per-ounce gap — club multipacks materially undercut single-serve and DTC — is the mechanism behind the channel-conflict risk that shows up when competitors cut price on <a class="xref" onclick="gotoTab('field');return false">Competitive Field</a>. On the upside, rationalizing 40+ tail SKUs is a real, self-help margin lever the <a class="xref" onclick="gotoTab('cases');return false">upside case</a> can lean on without assuming a demand improvement.</div>
+</section>
+
+<!-- ============ SUPPLY CHAIN ============ -->
+<section class="panel" id="supply">
+  <div class="sec-eyebrow">Capacity, service &amp; working capital</div>
+  <h3 class="sec">The upside case needs capacity the network <em>does not have</em></h3>
+  <p class="lead">Supply-chain diligence tests whether the business can physically deliver its plan, whether it is serving its most important customer well, and how much cash the operation is tying up. All three feed the credit directly.</p>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Primary Co-Man Utilization</div><div class="val" style="color:var(--amber)">88%</div><div class="note">vs ~90% practical ceiling</div></div>
+    <div class="kpi"><div class="lbl">OTIF to Club</div><div class="val" style="color:var(--red)">91%<small class="down">-5pts</small></div><div class="note">Below 95% target · chargeback risk</div></div>
+    <div class="kpi"><div class="lbl">Inventory DIO</div><div class="val">71<small class="down">+13d</small></div><div class="note">Days · working-capital drag</div></div>
+    <div class="kpi"><div class="lbl">Single-Source Inputs</div><div class="val" style="color:var(--red)">2</div><div class="note">Oats &amp; packaging film</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Capacity utilization by facility</h4><div class="sub">% utilization vs. ~90% practical ceiling</div><div class="chartbox"><canvas id="scCap"></canvas></div><div class="read"><b>Read:</b> The primary co-manufacturer is effectively full at 88%. Real headroom sits at the secondary facility (61%), which is not yet qualified for the full SKU range — a capex and time-to-qualify question.</div></div>
+    <div class="card"><h4>On-time in-full (OTIF)</h4><div class="sub">Overall vs. to the club account, by quarter</div><div class="chartbox"><canvas id="scOtif"></canvas></div><div class="read"><b>Read:</b> Company-wide OTIF is acceptable, but service to the most important customer has slipped to 91% against a 95% target — precisely the customer where service failures trigger chargebacks and reauthorization risk.</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Inventory days (DIO)</h4><div class="sub">Days inventory outstanding, by quarter</div><div class="chartbox"><canvas id="scDio"></canvas></div><div class="read"><b>Read:</b> DIO has risen 13 days as safety stock was built against the single-source inputs. Prudent operationally, but it ties up cash — a direct drag on the working-capital line in the debt-service build.</div></div>
+    <div class="card"><h4>Freight cost intensity</h4><div class="sub">Inbound + outbound freight as % of COGS</div><div class="chartbox"><canvas id="scFreight"></canvas></div><div class="read"><b>Read:</b> Freight is normalizing off the 2022 peak, a modest tailwind to gross margin. The residual risk is concentrated in the overseas film lane covered under Global Sourcing.</div></div>
+  </div>
+
+  <div class="callout"><b>How this reads in the credit.</b> Primary co-man utilization at 88% is the physical ceiling on the <a class="xref" onclick="gotoTab('cases');return false">upside case</a> — incremental volume needs qualified capacity the network cannot supply without capex, which is a <a class="xref" onclick="gotoTab('structure');return false">Structure &amp; Terms</a> question. OTIF to the club account at 91% is the operational half of <b>gating ask #1</b>: poor service is exactly what puts an annual reauthorization at risk (<a class="xref" onclick="gotoTab('revenue');return false">Customer &amp; Revenue</a>). And DIO up 13 days is the working-capital swing that pressures cash available for debt service in the <a class="xref" onclick="gotoTab('structure');return false">CADS build</a>.</div>
+</section>
+
+<!-- ============ GLOBAL SOURCING ============ -->
+<section class="panel" id="sourcing">
+  <div class="sec-eyebrow">Input origin, tariff exposure &amp; cost</div>
+  <h3 class="sec">One input, one country, <em>no alternate</em></h3>
+  <p class="lead">Global-sourcing diligence maps where every input dollar comes from, how much of the cost base is exposed to tariff and FX risk, and where a single point of failure sits. This is where the input-cost stress scenario is quantified and where the fourth gating ask originates.</p>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Domestic Sourcing</div><div class="val">55%</div><div class="note">of input spend · US-origin</div></div>
+    <div class="kpi"><div class="lbl">Packaging Film</div><div class="val" style="color:var(--red)">100%</div><div class="note">Single country · single supplier</div></div>
+    <div class="kpi"><div class="lbl">Tariff-Exposed COGS</div><div class="val" style="color:var(--amber)">18%</div><div class="note">Import lines subject to duty</div></div>
+    <div class="kpi"><div class="lbl">Qualified Alternates — Film</div><div class="val" style="color:var(--red)">0</div><div class="note">Gating ask #4</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Sourcing geography</h4><div class="sub">Input spend by country of origin</div><div class="chartbox"><canvas id="gsGeo"></canvas></div><div class="read"><b>Read:</b> A slight majority is domestic, which limits overall exposure — but the concentration that matters is qualitative: the entire packaging-film spend sits with one supplier in one country.</div></div>
+    <div class="card"><h4>Tariff / duty exposure</h4><div class="sub">% of COGS exposed to duty, by input</div><div class="chartbox"><canvas id="gsTariff"></canvas></div><div class="read"><b>Read:</b> Packaging film is both the single-source risk and the largest tariff-exposed line. A duty change on that lane is the trade-policy channel into the downside case.</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Input cost indices</h4><div class="sub">Indexed unit cost of key inputs (start = 100)</div><div class="chartbox"><canvas id="gsInput"></canvas></div><div class="read"><b>Read:</b> Oats have been range-bound; film has been volatile and is structurally harder to hedge with a single supplier. Film is the input driving the cost-shock scenario.</div></div>
+    <div class="card"><h4>Single-source risk register</h4><div class="sub">Key inputs · origin · alternate qualified · lead time</div>
+<table>
+<thead><tr><th>Input</th><th>Origin</th><th class="num">% COGS</th><th>Single-source</th><th>Alternate</th><th class="num">Lead time</th></tr></thead>
+<tbody>
+<tr><td>Rolled oats</td><td>Domestic (US)</td><td class="num">14%</td><td><span class="tag-pill p-amber">Yes</span></td><td><span class="tag-pill p-amber">In qualification</span></td><td class="num">4 wks</td></tr>
+<tr><td>Packaging film</td><td>Single overseas supplier</td><td class="num">12%</td><td><span class="tag-pill p-red">Yes</span></td><td><span class="tag-pill p-red">None</span></td><td class="num">11 wks</td></tr>
+<tr><td>Sweetener</td><td>Domestic + 1 import</td><td class="num">8%</td><td><span class="tag-pill p-green">No</span></td><td><span class="tag-pill p-green">2 qualified</span></td><td class="num">3 wks</td></tr>
+<tr><td>Chocolate / inclusions</td><td>Multi-country</td><td class="num">9%</td><td><span class="tag-pill p-green">No</span></td><td><span class="tag-pill p-green">Multiple</span></td><td class="num">6 wks</td></tr>
+<tr><td>Corrugate</td><td>Domestic (US)</td><td class="num">5%</td><td><span class="tag-pill p-green">No</span></td><td><span class="tag-pill p-green">Multiple</span></td><td class="num">2 wks</td></tr>
+</tbody></table>
+<div class="read"><b>Read:</b> Two inputs are single-sourced; only oats has a qualified domestic alternate in progress. Packaging film has none — the specific gap behind gating ask #4.</div></div>
+  </div>
+
+  <div class="callout"><b>How this reads in the credit.</b> This tab makes the input-cost <a class="xref" onclick="gotoTab('stress');return false">stress scenario</a> concrete: the modeled 15% shock lands on exactly the two single-sourced inputs mapped here, of which only ~60% is recoverable through price. The absence of a qualified alternate for packaging film — a single supplier in a single country — is <b>gating ask #4</b> on the <a class="xref" onclick="gotoTab('ai');return false">diligence tracker</a>, and the 18% tariff-exposed COGS is the channel through which a trade-policy change would hit the <a class="xref" onclick="gotoTab('cases');return false">downside case</a>.</div>
+</section>
+
+<!-- ============ SEO & ORGANIC ============ -->
+<section class="panel" id="seo">
+  <div class="sec-eyebrow">Organic discovery &amp; AI answer visibility</div>
+  <h3 class="sec">How much of demand is <em>earned</em>, not bought</h3>
+  <p class="lead">SEO diligence separates demand the business pays for from demand that finds it. A brand with strong branded search and organic visibility is far less exposed to paid-CAC inflation — and increasingly, whether the brand surfaces in AI-generated answers is a new, measurable channel of discovery.</p>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Organic Traffic / Mo</div><div class="val">210K<small class="up">+14%</small></div><div class="note">vs 83K paid sessions</div></div>
+    <div class="kpi"><div class="lbl">Branded Search Share</div><div class="val">58%</div><div class="note">Consumers seeking the brand by name</div></div>
+    <div class="kpi"><div class="lbl">Head Terms in Top 3</div><div class="val">34</div><div class="note">Non-branded category keywords</div></div>
+    <div class="kpi"><div class="lbl">AI Answer Citation</div><div class="val" style="color:var(--gold)">22%</div><div class="note">Share of category AI answers citing brand</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Organic vs. paid sessions</h4><div class="sub">Monthly sessions (K) by source, by quarter</div><div class="chartbox"><canvas id="seoTraffic"></canvas></div><div class="read"><b>Read:</b> Organic is growing faster than paid and now outweighs it nearly 3:1. The business is increasingly found, not bought &mdash; the healthiest possible traffic mix as paid costs rise.</div></div>
+    <div class="card"><h4>Share of search vs. the field</h4><div class="sub">Category search share · Northwind highlighted</div><div class="chartbox"><canvas id="seoShare"></canvas></div><div class="read"><b>Read:</b> Northwind leads category search share, ahead of GrainField and Terra &amp; Oat. Share of search is a strong leading indicator of share of shelf and pricing power.</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Branded vs. non-branded organic</h4><div class="sub">Composition of organic traffic</div><div class="chartbox"><canvas id="seoBrandedMix"></canvas></div><div class="read"><b>Read:</b> A 58% branded share signals real brand pull &mdash; demand that persists through ad-budget cuts. The 42% non-branded is the acquisition surface that competes with paid.</div></div>
+    <div class="card"><h4>AI answer visibility</h4><div class="sub">% of category AI answers citing each brand</div><div class="chartbox"><canvas id="seoAI"></canvas></div><div class="read"><b>Read:</b> An emerging channel worth tracking: GrainField currently leads AI-answer citations, with Northwind close behind. As buyers shift to AI-mediated discovery, this becomes a share battleground &mdash; upside if won, risk if ceded.</div></div>
+  </div>
+
+  <div class="callout good"><b>How this reads in the credit.</b> Strong branded and organic demand is the structural offset to the rising paid CAC on <a class="xref" onclick="gotoTab('digital');return false">Digital Marketing</a> &mdash; it is the specific evidence that the +11% organic growth is durable rather than ad-funded, which is the load-bearing assumption in the <a class="xref" onclick="gotoTab('cases');return false">base case</a>. Share of search also corroborates the share gains on <a class="xref" onclick="gotoTab('field');return false">Competitive Field</a>, and AI-answer visibility is a forward-looking moat CreditSwan now tracks against competitors.</div>
+</section>
+
+<!-- ============ BRAND HEALTH ============ -->
+<section class="panel" id="brand">
+  <div class="sec-eyebrow">Awareness, advocacy &amp; consumer sentiment</div>
+  <h3 class="sec">The brand equity <em>behind</em> the pricing power</h3>
+  <p class="lead">Brand-health diligence tests whether the pricing that held through two list increases is backed by real equity &mdash; awareness, advocacy, and review sentiment &mdash; or is a temporary artifact. It also reads consumer sentiment for early operational signals the financials have not yet caught.</p>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Aided Awareness</div><div class="val">41%<small class="up">+6pts</small></div><div class="note">Trailing 12 months</div></div>
+    <div class="kpi"><div class="lbl">Net Promoter Score</div><div class="val">62</div><div class="note">Well above category avg (45)</div></div>
+    <div class="kpi"><div class="lbl">Avg Review Rating</div><div class="val">4.6&#9733;</div><div class="note">Across 38K reviews</div></div>
+    <div class="kpi"><div class="lbl">Repeat / Loyalty</div><div class="val">48%</div><div class="note">Consistent with DTC repeat base</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Aided awareness trend</h4><div class="sub">Northwind vs. category average</div><div class="chartbox"><canvas id="brandAwareness"></canvas></div><div class="read"><b>Read:</b> Awareness has climbed 11 points in six quarters while the category average is flat &mdash; the brand is winning mindshare, not riding a category tide. This is what makes list increases stick.</div></div>
+    <div class="card"><h4>NPS vs. the field</h4><div class="sub">Net promoter score by brand</div><div class="chartbox"><canvas id="brandNps"></canvas></div><div class="read"><b>Read:</b> An NPS of 62 is a genuine outlier in the category &mdash; advocacy at this level lowers CAC over time and gives real room to take price without losing volume.</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Review velocity</h4><div class="sub">Monthly review volume (K) &mdash; engagement signal</div><div class="chartbox"><canvas id="brandReviews"></canvas></div><div class="read"><b>Read:</b> Review volume is accelerating alongside sales &mdash; a proxy for an expanding, engaged base. Rising volume with a stable 4.6&#9733; average is the ideal combination.</div></div>
+    <div class="card"><h4>Sentiment drivers</h4><div class="sub">Net sentiment by theme (% of mentions)</div><div class="chartbox"><canvas id="brandSentiment"></canvas></div><div class="read"><b>Read:</b> Taste and health drive love; value and &mdash; notably &mdash; <b>availability</b> drive the complaints. The rising availability theme is a consumer-side echo of the OTIF slippage on the Supply Chain tab, surfacing before it hits the financials.</div></div>
+  </div>
+
+  <div class="callout"><b>How this reads in the credit.</b> Brand health is the direct evidence behind the &ldquo;pricing stuck through two list increases&rdquo; finding on <a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a> &mdash; 41% awareness, 62 NPS and 4.6&#9733; give real pricing power, which supports gross-margin durability in the <a class="xref" onclick="gotoTab('cases');return false">base case</a>. The one caution is qualitative: rising &ldquo;availability&rdquo; complaints in review sentiment independently corroborate the OTIF slip to the club account on <a class="xref" onclick="gotoTab('supply');return false">Supply Chain</a> &mdash; two data sources pointing at the same service risk.</div>
+</section>
+
+<!-- ============ TRADE & RETAIL MEDIA ============ -->
+<section class="panel" id="trade">
+  <div class="sec-eyebrow">Trade promotion, deductions &amp; retail media</div>
+  <h3 class="sec">14% of gross sales, and a <em>$1.2MM</em> question</h3>
+  <p class="lead">Trade spend is the largest controllable line between gross and net sales in consumer goods &mdash; and the murkiest. Trade diligence sizes the spend, tests its efficiency, and reconciles booked accruals to actual customer deductions. This is where gating ask #3 lives.</p>
+
+  <div class="grid g4" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">Trade Spend</div><div class="val">14%</div><div class="note">of gross sales · largest margin line</div></div>
+    <div class="kpi"><div class="lbl">Unreconciled Accrual</div><div class="val" style="color:var(--red)">$1.2<small>MM</small></div><div class="note">Booked vs. deduction detail · ask #3</div></div>
+    <div class="kpi"><div class="lbl">Retail Media ROAS</div><div class="val">3.4&times;</div><div class="note">Blended across platforms</div></div>
+    <div class="kpi"><div class="lbl">Slotting / New-Item</div><div class="val">$2.8<small>MM</small></div><div class="note">Capitalized · reclass reviewed</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Trade spend by channel</h4><div class="sub">Trade &amp; promo as % of gross sales</div><div class="chartbox"><canvas id="tradeByChannel"></canvas></div><div class="read"><b>Read:</b> The club account absorbs the most trade at 19% of gross &mdash; the financial mirror of its 42% promo-volume rate on Merchandising. Trade intensity tracks concentration.</div></div>
+    <div class="card"><h4>Trade accrual reconciliation</h4><div class="sub">$MM · booked vs. matched vs. gap</div><div class="chartbox"><canvas id="tradeRecon"></canvas></div><div class="read"><b>Read:</b> $8.4MM booked, $7.2MM matched to customer deduction detail, leaving <b>$1.2MM unexplained</b>. This is gating ask #3 &mdash; it either reconciles clean (a timing artifact) or is deduction leakage that haircuts EBITDA.</div></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card"><h4>Retail media efficiency</h4><div class="sub">Return on ad spend by retail media platform</div><div class="chartbox"><canvas id="tradeMedia"></canvas></div><div class="read"><b>Read:</b> Amazon and Walmart Connect return above the 3.4&times; blend; club digital lags. Retail media is a real, measurable channel &mdash; and a reallocation lever toward the higher-returning platforms.</div></div>
+    <div class="card"><h4>Promotion ROI by mechanic</h4><div class="sub">Incremental volume return by promo type</div><div class="chartbox"><canvas id="tradeLift"></canvas></div><div class="read"><b>Read:</b> Displays and features pay back; deep BOGO events on the club account run below 1&times; &mdash; value-destructive volume. Rationalizing the unprofitable mechanics is a clean margin lever.</div></div>
+  </div>
+
+  <div class="callout"><b>How this reads in the credit.</b> This tab is where gating ask #3 is evidenced: the $1.2MM gap between booked trade accrual and matched deductions on <a class="xref" onclick="gotoTab('ebitda');return false">EBITDA Quality</a> and the <a class="xref" onclick="gotoTab('ai');return false">priority tracker</a>. Trade at 14% of gross is also the single largest controllable margin line &mdash; if the reconciliation resolves clean and the sub-1&times; promo mechanics are cut, it becomes a self-help lever in the <a class="xref" onclick="gotoTab('cases');return false">upside case</a>. Its concentration in the club channel ties directly to the promo dependency on <a class="xref" onclick="gotoTab('merch');return false">Merchandising</a>.</div>
+</section>
+
+<!-- ============ COMPETITIVE FIELD ============ -->
+<section class="panel" id="field">
+  <div class="sec-eyebrow">Live moves through Jul-26</div>
+  <h3 class="sec">The field is <em>moving</em>, and it is on price</h3>
+  <p class="lead">Category economics only matter if the position holds. CreditSwan maps the competitive set on the two axes a lender cares about — growth and margin — and tracks the moves that would erode either, using external evidence refreshed to the diligence date.</p>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card">
+      <h4>Competitive position — growth vs. margin</h4>
+      <div class="sub">Bubble size = est. category revenue · Northwind highlighted</div>
+      <div class="chartbox tall"><canvas id="competitiveChart"></canvas></div>
+      <div class="read"><b>Read:</b> Northwind sits in the attractive upper-right — above-category growth at above-category margin. The risk is not position today; it is the two competitors moving down and left on price (see log).</div>
+    </div>
+    <div class="card">
+      <h4>Live competitive moves — external sweep</h4>
+      <div class="sub">Signals dated to diligence period · not from the data room</div>
+      <table>
+        <thead><tr><th>Player</th><th>Move</th><th>Read</th></tr></thead>
+        <tbody>
+          <tr><td>GrainField Co.</td><td>Cut list ~6% in club, Q2</td><td><span class="tag-pill p-amber">Margin watch</span></td></tr>
+          <tr><td>Terra &amp; Oat</td><td>New PE owner; capacity build</td><td><span class="tag-pill p-amber">Watch</span></td></tr>
+          <tr><td>Wildseed Snacks</td><td>Lost mass-grocer slot to Northwind</td><td><span class="tag-pill p-green">Tailwind</span></td></tr>
+          <tr><td>Harvest Rowe</td><td>DTC-only; small, fast</td><td><span class="tag-pill p-blue">Emerging</span></td></tr>
+          <tr><td>Private label</td><td>Flat share; no premium push</td><td><span class="tag-pill p-green">Benign</span></td></tr>
+        </tbody>
+      </table>
+      <div class="read"><b>Read:</b> The share Northwind is taking is coming from a weaker competitor (Wildseed), which is the healthy kind. The price moves at GrainField are the reason margin sits on the watch list rather than the strengths list.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OPERATING CASES ============ -->
+<section class="panel" id="cases">
+  <div class="sec-eyebrow">Three-tier operating cases</div>
+  <h3 class="sec">All three cases start at <em>5.8&times;</em></h3>
+  <p class="lead">Cases are built on the lender-attributable basis, not the marketed one — so the committee sees the deleveraging path it is actually underwriting. The question is not the entry point; it is how fast, and whether the downside touches the covenant.</p>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card">
+      <h4>Net leverage path — by case</h4>
+      <div class="sub">Turns · attributable basis · covenant line at 5.25&times; &#8594; 4.75&times;</div>
+      <div class="chartbox tall"><canvas id="casesLevChart"></canvas></div>
+      <div class="read"><b>Read:</b> Base and upside delever cleanly. The downside case touches the covenant in Q6 and breaches the stepped-down 4.75&times; test in Y2 — a technical breach, not a payment default, but the trigger for the resized structure.</div>
+    </div>
+    <div class="card">
+      <h4>Fixed-charge coverage — by case</h4>
+      <div class="sub">FCCR &times; · covenant floor at 1.20&times;</div>
+      <div class="chartbox tall"><canvas id="casesFccrChart"></canvas></div>
+      <div class="read"><b>Read:</b> Coverage is the tighter of the two tests. Downside FCCR dips to 1.08&times; in Q5 — below the 1.20&times; floor — driven by the coincidence of the club reauth window and a promo-heavy quarter. This is the single most important quarter to stress.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>Case summary — the numbers behind the lines</h4>
+    <div class="sub">Attributable EBITDA basis · $MM unless noted</div>
+    <table>
+      <thead><tr><th>Metric</th><th class="num">Downside</th><th class="num">Base</th><th class="num">Upside</th></tr></thead>
+      <tbody>
+        <tr><td>Organic revenue CAGR (Y1–Y2)</td><td class="num">+3%</td><td class="num">+9%</td><td class="num">+14%</td></tr>
+        <tr><td>Gross margin (Y2)</td><td class="num">36.0%</td><td class="num">38.5%</td><td class="num">39.8%</td></tr>
+        <tr><td>Attributable EBITDA (Y2)</td><td class="num">33.1</td><td class="num">41.6</td><td class="num">48.2</td></tr>
+        <tr><td>Net leverage at close</td><td class="num">5.8&times;</td><td class="num">5.8&times;</td><td class="num">5.8&times;</td></tr>
+        <tr><td>Net leverage (Y2)</td><td class="num" style="color:var(--red)">5.4&times;</td><td class="num">4.6&times;</td><td class="num">3.9&times;</td></tr>
+        <tr><td>Min FCCR over horizon</td><td class="num" style="color:var(--red)">1.08&times;</td><td class="num">1.35&times;</td><td class="num">1.61&times;</td></tr>
+        <tr><td>Covenant outcome</td><td class="num"><span class="tag-pill p-red">Breach Y2</span></td><td class="num"><span class="tag-pill p-green">Pass</span></td><td class="num"><span class="tag-pill p-green">Pass</span></td></tr>
+      </tbody>
+    </table>
+    <div class="read"><b>Read:</b> A one-in-four downside as defined here produces a covenant breach but not a loss of principal — recovery modeling holds above par through Y2 even in the breach path. The structure question is whether to price for that risk or resize below it.</div>
+  </div>
+</section>
+
+<!-- ============ STRUCTURE & TERMS ============ -->
+<section class="panel" id="structure">
+  <div class="sec-eyebrow">Debt sizing &amp; covenant grid</div>
+  <h3 class="sec">Two structures — <em>as-marketed</em> and <em>resized</em></h3>
+  <p class="lead">CreditSwan does not stop at the finding. It hands the committee a decision it can act on: the same credit at the marketed size, and a resized alternative that restores headroom on the basis the committee can defend.</p>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card">
+      <h4>Cash available for debt service</h4>
+      <div class="sub">$MM · attributable basis · base case</div>
+      <div class="chartbox"><canvas id="cadsChart"></canvas></div>
+      <div class="read"><b>Read:</b> After maintenance capex, cash taxes, and working-capital swing, base-case CADS covers scheduled amortization and cash interest with a 1.35&times; cushion — comfortable in base, thin in the Q5 downside quarter.</div>
+    </div>
+    <div class="card">
+      <h4>Refinancing / exit sensitivity</h4>
+      <div class="sub">Exit multiple &times; entry leverage · sponsor return isobars</div>
+      <div class="chartbox"><canvas id="exitChart"></canvas></div>
+      <div class="read"><b>Read:</b> The sponsor's return case needs an exit at or above the entry multiple and base-case delevering. From the lender's seat, the relevant fact is that principal is money-good across the shaded region — including the downside path — which is what supports lending, at the right size.</div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-bottom:22px">
+    <div class="card">
+      <h4>Structure comparison</h4>
+      <div class="sub">As-marketed vs. CreditSwan resized</div>
+      <table>
+        <thead><tr><th>Term</th><th>As-marketed</th><th>Resized</th></tr></thead>
+        <tbody>
+          <tr><td>Facility</td><td>$180.0MM</td><td class="p-blue" style="font-weight:600">$164.0MM</td></tr>
+          <tr><td>Entry leverage (attributable)</td><td style="color:var(--red)">5.8&times;</td><td style="color:var(--green)">5.25&times;</td></tr>
+          <tr><td>Headroom at close</td><td>0.0 turns</td><td>0.5 turns</td></tr>
+          <tr><td>Pricing</td><td>SOFR+550</td><td>SOFR+525</td></tr>
+          <tr><td>Amortization</td><td>1% p.a.</td><td>2.5% p.a.</td></tr>
+          <tr><td>Cash sweep</td><td>50% &gt;4.5&times;</td><td>75% &gt;4.5&times;</td></tr>
+        </tbody>
+      </table>
+      <div class="read"><b>Read:</b> A $16MM resize restores a half-turn of day-one headroom and a covenant set that survives the defined downside — at tighter pricing, because the risk is lower. This is the recommendation absent the three asks resolving.</div>
+    </div>
+    <div class="card">
+      <h4>Covenant grid</h4>
+      <div class="sub">Financial maintenance covenants · resized structure</div>
+      <table>
+        <thead><tr><th>Covenant</th><th class="num">Set</th><th class="num">Base Y1</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Net leverage</td><td class="num">&le;5.25&times;</td><td class="num">5.0&times;</td><td><span class="tag-pill p-green">Pass</span></td></tr>
+          <tr><td>Net leverage (Y2 step)</td><td class="num">&le;4.75&times;</td><td class="num">4.6&times;</td><td><span class="tag-pill p-green">Pass</span></td></tr>
+          <tr><td>FCCR</td><td class="num">&ge;1.20&times;</td><td class="num">1.35&times;</td><td><span class="tag-pill p-green">Pass</span></td></tr>
+          <tr><td>Min liquidity</td><td class="num">&ge;$15MM</td><td class="num">$22MM</td><td><span class="tag-pill p-green">Pass</span></td></tr>
+          <tr><td>Max capex</td><td class="num">&le;$8MM</td><td class="num">$5.4MM</td><td><span class="tag-pill p-green">Pass</span></td></tr>
+        </tbody>
+      </table>
+      <div class="read"><b>Read:</b> Under the resized structure the base case passes every test with room. Under the as-marketed structure the same base case passes leverage by 0.0 turns — no margin for the first bad quarter.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STRESS TEST ============ -->
+<section class="panel" id="stress">
+  <div class="sec-eyebrow">Event stress test</div>
+  <h3 class="sec">What breaks it, and <em>in what order</em></h3>
+  <p class="lead">Beyond the smooth downside case, CreditSwan runs discrete shocks — the events a workout desk actually sees — and ranks them by the damage they do to attributable EBITDA. The order matters as much as the magnitude.</p>
+
+  <div class="card" style="margin-bottom:22px">
+    <h4>Stress ranking — EBITDA at risk by event</h4>
+    <div class="sub">$MM impact to attributable EBITDA · single-event, one year</div>
+    <div class="chartbox tall"><canvas id="stressChart"></canvas></div>
+    <div class="read"><b>Read:</b> Customer loss dwarfs every other shock. The club deauthorization scenario removes ~$8.9MM of attributable EBITDA — roughly 0.9 turns of leverage — more than input-cost and promo shocks combined. This is why the reauthorization confirmation is the first of the three asks, not the third.</div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card">
+      <h4>Club deauthorization</h4>
+      <div class="sub">Top customer, 21% of revenue</div>
+      <p style="font-size:13.5px;color:#374252;margin-bottom:12px">Loss of the national club account, partially backfilled over 3 quarters via mass and DTC.</p>
+      <div class="pgrid">
+        <div class="smallcaps">EBITDA impact</div><div></div><div class="num" style="color:var(--red);font-weight:600">-$8.9MM</div>
+        <div class="smallcaps">Leverage impact</div><div></div><div class="num">+0.9&times;</div>
+        <div class="smallcaps">Covenant</div><div></div><div><span class="tag-pill p-red">Breach</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Input-cost spike</h4>
+      <div class="sub">Oats + film, single-sourced</div>
+      <p style="font-size:13.5px;color:#374252;margin-bottom:12px">15% cost inflation on the two single-sourced inputs, 60% recoverable via price over two quarters.</p>
+      <div class="pgrid">
+        <div class="smallcaps">EBITDA impact</div><div></div><div class="num" style="color:var(--red);font-weight:600">-$3.4MM</div>
+        <div class="smallcaps">Leverage impact</div><div></div><div class="num">+0.4&times;</div>
+        <div class="smallcaps">Covenant</div><div></div><div><span class="tag-pill p-amber">Tight</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>Promo intensification</h4>
+      <div class="sub">Competitive price response</div>
+      <p style="font-size:13.5px;color:#374252;margin-bottom:12px">Sustained 300bps of incremental trade spend to hold share against GrainField's price cut.</p>
+      <div class="pgrid">
+        <div class="smallcaps">EBITDA impact</div><div></div><div class="num" style="color:var(--red);font-weight:600">-$2.6MM</div>
+        <div class="smallcaps">Leverage impact</div><div></div><div class="num">+0.3&times;</div>
+        <div class="smallcaps">Covenant</div><div></div><div><span class="tag-pill p-green">Pass</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI ANSWER LAYER ============ -->
+<section class="panel" id="ai">
+  <div class="sec-eyebrow">Ask the deal</div>
+  <h3 class="sec">Every number on this page is <em>interrogable</em></h3>
+  <p class="lead">The dashboard is the summary. Behind it, the full reconciled evidence base is queryable in natural language — with every answer traced back to the specific data-room document or external source that supports it. Below: the questions the committee actually asks.</p>
+
+  <div class="ai" style="margin-bottom:24px">
+    <div class="aihead"><span class="mk">&#9670;</span><h4>CreditSwan Answer Layer</h4></div>
+    <div class="aisub">Grounded in the Project Summit evidence base · 71 documents · 11 external sources · reconciled to source</div>
+    <div class="chips" id="chips">
+      <div class="chip active" data-q="q1">Why is attributable EBITDA $31.2MM, not $42.0MM?</div>
+      <div class="chip" data-q="q2">What happens to the covenant if we lose the club account?</div>
+      <div class="chip" data-q="q3">Is the organic growth real or just price?</div>
+      <div class="chip" data-q="q4">What are the three open asks?</div>
+      <div class="chip" data-q="q5">Would you lend at $180MM?</div><div class="chip" data-q="q6">Is the DTC growth efficiently acquired?</div><div class="chip" data-q="q7">Can the supply chain support the upside case?</div><div class="chip" data-q="q8">How dependent is demand on paid marketing?</div><div class="chip" data-q="q9">What drives the trade-spend reconciliation gap?</div>
+    </div>
+    <div class="answer" id="answer"></div>
+  </div>
+
+  <div class="sec-eyebrow">Why these numbers can be trusted</div>
+  <div class="chain" style="margin-bottom:20px">
+    <div class="step"><div class="n">Step 1 · Ingest</div><div class="t">71 documents</div><div class="d">Full data room parsed — CIM, QoE, financials, customer contracts, TB detail.</div></div>
+    <div class="step"><div class="n">Step 2 · Reconcile</div><div class="t">Line-to-source</div><div class="d">Every committee-load-bearing figure tied to a specific page and schedule.</div></div>
+    <div class="step"><div class="n">Step 3 · External sweep</div><div class="t">11 sources</div><div class="d">Scanner data, hiring signal, liens/UCC, competitor pricing — refreshed 26 Jul.</div></div>
+    <div class="step"><div class="n">Step 4 · Test</div><div class="t">Recurrence + kill</div><div class="d">Each add-back and claim run against a recurrence test and an inconsistency register.</div></div>
+    <div class="step"><div class="n">Step 5 · Resolve</div><div class="t">3 open asks</div><div class="d">Unresolved items surfaced as named asks with owners — not buried.</div></div>
+  </div>
+
+  <div class="card">
+    <h4>Priority diligence tracker</h4>
+    <div class="sub">Open items gating the recommendation · owners assigned</div>
+    <table>
+      <thead><tr><th>#</th><th>Item</th><th>Owner</th><th class="num">Impact</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Written confirmation of club reauthorization</td><td>Deal team</td><td class="num">+0.9&times;</td><td><span class="tag-pill p-red">Open — gating</span></td></tr>
+        <tr><td>2</td><td>Evidence for $6.2MM non-clearing add-backs (or resize)</td><td>QoE / CreditSwan</td><td class="num">+0.8&times;</td><td><span class="tag-pill p-red">Open — gating</span></td></tr>
+        <tr><td>3</td><td>Close $1.2MM trade-spend reconciliation gap</td><td>Accounting</td><td class="num">±0.1&times;</td><td><span class="tag-pill p-amber">In progress</span></td></tr>
+        <tr><td>4</td><td>Third input-cost source for packaging film</td><td>Ops</td><td class="num">Risk mit.</td><td><span class="tag-pill p-amber">In progress</span></td></tr>
+        <tr><td>5</td><td>Stock-comp normalization — reconcile two schedules</td><td>CreditSwan</td><td class="num">±0.1&times;</td><td><span class="tag-pill p-green">Resolved</span></td></tr>
+        <tr><td>6</td><td>External lien / UCC / litigation sweep</td><td>CreditSwan</td><td class="num">Clear</td><td><span class="tag-pill p-green">Resolved</span></td></tr>
+        <tr><td>7</td><td>Scanner corroboration of organic volume</td><td>CreditSwan</td><td class="num">Confirms</td><td><span class="tag-pill p-green">Resolved</span></td></tr>
+      </tbody>
+    </table>
+    <div class="read"><b>Read:</b> Two gating items stand between conditional and clear. Both are answerable in days, not weeks — one is a signed confirmation, the other is evidence-or-resize. Everything else is resolved or in motion.</div>
+  </div>
+</section>
+
+</main>
+
+<div class="footwrap">
+  <b>CreditSwan.AI — Decision-Grade Credit Diligence.</b> This is an illustrative capability demonstration. &ldquo;Project Summit,&rdquo; &ldquo;Northwind Provisions Co.,&rdquo; &ldquo;Meridian Ridge Capital,&rdquo; and all competitor names are fictional. <b>Every financial figure, chart value, ratio, and finding on this page is invented for demonstration purposes and does not describe any real company, transaction, or security.</b> Nothing herein is investment advice, a recommendation, or an offer. Prepared as a sample of the CreditSwan diligence dashboard format.<br><br>
+  <span class="smallcaps">Format: leverage-by-evidence-basis · quality-of-earnings bridge · customer-concentration exposure · digital-marketing &amp; DTC economics · SEO &amp; AI-answer visibility · brand health &amp; sentiment · trade &amp; retail media · merchandising &amp; price architecture · supply-chain &amp; capacity · global sourcing &amp; tariff exposure · competitive field · three-tier operating cases · debt sizing &amp; covenant grid · event stress test · grounded answer layer</span>
+</div>
+
+<script>
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('#tabs button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('#tabs button').forEach(function(x){x.classList.remove('active')});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active')});
+    b.classList.add('active');
+    document.getElementById(b.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(renderCharts,60);
+  });
+});
+
+function gotoTab(name){var b=document.querySelector('#tabs button[data-tab="'+name+'"]');if(b){b.click();window.scrollTo({top:0,behavior:'smooth'});}}
+/* ---------------- chart theme ---------------- */
+var INK='#0f1b2d', TEAL='#2e7d8f', TEALL='#93bcc6', RED='#b0413a', GREEN='#3f6e4e',
+    AMBER='#c9963f', MUTED='#6f6a60', LINE='#dcd6ca', GOLDY='#c8a24a';
+Chart.defaults.font.family="'Helvetica Neue',Arial,sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.color=MUTED;
+var GRID={color:'rgba(15,27,45,.07)'};
+function money(v){return '$'+v+'MM'}
+
+var made={};
+function mk(id,cfg){
+  var el=document.getElementById(id);
+  if(!el) return;
+  if(made[id]){made[id].destroy();}
+  made[id]=new Chart(el,cfg);
+}
+
+function renderCharts(){
+  /* ---- Overview: leverage by basis ---- */
+  mk('leverageBasisChart',{type:'bar',data:{labels:['Marketed\n$42.0MM','Sponsor QoE\n$36.5MM','Lender-Attributable\n$31.2MM'],datasets:[{data:[4.3,4.9,5.8],backgroundColor:[TEALL,AMBER,RED],borderRadius:3,barPercentage:.62}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'x on '+['$42.0MM','$36.5MM','$31.2MM'][c.dataIndex]}}},
+      annotation:false},
+      scales:{y:{beginAtZero:true,max:6.5,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Net leverage — turns'}},x:{grid:{display:false}}}}});
+
+  /* ---- Overview: ownership (contribution vs risk) ---- */
+  mk('ownershipChart',{type:'bar',data:{labels:['Club retailer','Mass grocer A','Mass grocer B','DTC / Amazon','Convenience','All other'],
+    datasets:[{label:'% attributable EBITDA',data:[28,18,13,22,8,11],backgroundColor:TEAL,borderRadius:2,barPercentage:.7}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% of attributable EBITDA'}}}},
+      scales:{x:{beginAtZero:true,max:35,grid:GRID,ticks:{callback:function(v){return v+'%'}}},y:{grid:{display:false}}}}});
+
+  /* ---- EBITDA bridge (waterfall via floating bars) ---- */
+  var steps=[
+    ['Marketed EBITDA',0,42.0,TEAL],
+    ['Founder mktg',42.0,39.5,RED],
+    ['Synergies',39.5,36.7,RED],
+    ['Unowned acq.',36.7,34.5,AMBER],
+    ['R&D reclass',34.5,33.1,AMBER],
+    ['Slotting timing',33.1,32.0,AMBER],
+    ['Comp normalize',32.0,31.2,AMBER],
+    ['Attributable',0,31.2,'#12233b']
+  ];
+  mk('ebitdaBridgeChart',{type:'bar',data:{labels:steps.map(function(s){return s[0]}),
+    datasets:[{data:steps.map(function(s){return [s[1],s[2]]}),backgroundColor:steps.map(function(s){return s[3]}),borderRadius:2,barPercentage:.7}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){var s=steps[c.dataIndex];return (c.dataIndex===0||c.dataIndex===steps.length-1)?money(s[2].toFixed(1)):('−'+money((s[1]-s[2]).toFixed(1)))}}}},
+      scales:{y:{beginAtZero:true,max:45,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM'}},x:{grid:{display:false},ticks:{maxRotation:38,minRotation:38,font:{size:10}}}}}});
+
+  /* ---- Margin durability ---- */
+  mk('marginChart',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],
+    datasets:[{label:'Gross margin %',data:[35.8,35.6,37.1,37.4,38.0,38.2],borderColor:TEAL,backgroundColor:'rgba(46,125,143,.10)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:TEAL}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% gross margin'}}}},
+      scales:{y:{min:34,max:40,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
+
+  /* ---- Channel mix ---- */
+  mk('channelChart',{type:'doughnut',data:{labels:['Grocery / Mass','Club','DTC / Amazon','Convenience'],
+    datasets:[{data:[46,22,19,13],backgroundColor:[TEAL,AMBER,GREEN,TEALL],borderColor:'#fdfcf8',borderWidth:2}]},
+    options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'% of revenue'}}}}}});
+
+  /* ---- Concentration ---- */
+  mk('concentrationChart',{type:'bar',data:{labels:['Club retailer','Mass grocer A','Mass grocer B','Regional #4','Regional #5','All other'],
+    datasets:[{data:[21,15,11,7,5,41],backgroundColor:['#b0413a','#c9963f','#c9963f',TEALL,TEALL,'#cdd3c9'],borderRadius:2,barPercentage:.7}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% of revenue'}}}},
+      scales:{x:{beginAtZero:true,max:45,grid:GRID,ticks:{callback:function(v){return v+'%'}}},y:{grid:{display:false}}}}});
+
+  /* ---- Revenue build ---- */
+  mk('revBuildChart',{type:'bar',data:{labels:['FY24','FY25','LTM Jun-26'],
+    datasets:[
+      {label:'Organic volume',data:[214,238,264],backgroundColor:TEAL,borderRadius:2,stack:'s'},
+      {label:'Price',data:[10,16,28],backgroundColor:TEALL,borderRadius:2,stack:'s'},
+      {label:'Acquired (unowned)',data:[0,8,18],backgroundColor:AMBER,borderRadius:2,stack:'s'}
+    ]},
+    options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+money(c.parsed.y)}}}},
+      scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM revenue'}},x:{grid:{display:false}}}}});
+
+  /* ---- Competitive bubble ---- */
+  mk('competitiveChart',{type:'bubble',data:{datasets:[
+    {label:'Northwind',data:[{x:11,y:38.2,r:20}],backgroundColor:'rgba(176,65,58,.75)',borderColor:RED,borderWidth:2},
+    {label:'GrainField',data:[{x:6,y:33,r:24}],backgroundColor:'rgba(46,125,143,.45)',borderColor:TEAL},
+    {label:'Terra & Oat',data:[{x:8,y:35,r:16}],backgroundColor:'rgba(46,125,143,.45)',borderColor:TEAL},
+    {label:'Wildseed',data:[{x:2,y:31,r:12}],backgroundColor:'rgba(111,106,96,.4)',borderColor:MUTED},
+    {label:'Harvest Rowe',data:[{x:19,y:36,r:8}],backgroundColor:'rgba(201,150,63,.5)',borderColor:AMBER},
+    {label:'Category avg',data:[{x:7,y:34,r:10}],backgroundColor:'rgba(147,188,198,.5)',borderColor:TEALL}
+  ]},
+    options:{plugins:{legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:10}}},
+      tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.raw.x+'% growth, '+c.raw.y+'% margin'}}}},
+      scales:{x:{grid:GRID,title:{display:true,text:'Organic growth %'},min:0,max:22,ticks:{callback:function(v){return v+'%'}}},
+              y:{grid:GRID,title:{display:true,text:'Gross margin %'},min:29,max:41,ticks:{callback:function(v){return v+'%'}}}}}});
+
+  /* ---- Cases: leverage ---- */
+  var qlabels=['Close','Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8'];
+  mk('casesLevChart',{type:'line',data:{labels:qlabels,datasets:[
+    {label:'Upside',data:[5.8,5.6,5.3,5.0,4.7,4.4,4.2,4.0,3.9],borderColor:GREEN,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Base',data:[5.8,5.7,5.5,5.3,5.1,4.9,4.8,4.7,4.6],borderColor:TEAL,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Downside',data:[5.8,5.8,5.7,5.7,5.6,5.6,5.5,5.5,5.4],borderColor:RED,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Covenant',data:[5.25,5.25,5.25,5.25,4.75,4.75,4.75,4.75,4.75],borderColor:'#9a6c17',borderDash:[6,4],backgroundColor:'transparent',pointRadius:0,borderWidth:1.5}
+  ]},
+    options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'x'}}}},
+      scales:{y:{min:3.5,max:6.2,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Net leverage'}},x:{grid:{display:false}}}}});
+
+  /* ---- Cases: FCCR ---- */
+  mk('casesFccrChart',{type:'line',data:{labels:qlabels,datasets:[
+    {label:'Upside',data:[1.42,1.46,1.50,1.53,1.56,1.58,1.60,1.61,1.61],borderColor:GREEN,tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Base',data:[1.30,1.32,1.34,1.33,1.31,1.35,1.37,1.38,1.40],borderColor:TEAL,tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Downside',data:[1.22,1.18,1.14,1.11,1.09,1.08,1.12,1.15,1.19],borderColor:RED,tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Floor',data:[1.20,1.20,1.20,1.20,1.20,1.20,1.20,1.20,1.20],borderColor:'#9a6c17',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
+  ]},
+    options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'x'}}}},
+      scales:{y:{min:1.0,max:1.65,grid:GRID,ticks:{callback:function(v){return v.toFixed(2)+'x'}},title:{display:true,text:'FCCR'}},x:{grid:{display:false}}}}});
+
+  /* ---- CADS ---- */
+  mk('cadsChart',{type:'bar',data:{labels:['Attrib. EBITDA','− Capex','− Cash tax','− WC swing','= CADS','Debt service'],
+    datasets:[{data:[31.2,-4.4,-5.1,-2.2,19.5,14.4],backgroundColor:[TEAL,AMBER,AMBER,AMBER,GREEN,INK],borderRadius:2,barPercentage:.68}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return money(c.parsed.y.toFixed(1))}}}},
+      scales:{y:{grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+  /* ---- Exit sensitivity (line iso) ---- */
+  mk('exitChart',{type:'line',data:{labels:['4.5x','5.0x','5.5x','6.0x','6.5x','7.0x'],datasets:[
+    {label:'Base delevering',data:[1.4,1.7,2.1,2.5,2.9,3.3],borderColor:TEAL,tension:.25,pointRadius:3,borderWidth:2,fill:false},
+    {label:'Downside delevering',data:[1.0,1.2,1.4,1.7,2.0,2.3],borderColor:RED,tension:.25,pointRadius:3,borderWidth:2,fill:false},
+    {label:'Principal money-good line',data:[1.0,1.0,1.0,1.0,1.0,1.0],borderColor:'#9a6c17',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
+  ]},
+    options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9,font:{size:10}}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'x MOIC (sponsor)'}}}},
+      scales:{y:{min:.8,max:3.5,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Sponsor MOIC'}},x:{grid:{display:false},title:{display:true,text:'Exit multiple'}}}}});
+
+  /* ---- Stress ranking (tornado) ---- */
+  mk('stressChart',{type:'bar',data:{labels:['Club deauthorization','Input-cost spike','Promo intensification','FX / freight','Slotting reset','Recession demand'],
+    datasets:[{data:[-8.9,-3.4,-2.6,-1.5,-1.2,-4.1],backgroundColor:['#b0413a','#c9963f','#c9963f','#93bcc6','#93bcc6','#c9963f'],borderRadius:2,barPercentage:.72}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return money(c.parsed.x.toFixed(1))+' attributable EBITDA'}}}},
+      scales:{x:{max:0,min:-10,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM impact to attributable EBITDA'}},y:{grid:{display:false}}}}});
+
+  /* ===== SEO & ORGANIC ===== */
+  mk('seoTraffic',{type:'bar',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
+    {label:'Organic',data:[160,172,184,196,203,210],backgroundColor:'#2e7d8f',borderRadius:2,stack:'s'},
+    {label:'Paid',data:[70,74,78,80,82,83],backgroundColor:'#c9963f',borderRadius:2,stack:'s'}
+  ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'K sessions'}}}},
+    scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return v+'K'}},title:{display:true,text:'Sessions / mo (K)'}},x:{grid:{display:false}}}}});
+
+  mk('seoShare',{type:'bar',data:{labels:['Northwind','GrainField','Terra & Oat','Wildseed','Others'],datasets:[{data:[24,21,17,9,29],
+    backgroundColor:['#b0413a','#2e7d8f','#2e7d8f','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.7}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% share of search'}}}},
+    scales:{x:{beginAtZero:true,max:32,grid:GRID,ticks:{callback:function(v){return v+'%'}}},y:{grid:{display:false}}}}});
+
+  mk('seoBrandedMix',{type:'doughnut',data:{labels:['Branded','Non-branded'],datasets:[{data:[58,42],
+    backgroundColor:['#2e7d8f','#93bcc6'],borderColor:'#fdfcf8',borderWidth:2}]},
+    options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'% of organic'}}}}}});
+
+  mk('seoAI',{type:'bar',data:{labels:['GrainField','Northwind','Terra & Oat','Wildseed'],datasets:[{data:[26,22,14,6],
+    backgroundColor:['#93bcc6','#b0413a','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.66}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of AI answers cite brand'}}}},
+    scales:{y:{beginAtZero:true,max:30,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'AI answer citation rate'}},x:{grid:{display:false}}}}});
+
+  /* ===== BRAND HEALTH ===== */
+  mk('brandAwareness',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
+    {label:'Northwind aided awareness',data:[30,33,36,38,40,41],borderColor:'#2e7d8f',backgroundColor:'rgba(46,125,143,.10)',fill:true,tension:.35,pointRadius:3,borderWidth:2},
+    {label:'Category average',data:[34,34,35,35,36,36],borderColor:'#6f6a60',borderDash:[6,4],backgroundColor:'transparent',pointRadius:0,borderWidth:1.5}
+  ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'%'}}}},
+    scales:{y:{min:25,max:45,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
+
+  mk('brandNps',{type:'bar',data:{labels:['Northwind','Terra & Oat','GrainField','Category avg'],datasets:[{data:[62,51,48,45],
+    backgroundColor:['#3f6e4e','#93bcc6','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.66}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return 'NPS '+c.parsed.y}}}},
+    scales:{y:{beginAtZero:true,max:70,grid:GRID,title:{display:true,text:'Net promoter score'}},x:{grid:{display:false}}}}});
+
+  mk('brandReviews',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'Reviews / mo (K)',
+    data:[1.8,2.1,2.4,2.7,3.0,3.3],borderColor:'#c9963f',backgroundColor:'rgba(201,150,63,.10)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#c9963f'}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'K reviews/mo'}}}},
+    scales:{y:{beginAtZero:true,max:4,grid:GRID,ticks:{callback:function(v){return v+'K'}}},x:{grid:{display:false}}}}});
+
+  mk('brandSentiment',{type:'bar',data:{labels:['Taste / quality','Health','Packaging','Value / price','Availability'],datasets:[{data:[68,42,9,-22,-16],
+    backgroundColor:['#3f6e4e','#3f6e4e','#93bcc6','#b0413a','#b0413a'],borderRadius:2,barPercentage:.7}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return (c.parsed.x>0?'+':'')+c.parsed.x+'% net sentiment'}}}},
+    scales:{x:{min:-40,max:80,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Net sentiment (positive − negative)'}},y:{grid:{display:false}}}}});
+
+  /* ===== TRADE & RETAIL MEDIA ===== */
+  mk('tradeByChannel',{type:'bar',data:{labels:['Club','Grocery / Mass','Convenience','DTC / Amazon'],datasets:[{data:[19,13,10,4],
+    backgroundColor:['#b0413a','#c9963f','#93bcc6','#3f6e4e'],borderRadius:2,barPercentage:.66}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of gross'}}}},
+    scales:{y:{beginAtZero:true,max:22,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Trade % of gross sales'}},x:{grid:{display:false}}}}});
+
+  mk('tradeRecon',{type:'bar',data:{labels:['Booked accrual','Matched to detail','Unreconciled gap'],datasets:[{data:[8.4,7.2,1.2],
+    backgroundColor:['#2e7d8f','#3f6e4e','#b0413a'],borderRadius:2,barPercentage:.6}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.parsed.y.toFixed(1)+'MM'}}}},
+    scales:{y:{beginAtZero:true,max:10,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM'}},x:{grid:{display:false}}}}});
+
+  mk('tradeMedia',{type:'bar',data:{labels:['Amazon','Walmart Connect','Instacart','Club digital'],datasets:[{data:[4.1,3.5,3.2,2.8],
+    backgroundColor:['#3f6e4e','#2e7d8f','#93bcc6','#c9963f'],borderRadius:2,barPercentage:.66}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'x ROAS'}}}},
+    scales:{y:{beginAtZero:true,max:5,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Retail media ROAS'}},x:{grid:{display:false}}}}});
+
+  mk('tradeLift',{type:'bar',data:{labels:['Display','Feature','Feature+display','TPR','Club BOGO'],datasets:[{data:[3.1,2.4,3.6,1.8,0.9],
+    backgroundColor:['#3f6e4e','#2e7d8f','#3f6e4e','#c9963f','#b0413a'],borderRadius:2,barPercentage:.7}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'x volume ROI'}}}},
+    scales:{y:{beginAtZero:true,max:4,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Incremental volume ROI'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+  /* ===== DIGITAL MARKETING ===== */
+  mk('dmCacLtv',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
+    {label:'Blended CAC ($)',data:[18,20,22,24,26,27],borderColor:'#b0413a',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y'},
+    {label:'LTV:CAC (x)',data:[5.3,4.9,4.4,4.0,3.8,3.6],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y1'}
+  ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}}},
+    scales:{y:{position:'left',grid:GRID,min:0,max:32,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'CAC ($)'}},
+    y1:{position:'right',min:0,max:6,grid:{display:false},ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'LTV:CAC'}},x:{grid:{display:false}}}}});
+
+  mk('dmChannelEff',{type:'bar',data:{labels:['Email / SMS','Amazon','TikTok','Google','Meta'],datasets:[{data:[11.0,4.8,3.1,3.9,2.6],
+    backgroundColor:['#3f6e4e','#2e7d8f','#2e7d8f','#93bcc6','#b0413a'],borderRadius:2,barPercentage:.68}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'x return'}}}},
+    scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Blended ROAS / MER'}},x:{grid:{display:false}}}}});
+
+  mk('dmMix',{type:'bar',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
+    {label:'New customer',data:[19,20,21,21,22,22],backgroundColor:'#93bcc6',borderRadius:2,stack:'s'},
+    {label:'Repeat customer',data:[15,17,19,21,23,26],backgroundColor:'#2e7d8f',borderRadius:2,stack:'s'}
+  ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': $'+c.parsed.y+'MM'}}}},
+    scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM DTC revenue'}},x:{grid:{display:false}}}}});
+
+  mk('dmSubs',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'Subscription %',
+    data:[19,22,24,27,29,31],borderColor:'#2e7d8f',backgroundColor:'rgba(46,125,143,.10)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#2e7d8f'}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of DTC'}}}},
+    scales:{y:{min:0,max:40,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
+
+  /* ===== MERCHANDISING ===== */
+  mk('mcPareto',{data:{labels:['Top 5','SKUs 6–12','SKUs 13–30','SKUs 31–84'],datasets:[
+    {type:'bar',label:'% of revenue',data:[42,26,20,12],backgroundColor:['#2e7d8f','#2e7d8f','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.7,order:2},
+    {type:'line',label:'Cumulative %',data:[42,68,88,100],borderColor:'#c9963f',backgroundColor:'transparent',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y1',order:1}
+  ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10}}},
+    scales:{y:{beginAtZero:true,max:50,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'% of revenue'}},
+    y1:{position:'right',min:0,max:100,grid:{display:false},ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Cumulative'}},x:{grid:{display:false}}}}});
+
+  mk('mcMargin',{type:'bar',data:{labels:['Core bars','Minis','Keto line','Multipack (club)','Bulk'],datasets:[{data:[44,40,34,31,29],
+    backgroundColor:['#3f6e4e','#2e7d8f','#c9963f','#b0413a','#b0413a'],borderRadius:2,barPercentage:.68}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% margin'}}}},
+    scales:{y:{beginAtZero:true,max:50,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Contribution margin'}},x:{grid:{display:false}}}}});
+
+  mk('mcPromo',{type:'bar',data:{labels:['Club','Grocery / Mass','Convenience','DTC / Amazon'],datasets:[{data:[42,28,22,9],
+    backgroundColor:['#b0413a','#c9963f','#93bcc6','#3f6e4e'],borderRadius:2,barPercentage:.68}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% on promo'}}}},
+    scales:{x:{beginAtZero:true,max:50,grid:GRID,ticks:{callback:function(v){return v+'%'}}},y:{grid:{display:false}}}}});
+
+  mk('mcPrice',{type:'bar',data:{labels:['Single-serve','DTC subscribe','Grocery multi','Club multipack'],datasets:[{data:[0.62,0.58,0.51,0.44],
+    backgroundColor:['#2e7d8f','#3f6e4e','#93bcc6','#b0413a'],borderRadius:2,barPercentage:.62}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.parsed.y.toFixed(2)+' / oz'}}}},
+    scales:{y:{beginAtZero:true,max:0.7,grid:GRID,ticks:{callback:function(v){return '$'+v.toFixed(2)}},title:{display:true,text:'Price per ounce'}},x:{grid:{display:false}}}}});
+
+  /* ===== SUPPLY CHAIN ===== */
+  mk('scCap',{type:'bar',data:{labels:['Primary co-man','Acquired co-man','Secondary co-man'],datasets:[{data:[88,74,61],
+    backgroundColor:['#b0413a','#c9963f','#3f6e4e'],borderRadius:2,barPercentage:.6}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% utilized'}}},
+    annotation:false},scales:{y:{beginAtZero:true,max:100,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Capacity utilization'}},x:{grid:{display:false}}}}});
+
+  mk('scOtif',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
+    {label:'Overall OTIF',data:[95,95,94,94,94,94],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
+    {label:'To club account',data:[96,94,93,92,91,91],borderColor:'#b0413a',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2},
+    {label:'Target',data:[95,95,95,95,95,95],borderColor:'#9a6c17',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
+  ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'%'}}}},
+    scales:{y:{min:88,max:98,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
+
+  mk('scDio',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'DIO (days)',
+    data:[58,60,63,66,69,71],borderColor:'#c9963f',backgroundColor:'rgba(201,150,63,.10)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#c9963f'}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+' days'}}}},
+    scales:{y:{min:50,max:76,grid:GRID,ticks:{callback:function(v){return v+'d'}}},x:{grid:{display:false}}}}});
+
+  mk('scFreight',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'Freight % of COGS',
+    data:[9.8,9.1,8.4,7.9,7.6,7.4],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of COGS'}}}},
+    scales:{y:{min:6,max:11,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
+
+  /* ===== GLOBAL SOURCING ===== */
+  mk('gsGeo',{type:'doughnut',data:{labels:['Domestic (US)','Film supplier country','Ingredient country B','Ingredient country C','Other'],
+    datasets:[{data:[55,18,14,8,5],backgroundColor:['#3f6e4e','#b0413a','#c9963f','#93bcc6','#cdd3c9'],borderColor:'#fdfcf8',borderWidth:2}]},
+    options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:10}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'% of spend'}}}}}});
+
+  mk('gsTariff',{type:'bar',data:{labels:['Packaging film','Specialty ingredients','Inclusions','Equipment / other'],datasets:[{data:[12,4,2,1],
+    backgroundColor:['#b0413a','#c9963f','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.66}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% of COGS'}}}},
+    scales:{x:{beginAtZero:true,max:14,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Tariff-exposed % of COGS'}},y:{grid:{display:false}}}}});
+
+  mk('gsInput',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
+    {label:'Oats',data:[100,104,109,107,112,110],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Packaging film',data:[100,108,121,118,132,129],borderColor:'#b0413a',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2}
+  ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y}}}},
+    scales:{y:{min:95,max:140,grid:GRID,title:{display:true,text:'Cost index (start = 100)'}},x:{grid:{display:false}}}}});
+}
+
+/* ---------------- AI answer layer ---------------- */
+var ANSWERS={
+  q1:{q:'Why is attributable EBITDA $31.2MM, not $42.0MM?',
+    a:'The $42.0MM marketed figure carries <b>$10.8MM of add-backs</b>, of which only $0.8MM clears CreditSwan\'s recurrence test. The two largest deductions are <b>$2.8MM of run-rate synergies not yet in the financials</b> and <b>$2.5MM of founder-discretionary marketing</b> added back as one-time but which recurs. A further $2.2MM is EBITDA from an acquired co-manufacturer during a period the company did not own it. Stripping to what recurs unaided leaves <b>$31.2MM</b> — which moves entry leverage from 4.3&times; to 5.8&times; on the same $180MM facility.',
+    cites:['QoE Schedule 4.2, p.31','CIM p.18 (synergy build)','Acquisition APA §2.1','TB reconciliation tab &ldquo;ADJ&rdquo;']},
+  q2:{q:'What happens to the covenant if we lose the club account?',
+    a:'The club retailer is <b>21% of revenue</b> and ~28% of attributable EBITDA. A full deauthorization, partially backfilled over three quarters, removes <b>~$8.9MM of attributable EBITDA</b> — roughly <b>0.9 turns of leverage</b>. That pushes net leverage through the 5.25&times; covenant within two quarters and breaches the stepped-down 4.75&times; test in Year 2. It is the single largest shock in the stress test — larger than input-cost and promo shocks combined — which is why written confirmation of the reauthorization is the first gating ask.',
+    cites:['Customer contract §7 (term)','Stress model &ldquo;EVENT-A&rdquo;','External hiring signal, 26 Jul','Covenant grid, resized case']},
+  q3:{q:'Is the organic growth real or just price?',
+    a:'Mostly real. Reported growth is <b>+18%</b>, but ~4 points are price and ~3 points are the acquired line\'s unowned period. <b>Organic volume growth is +11%</b> — and independent 52-week retail scanner data corroborates that figure to <b>within 60bps</b>, which is unusually tight. Two list-price increases held with no measurable volume loss, confirming pricing power. The base case compounds the 11%, not the 18%.',
+    cites:['External scanner data (52-wk)','Pricing action memo, Q1-26','Revenue build tab','Volume bridge p.12']},
+  q4:{q:'What are the three open asks?',
+    a:'Two are gating, one is in progress. <b>(1)</b> Written confirmation of the club reauthorization — worth 0.9 turns of downside protection. <b>(2)</b> Evidence for the $6.2MM of non-clearing add-backs, or resize the facility to 5.25&times; on the attributable basis (~$164MM) — worth 0.8 turns. <b>(3)</b> Close the $1.2MM trade-spend reconciliation gap between the TB and the customer deduction detail. All three are answerable in days, and everything else in the tracker is resolved or in motion.',
+    cites:['Priority tracker items 1–3','QoE add-back register','Resized structure comparison']},
+  q5:{q:'Would you lend at $180MM?',
+    a:'<b>Conditionally, or resize.</b> At $180MM the committee is underwriting a 5.8&times; entry with zero day-one covenant headroom on the basis a lender can defend. If the two gating asks resolve — the reauthorization is confirmed and the add-backs are evidenced — $180MM is financeable. If they do not, the recommendation is the <b>resized $164MM structure</b> at 5.25&times;, which restores a half-turn of headroom, survives the defined downside, and prices tighter (SOFR+525) because the risk is lower. Principal models money-good across the downside path in both structures; the difference is headroom, not recovery.',
+    cites:['Advisory conclusion','Structure comparison','Recovery model, downside path','Covenant grid']},
+  q6:{q:'Is the DTC growth efficiently acquired?',a:'DTC and Amazon are <b>19% of revenue</b>, the highest-margin channel, growing 34%. But blended CAC has risen <b>50% in 18 months</b> and LTV:CAC has compressed from <b>5.3&times; to 3.6&times;</b>. It is still accretive — repeat customers are now 48% of DTC and subscription is 31% — so the economics work today. The trend is the watch item: the base case assumes CAC <b>stabilizes</b>, not that it keeps sliding. And because the $2.5MM founder-marketing add-back is largely this acquisition spend, CreditSwan treats it as recurring, not one-time.',cites:['Digital Marketing tab','Cohort &amp; CAC schedule','QoE add-back register']},
+  q7:{q:'Can the supply chain support the upside case?',a:'<b>Only with capex.</b> The primary co-manufacturer runs at <b>88% utilization</b> against a ~90% practical ceiling — the upside case\'s incremental volume needs capacity the current network cannot supply without qualifying the secondary facility or adding a line. Separately, <b>OTIF to the club account has slipped to 91%</b> (below the 95% target), which is both a chargeback exposure and a reauthorization risk — the operational half of the same gating ask that protects roughly 0.9 turns of leverage.',cites:['Supply Chain tab','Capacity schedule','Customer service scorecard','Priority tracker item 1']},
+  q8:{q:'How dependent is demand on paid marketing?',a:'Less than the rising CAC alone suggests. Organic traffic is <b>210K sessions/mo (+14%)</b> against 83K paid, and <b>58% of search is branded</b> &mdash; consumers seeking the brand by name rather than discovering it through ads. The brand is also cited in <b>22% of category AI answers</b>, an emerging organic channel. This earned-demand base is the structural offset to the paid-CAC inflation on Digital Marketing, and it is the specific evidence that the +11% organic growth is durable rather than ad-funded.',cites:['SEO &amp; Organic tab','Search console data','AI-visibility panel','Digital Marketing cohorts']},
+  q9:{q:'What drives the trade-spend reconciliation gap?',a:'<b>$1.2MM of booked trade accrual does not tie</b> to the customer deduction detail &mdash; $8.4MM booked versus $7.2MM matched. This is gating ask #3. There are two outcomes: it reconciles clean, a timing artifact with no EBITDA impact and a sign of tightening trade management; or part of it is unrecoverable deduction leakage, which haircuts attributable EBITDA. Because trade runs <b>14% of gross sales</b> &mdash; the single largest controllable margin line &mdash; resolving this is both a diligence gate and a value-creation lever.',cites:['Trade &amp; Retail Media tab','Deduction reconciliation','QoE trade-timing add-back','Priority tracker item 3']}
+};
+function typeAnswer(key){
+  var d=ANSWERS[key], box=document.getElementById('answer');
+  box.innerHTML='<div class="q">'+d.q+'</div><div class="a" id="atxt"></div>';
+  var target=document.getElementById('atxt');
+  // reveal with a light typing effect on the plain text, keeping bold tags intact by chunking
+  target.innerHTML=d.a+'<span class="blink"></span>';
+  setTimeout(function(){
+    target.innerHTML=d.a;
+    var c=document.createElement('div'); c.className='cites';
+    c.innerHTML='<b>Sourced to:</b> '+d.cites.map(function(x){return '<span>'+x+'</span>'}).join('');
+    box.appendChild(c);
+  },550);
+}
+document.querySelectorAll('#chips .chip').forEach(function(ch){
+  ch.addEventListener('click',function(){
+    document.querySelectorAll('#chips .chip').forEach(function(x){x.classList.remove('active')});
+    ch.classList.add('active');
+    typeAnswer(ch.dataset.q);
+  });
+});
+
+/* init */
+renderCharts();
+typeAnswer('q1');
+</script>
+</body>
+</html>
