@@ -52,11 +52,48 @@ Zip the folder contents and drop them on [vercel.com/new](https://vercel.com/new
 
 ## Local preview
 
-Open `index.html` directly in a browser, or serve it (so routes behave like production):
+Open `index.html` directly in a browser, or serve it so routes behave like production:
 
 ```bash
-npm run dev     # runs: npx serve .
+npx serve .
 ```
+
+## Troubleshooting — "it deployed but nothing shows"
+
+**1. 404: NOT_FOUND — the most common cause.** `index.html` must be at the *repository root*,
+not inside a subfolder. If your repo looks like `your-repo/creditswan-demo-suite/index.html`,
+Vercel is serving `your-repo/` and finding nothing.
+
+Fix either way:
+
+```bash
+# move the files up one level
+mv creditswan-demo-suite/* creditswan-demo-suite/.gitignore .
+rmdir creditswan-demo-suite
+git add -A && git commit -m "Move site to repo root" && git push
+```
+
+...or in Vercel: **Project → Settings → Build and Deployment → Root Directory** →
+set it to `creditswan-demo-suite` → Save → Redeploy.
+
+Verify with: `git ls-files | head` — you should see `index.html` on its own, with no folder prefix.
+
+**2. "No Output Directory named 'public' found."** This means Vercel treated the project as a
+build project. This repo intentionally contains **no `package.json`** to avoid that. If you see
+this error, check Settings → Build and Deployment:
+
+- Framework Preset: **Other**
+- Build Command: **empty** (toggle the override off)
+- Output Directory: **empty**, or `.`
+
+**3. A login / SSO wall instead of the site.** That is Vercel Deployment Protection, which is on
+by default for preview deployments on many plans. Go to **Settings → Deployment Protection** and
+set Vercel Authentication to *Disabled* (or *Only Preview Deployments* if you want the production
+URL public). Also confirm you are opening the **Production** URL, not a preview URL.
+
+**4. Blank white page.** Open the browser console. The dashboards load Chart.js from
+`cdnjs.cloudflare.com`; if a corporate network blocks it, charts will not render. Everything else
+on the page is inline and offline-safe.
 
 ## Adding a passphrase gate
 
