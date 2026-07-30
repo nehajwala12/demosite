@@ -6,246 +6,369 @@
 <meta name="robots" content="noindex,nofollow">
 <title>CreditSwan.AI — Project Summit · Integrated Credit &amp; Operational Diligence (Sample)</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<style>
-:root{
-  --bg:#f6f4ef; --card:#e9e4da; --card2:#fdfcf8; --ink:#0f1b2d; --gold:#2e7d8f;
-  --gold-lt:#93bcc6; --red:#b0413a; --green:#3f6e4e; --amber:#c9963f; --muted:#6f6a60;
-  --line:#dcd6ca; --warn:#fff3df; --warnline:#c9963f;
+<style>@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;font-display:swap;src:url(./fonts/CormorantGaramond-SemiBold.woff2) format('woff2');}@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/Manrope-Regular.woff2) format('woff2');}@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:swap;src:url(./fonts/Manrope-Medium.woff2) format('woff2');}@font-face{font-family:'Manrope';font-style:normal;font-weight:700;font-display:swap;src:url(./fonts/Manrope-Bold.woff2) format('woff2');}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(./fonts/IBMPlexMono-Regular.woff2) format('woff2');}@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url(./fonts/IBMPlexMono-Medium.woff2) format('woff2');}:root{
+  --ink:#16211F;
+  --cream:#F4EFE6;
+  --gold:#A98543;
+  --teal:#1C4A45;
+  --gilt:#E9C583;
+  --claret:#5C2B2E;
+  --coral:#FF8A80;
+  --hair:rgba(22,33,31,0.14);
+  --hair-d:rgba(244,239,230,0.18);
+  --fill-d:rgba(244,239,230,0.06);
+  --ink55:rgba(22,33,31,0.55);
+  --ink30:rgba(22,33,31,0.30);
+  --cream72:rgba(244,239,230,0.72);
+  --grid:rgba(22,33,31,0.10);
+  /* legacy aliases kept so existing inline var() references stay valid */
+  --bg:#F4EFE6; --card:#F4EFE6; --card2:#F4EFE6; --gold-lt:#E9C583;
+  --red:#5C2B2E; --green:#1C4A45; --amber:#A98543; --muted:rgba(22,33,31,0.55);
+  --line:rgba(22,33,31,0.14); --warn:#F4EFE6; --warnline:#A98543;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55;-webkit-font-smoothing:antialiased}
-.sans{font-family:'Helvetica Neue',Arial,sans-serif}
+body{background:var(--cream);color:var(--ink);
+  font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;
+  border-top:5px solid var(--gold)}
+
+/* ---------- type primitives ---------- */
+.mono,.mn,.num,.smallcaps,.glabel,.clabel,.ghead,.ml,.mf,.gnote,.n,.d,.lbl{
+  font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+.sans{font-family:'Manrope',sans-serif}
+h1,h2,h3,h4,h5{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;letter-spacing:-0.5px;line-height:1.15}
+em{font-style:italic}
+
+/* ---------- top bars ---------- */
+.ribbon{position:fixed;top:0;right:0;background:var(--gold);color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;font-weight:500;
+  padding:6px 16px;z-index:80;pointer-events:none;text-transform:uppercase}
+.confbar{background:var(--ink);color:var(--cream72);
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.6px;
+  text-transform:uppercase;text-align:center;padding:9px 14px}
+.confbar b{color:var(--gilt);font-weight:500}
 
 /* ---------- header ---------- */
-header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 40px;border-bottom:2px solid var(--gold);position:sticky;top:0;background:var(--bg);z-index:60}
-.brand{display:flex;align-items:center;gap:12px}
-.brand .mark{width:34px;height:34px;flex:0 0 34px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:26px;line-height:1}
-.brand h1{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;letter-spacing:3.5px;font-weight:700}
-.brand h1 span{color:var(--gold);font-weight:400}
-.brand small{display:block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:9px;letter-spacing:2.4px;color:var(--muted);text-transform:uppercase;font-weight:400;margin-top:3px}
-header .tag{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;text-align:right;line-height:1.7}
-.confbar{background:var(--ink);color:#efe9dd;font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;text-align:center;padding:7px 14px}
-.confbar b{color:var(--gold-lt)}
-
-/* ---------- sample ribbon ---------- */
-.ribbon{position:fixed;top:20px;right:-52px;transform:rotate(45deg);background:var(--red);color:#fff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:2px;font-weight:700;padding:5px 60px;z-index:80;box-shadow:0 2px 8px rgba(0,0,0,.25);pointer-events:none}
+header{display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:22px 48px;border-bottom:1px solid var(--hair);position:sticky;top:0;
+  background:var(--cream);z-index:60}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .mark{display:flex;align-items:center}
+.brand .mark svg{height:34px;width:auto;display:block}
+.brand h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:27px;font-weight:600;
+  letter-spacing:-0.5px;color:var(--ink)}
+.brand h1 span{color:var(--ink)}
+.brand small{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  letter-spacing:1.8px;color:var(--teal);text-transform:uppercase;font-weight:400;margin-top:5px}
+header .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.8px;
+  color:var(--ink55);text-transform:uppercase;text-align:right;line-height:1.9}
 
 /* ---------- hero ---------- */
-.hero{padding:40px 40px 22px;max-width:1250px;margin:0 auto}
-.hero .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
-.hero h2{font-size:38px;font-weight:400;line-height:1.16;max-width:1000px}
+.hero{padding:56px 48px 26px;max-width:1250px;margin:0 auto;position:relative}
+.hero .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2.4px;
+  color:var(--teal);text-transform:uppercase;margin-bottom:20px}
+.hero h2{font-size:46px;font-weight:600;line-height:1.14;max-width:1000px;letter-spacing:-0.5px}
 .hero h2 em{color:var(--gold);font-style:italic}
-.hero p{margin-top:14px;max-width:920px;color:#3c4655;font-size:15px}
-.meta{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap;font-family:'Helvetica Neue',Arial,sans-serif;font-size:11.5px;color:var(--muted)}
-.meta b{color:var(--ink);font-weight:600}
+.hero p{margin-top:20px;max-width:900px;color:var(--ink);opacity:.78;font-size:15px;line-height:1.7}
+.meta{display:flex;gap:34px;margin-top:30px;flex-wrap:wrap;
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink55)}
+.meta b{color:var(--teal);font-weight:500;text-transform:uppercase;letter-spacing:1.4px;display:block;margin-bottom:3px}
+.meta div{line-height:1.6}
 
 /* ---------- tabs ---------- */
-nav.tabs{display:flex;gap:6px;padding:12px 40px 13px;max-width:1250px;margin:16px auto 0;flex-wrap:wrap;border-bottom:2px solid var(--line);position:sticky;top:69px;background:var(--bg);z-index:55;box-shadow:0 8px 16px -14px rgba(15,27,45,.55)}
-nav.tabs button{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12.5px;letter-spacing:.7px;text-transform:uppercase;font-weight:600;line-height:1;background:var(--card2);border:1px solid var(--line);border-radius:5px;padding:10px 14px;cursor:pointer;color:#41505f;transition:background .15s,color .15s,border-color .15s,box-shadow .15s,transform .12s}
-nav.tabs button:hover{background:#fff;border-color:var(--gold);color:var(--ink);transform:translateY(-1px);box-shadow:0 3px 8px -4px rgba(15,27,45,.28)}
-nav.tabs button.active{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:700;box-shadow:0 3px 10px -3px rgba(46,125,143,.65)}
-nav.tabs button.active:hover{background:#256575;border-color:#256575;color:#fff}
-@media(max-width:820px){nav.tabs{padding:10px 16px 11px;gap:5px}nav.tabs button{font-size:11px;padding:8px 10px;letter-spacing:.3px}}
+nav.tabs{display:flex;gap:5px;padding:14px 48px 15px;max-width:1250px;margin:14px auto 0;
+  flex-wrap:wrap;border-bottom:1px solid var(--hair);position:sticky;top:79px;
+  background:var(--cream);z-index:55}
+nav.tabs button{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.4px;
+  text-transform:uppercase;font-weight:400;line-height:1;background:transparent;
+  border:1px solid var(--hair);border-radius:2px;padding:10px 13px;cursor:pointer;
+  color:var(--ink55);transition:color .12s,border-color .12s,background .12s}
+nav.tabs button:hover{color:var(--ink);border-color:var(--ink)}
+nav.tabs button.active{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500}
+nav.tabs button.live{border-color:var(--teal);color:var(--teal)}
+nav.tabs button.live:hover{background:var(--teal);color:var(--cream);border-color:var(--teal)}
+nav.tabs button.live.active{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+nav.tabs button.live .pulse{display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:currentColor;margin-right:7px;vertical-align:middle}
+@media(max-width:820px){nav.tabs{padding:10px 18px 11px}nav.tabs button{font-size:9.5px;padding:8px 10px}}
 
 /* ---------- layout ---------- */
-main{max-width:1250px;margin:0 auto;padding:26px 40px 80px}
-.panel{display:none;animation:fade .25s ease}
+main{max-width:1250px;margin:0 auto;padding:34px 48px 96px}
+.panel{display:none}
 .panel.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.sec-eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
-h3.sec{font-size:26px;font-weight:400;margin-bottom:6px;line-height:1.2}
+.sec-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2.4px;
+  color:var(--teal);text-transform:uppercase;margin-bottom:12px;margin-top:8px}
+h3.sec{font-size:32px;font-weight:600;margin-bottom:10px;line-height:1.18;letter-spacing:-0.5px}
 h3.sec em{color:var(--gold);font-style:italic}
-.lead{color:#3c4655;font-size:14.5px;max-width:920px;margin-bottom:22px}
-
-.grid{display:grid;gap:18px}
+.lead{color:var(--ink);opacity:.78;font-size:14.5px;max-width:900px;margin-bottom:36px;line-height:1.7}
+.divider{height:1px;background:var(--hair);margin:48px 0}
+.grid{display:grid;gap:20px}
 .g2{grid-template-columns:1fr 1fr}
 .g3{grid-template-columns:1fr 1fr 1fr}
 .g4{grid-template-columns:repeat(4,1fr)}
 @media(max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr}}
 
 /* ---------- KPI ---------- */
-.kpi{background:var(--card2);border:1px solid var(--line);border-left:3px solid var(--gold);padding:16px 18px;border-radius:2px}
-.kpi .lbl{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.kpi .val{font-size:30px;font-weight:400;letter-spacing:-.5px;display:flex;align-items:baseline;gap:8px}
-.kpi .val small{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:600}
-.kpi .val small.up{color:var(--green)} .kpi .val small.down{color:var(--red)}
-.kpi .note{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+.kpi{background:transparent;border:none;border-top:1px solid var(--hair);padding:20px 0 0;border-radius:0}
+.kpi .lbl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+.kpi .val{font-family:'IBM Plex Mono',monospace;font-size:34px;font-weight:400;
+  letter-spacing:-1px;color:var(--ink);display:flex;align-items:baseline;gap:8px;line-height:1}
+.kpi .val small{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0}
+.kpi .val small.up{color:var(--teal)}
+.kpi .val small.down{color:var(--claret)}
+.kpi .note{font-family:'Manrope',sans-serif;font-size:11.5px;color:var(--ink55);margin-top:12px;line-height:1.5}
 
 /* ---------- cards ---------- */
-.card{background:var(--card2);border:1px solid var(--line);padding:22px 24px;border-radius:3px}
-.card h4{font-size:18px;font-weight:400;margin-bottom:4px}
+.card{background:transparent;border:1px solid var(--hair);padding:26px 26px 24px;border-radius:2px}
+.card h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;
+  margin-bottom:6px;letter-spacing:-0.4px}
 .card h4 em{color:var(--gold);font-style:italic}
-.card .sub{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.chartbox{position:relative;height:300px;margin:8px 0 14px}
+.card .sub{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--teal);margin-bottom:22px}
+.chartbox{position:relative;height:300px;margin:6px 0 18px}
 .chartbox.tall{height:340px}
-.read{font-size:13.5px;color:#374252;border-top:1px solid var(--line);padding-top:12px;margin-top:6px}
-.read b{color:var(--ink)}
+.read{font-size:13px;color:var(--ink);opacity:.82;border-top:1px solid var(--hair);
+  padding-top:14px;margin-top:8px;line-height:1.65}
+.read b{opacity:1;font-weight:700}
 
-/* ---------- callouts ---------- */
-.finding{background:#12233b;color:#eef2f6;border-radius:4px;padding:26px 30px;margin-bottom:24px}
-.finding .k{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:12px}
-.finding h3{font-size:27px;font-weight:400;line-height:1.28;max-width:960px}
-.finding h3 em{color:var(--gold-lt);font-style:italic;font-weight:400}
-.finding .fnote{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#aeb9c6;margin-top:14px;max-width:900px}
+/* ---------- finding / callout ---------- */
+.finding{background:var(--ink);color:var(--cream);border-radius:2px;padding:38px 40px;margin-bottom:34px}
+.finding .k{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2.4px;
+  text-transform:uppercase;color:var(--gilt);margin-bottom:18px}
+.finding h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:33px;font-weight:600;
+  line-height:1.3;max-width:960px;letter-spacing:-0.5px}
+.finding h3 em{color:var(--gold);font-style:italic;font-weight:600}
+.finding .fnote{font-family:'Manrope',sans-serif;font-size:12.5px;color:var(--cream72);
+  margin-top:20px;max-width:900px;line-height:1.65}
+.callout{background:transparent;border:none;border-left:2px solid var(--gold);
+  padding:4px 0 4px 22px;border-radius:0;font-size:13.5px;color:var(--ink);line-height:1.7}
+.callout b{font-weight:700}
+.callout.good{border-left-color:var(--teal)}
 
-.callout{background:var(--warn);border:1px solid var(--warnline);border-left:4px solid var(--warnline);padding:16px 20px;border-radius:3px;font-size:13.5px;color:#5c4a24}
-.callout b{color:#3d3010}
-.callout.good{background:#eef5ef;border-color:var(--green);border-left-color:var(--green);color:#2c4433}
-.callout.good b{color:#1f3325}
-
-/* ---------- four quadrant ---------- */
-.quad{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.quad .q{background:var(--card2);padding:20px 22px}
-.quad .q .qt{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-.dot.g{background:var(--green)} .dot.r{background:var(--red)} .dot.a{background:var(--amber)} .dot.b{background:var(--gold)}
-.quad .q ul{list-style:none;font-size:13px;color:#374252}
-.quad .q li{padding:5px 0 5px 16px;position:relative}
-.quad .q li:before{content:"—";position:absolute;left:0;color:var(--gold)}
+/* ---------- quad ---------- */
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--hair);
+  border-radius:2px;overflow:hidden;margin-bottom:34px}
+.quad .q{background:transparent;padding:26px 28px;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.quad .q:nth-child(2n){border-right:none}
+.quad .q:nth-last-child(-n+2){border-bottom:none}
+@media(max-width:900px){.quad{grid-template-columns:1fr}.quad .q{border-right:none}}
+.quad .q .qt{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.8px;
+  text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:9px;color:var(--teal)}
+.dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.dot.g{background:var(--teal)} .dot.r{background:var(--claret)}
+.dot.a{background:var(--gold)} .dot.b{background:var(--ink55)}
+.quad .q ul{list-style:none;font-size:13px;color:var(--ink);opacity:.85}
+.quad .q li{padding:7px 0 7px 18px;position:relative;line-height:1.6}
+.quad .q li:before{content:"";position:absolute;left:0;top:15px;width:8px;height:1px;background:var(--gold)}
 
 /* ---------- tables ---------- */
 table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
-th{font-family:'Helvetica Neue',Arial,sans-serif;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);font-weight:600}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-tr:hover td{background:#faf8f3}
-.tag-pill{font-family:'Helvetica Neue',Arial,sans-serif;font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;padding:2px 8px;border-radius:10px;font-weight:600;white-space:nowrap}
-.p-green{background:#e4efe6;color:var(--green)} .p-red{background:#f3e2e1;color:var(--red)}
-.p-amber{background:#fbf0da;color:#9a6c17} .p-blue{background:#e2edf0;color:#1f6070} .p-grey{background:#eceae4;color:var(--muted)}
-
-/* verification chain */
-.chain{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 4px}
-.chain .step{flex:1;min-width:150px;background:var(--card2);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:3px;padding:14px 16px}
-.chain .step .n{font-family:'Helvetica Neue',Arial,sans-serif;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
-.chain .step .t{font-size:15px;margin:6px 0 4px}
-.chain .step .d{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:#4a5462;line-height:1.4}
-
-/* AI answer layer */
-.ai{background:#12233b;border-radius:5px;padding:26px 28px;color:#e9eef3}
-.ai .aihead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.ai .aihead .mk{color:var(--gold-lt);font-size:20px}
-.ai .aihead h4{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-lt);font-weight:700}
-.ai .aisub{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#9fb0bf;margin-bottom:18px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.chip{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;background:#1c3350;border:1px solid #2c4a6a;color:#cdd9e4;padding:8px 14px;border-radius:18px;cursor:pointer;transition:.15s}
-.chip:hover{background:#264566;border-color:var(--gold-lt);color:#fff}
-.chip.active{background:var(--gold);border-color:var(--gold);color:#06222a;font-weight:600}
-.answer{background:#0c1a2c;border:1px solid #24405f;border-radius:5px;padding:20px 22px;min-height:120px}
-.answer .q{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px}
-.answer .a{font-size:14.5px;line-height:1.6;color:#e4ebf1}
-.answer .a b{color:#fff}
-.answer .cites{margin-top:14px;padding-top:12px;border-top:1px solid #24405f;font-family:'Helvetica Neue',Arial,sans-serif;font-size:10.5px;color:#8aa0b3}
-.answer .cites span{display:inline-block;background:#17293f;border:1px solid #2c4a6a;border-radius:3px;padding:2px 8px;margin:2px 4px 2px 0}
-.blink{display:inline-block;width:8px;height:15px;background:var(--gold-lt);animation:bl 1s steps(2) infinite;vertical-align:middle;margin-left:2px}
-@keyframes bl{50%{opacity:0}}
-
-/* misc */
-.divider{height:1px;background:var(--line);margin:32px 0}
-.footwrap{max-width:1250px;margin:0 auto;padding:24px 40px 60px;border-top:1px solid var(--line);font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;color:var(--muted);line-height:1.7}
-.footwrap b{color:var(--ink)}
-.smallcaps{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--hair)}
+th{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--teal);font-weight:500}
+td.num,th.num,td.mn{text-align:right;font-family:'IBM Plex Mono',monospace;
+  font-variant-numeric:tabular-nums;font-size:12.5px}
+tr:hover td{background:transparent}
+table tr.grp td{background:transparent;border-bottom:1px solid var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2.2px;
+  text-transform:uppercase;color:var(--ink);font-weight:500;padding:22px 14px 7px}
+.tag-pill{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.2px;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:500;white-space:nowrap;
+  border:1px solid currentColor}
+.p-green{color:var(--teal)} .p-red{color:var(--claret)}
+.p-amber{color:var(--gold)} .p-blue{color:var(--teal)} .p-grey{color:var(--ink55)}
+.opsmap td{vertical-align:top}
 .pgrid{display:grid;grid-template-columns:auto 1fr auto;gap:0;font-size:13px}
-.xref{color:var(--gold);text-decoration:none;border-bottom:1px dotted var(--gold);cursor:pointer;font-weight:600}.xref:hover{color:#1f5763;border-bottom-style:solid}.opsmap td{vertical-align:top}
+.smallcaps{font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--teal)}
 
-/* ---------- weekly monitoring console ---------- */
-nav.tabs button.live{background:#12233b;border-color:#12233b;color:#eef2f6}
-nav.tabs button.live:hover{background:#1c3350;border-color:var(--amber);color:#fff}
-nav.tabs button.live.active{background:var(--amber);border-color:var(--amber);color:#22190a;
-  box-shadow:0 3px 10px -3px rgba(201,150,63,.75)}
-nav.tabs button.live .pulse{display:inline-block;width:7px;height:7px;border-radius:50%;
-  background:var(--amber);margin-right:7px;vertical-align:middle;animation:pl 1.8s ease-in-out infinite}
-nav.tabs button.live.active .pulse{background:#22190a}
-@keyframes pl{0%,100%{opacity:1}50%{opacity:.25}}
+/* ---------- xref ---------- */
+.xref{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--gold);
+  cursor:pointer;font-weight:500}
+.xref:hover{color:var(--gold)}
 
-.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-.wkbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
-  background:#0c1a2c;border:1px solid #24405f;border-radius:5px;padding:11px 18px;margin-bottom:20px;
-  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:2px;
-  text-transform:uppercase;color:#9fb0bf}
-.wkbar b{color:#eef2f6;font-weight:600}
-.wkbar .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3f9e6e;
-  margin-right:8px;vertical-align:middle;animation:pl 1.8s ease-in-out infinite}
-.wkbar .st{color:var(--gold-lt)}
+/* ---------- verification chain ---------- */
+.chain{display:flex;flex-wrap:wrap;gap:0;margin:6px 0 34px;border:1px solid var(--hair);border-radius:2px}
+.chain .step{flex:1;min-width:160px;background:transparent;border-right:1px solid var(--hair);padding:20px 20px}
+.chain .step:last-child{border-right:none}
+.chain .step .n{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--teal)}
+.chain .step .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:600;margin:9px 0 6px;letter-spacing:-0.3px}
+.chain .step .d{font-family:'Manrope',sans-serif;font-size:11.5px;color:var(--ink55);line-height:1.55}
 
-.console{background:#0c1a2c;border:1px solid #24405f;border-radius:5px;padding:24px 26px;margin-bottom:22px;
-  display:grid;grid-template-columns:1.55fr 1fr;gap:26px}
+/* ---------- AI / answer panel ---------- */
+.ai{background:var(--ink);border-radius:2px;padding:34px 36px;color:var(--cream)}
+.ai .aihead{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ai .aihead .mk{color:var(--gold);font-size:18px}
+.ai .aihead h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2.4px;
+  text-transform:uppercase;color:var(--gilt);font-weight:500}
+.ai .aisub{font-family:'Manrope',sans-serif;font-size:12px;color:var(--cream72);margin-bottom:26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;
+  background:transparent;border:1px solid var(--hair-d);color:var(--cream72);
+  padding:9px 13px;border-radius:2px;cursor:pointer;transition:.12s}
+.chip:hover{border-color:var(--gilt);color:var(--cream)}
+.chip.active{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500}
+.answer{background:var(--fill-d);border:1px solid var(--hair-d);border-radius:2px;padding:26px 28px;min-height:120px}
+.answer .q{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--gilt);margin-bottom:14px}
+.answer .a{font-size:14.5px;line-height:1.75;color:var(--cream)}
+.answer .a b{color:var(--gilt);font-weight:700}
+.answer .cites{margin-top:20px;padding-top:15px;border-top:1px solid var(--hair-d);
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--cream72);letter-spacing:.6px}
+.answer .cites span{display:inline-block;border:1px solid var(--hair-d);border-radius:2px;
+  padding:3px 8px;margin:3px 5px 3px 0}
+.blink{display:inline-block;width:7px;height:14px;background:var(--gilt);vertical-align:middle;margin-left:2px}
+
+/* ---------- weekly console ---------- */
+.wkbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  background:var(--ink);border-radius:2px;padding:14px 22px;margin-bottom:34px;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--cream72)}
+.wkbar b{color:var(--cream);font-weight:500}
+.wkbar .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);
+  margin-right:9px;vertical-align:middle}
+.wkbar .st{color:var(--gilt)}
+.console{background:var(--ink);border-radius:2px;padding:34px 36px;margin-bottom:34px;
+  display:grid;grid-template-columns:1.55fr 1fr;gap:34px}
 @media(max-width:900px){.console{grid-template-columns:1fr}}
-.console .clabel{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;
-  letter-spacing:2.4px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:12px}
-.console .cbig{font-size:52px;line-height:1;font-weight:400;letter-spacing:-1.5px;margin-bottom:4px}
-.console .csub{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:#8aa0b3;margin-bottom:14px}
+.console .clabel{font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:var(--gilt);margin-bottom:16px}
+.console .cbig{font-family:'IBM Plex Mono',monospace;font-size:56px;line-height:1;
+  font-weight:400;letter-spacing:-2px;margin-bottom:8px}
+.console .csub{font-family:'Manrope',sans-serif;font-size:12px;color:var(--cream72);margin-bottom:20px}
 .console .chartbox{height:230px;margin:0}
-.wkchips{display:flex;flex-direction:column;gap:10px;justify-content:center}
-.wkchip{background:#12233b;border:1px solid #2c4a6a;border-left:3px solid var(--gold-lt);border-radius:4px;padding:13px 15px}
-.wkchip .t{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;letter-spacing:1.6px;
-  text-transform:uppercase;color:var(--gold-lt);margin-bottom:5px}
-.wkchip .d{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12.5px;color:#dbe3ea;line-height:1.45}
-.wkchip.warn{border-left-color:var(--amber)} .wkchip.warn .t{color:#e0b25f}
-.wkchip.bad{border-left-color:#d9635b} .wkchip.bad .t{color:#e4837c}
-.wkchip.good{border-left-color:#4f9e72} .wkchip.good .t{color:#6cbb90}
+.wkchips{display:flex;flex-direction:column;gap:0;justify-content:center}
+.wkchip{background:transparent;border:none;border-top:1px solid var(--hair-d);padding:18px 0 18px 0}
+.wkchip:last-child{border-bottom:1px solid var(--hair-d)}
+.wkchip .t{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--gilt);margin-bottom:7px}
+.wkchip .d{font-family:'Manrope',sans-serif;font-size:12.5px;color:var(--cream);line-height:1.55;opacity:.88}
+.wkchip.warn .t{color:var(--gilt)}
+.wkchip.bad .t{color:var(--coral)}
+.wkchip.good .t{color:var(--gilt)}
 
-.rank{display:flex;align-items:flex-start;gap:15px;background:var(--card2);border:1px solid var(--line);
-  border-radius:4px;padding:14px 16px;margin-bottom:9px}
-.rank .n{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:700;
-  color:#fff;background:var(--red);border-radius:4px;min-width:30px;height:30px;display:flex;
-  align-items:center;justify-content:center;flex:0 0 30px}
-.rank.r2 .n{background:var(--amber)} .rank.r3 .n{background:var(--muted)}
+/* ---------- ranked diagnosis ---------- */
+.rank{display:flex;align-items:flex-start;gap:18px;background:transparent;
+  border:none;border-bottom:1px solid var(--hair);padding:18px 0;margin-bottom:0;border-radius:0}
+.rank .n{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;
+  color:var(--claret);background:transparent;min-width:26px;height:auto;display:block;flex:0 0 26px;
+  letter-spacing:1px;padding-top:3px}
+.rank.r2 .n{color:var(--gold)} .rank.r3 .n{color:var(--ink55)}
 .rank .body{flex:1}
-.rank .t{font-size:15px;color:var(--ink);margin-bottom:2px}
-.rank .d{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;color:var(--muted);line-height:1.5}
+.rank .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:600;
+  color:var(--ink);margin-bottom:4px;letter-spacing:-0.3px}
+.rank .d{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink55);line-height:1.6}
 
-.fixbox{background:#0c1a2c;border:1px solid #24405f;border-radius:5px;padding:22px 24px;height:100%}
-.fixbox .clabel{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10.5px;
-  letter-spacing:2.2px;text-transform:uppercase;color:#6cbb90;margin-bottom:16px}
-.fixrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
-.fixrow .old{font-size:38px;color:#5c6f81;position:relative;line-height:1}
-.fixrow .old:after{content:"";position:absolute;left:-3px;right:-3px;top:52%;height:3px;background:#d9635b}
-.fixrow .arw{color:#8aa0b3;font-size:22px}
-.fixrow .new{font-size:44px;color:#6cbb90;line-height:1;letter-spacing:-1px}
-.fixbox .why{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12.5px;color:#aab7c4;margin-bottom:14px;line-height:1.5}
-.fixbox ul{list-style:none} .fixbox li{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:#e4ebf1;
-  padding:5px 0 5px 18px;position:relative}
-.fixbox li:before{content:"\25B8";position:absolute;left:0;color:#6cbb90}
+/* ---------- fix box ---------- */
+.fixbox{background:var(--ink);border-radius:2px;padding:32px 34px;height:100%}
+.fixbox .clabel{font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:var(--gilt);margin-bottom:24px}
+.fixrow{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.fixrow .old{font-family:'IBM Plex Mono',monospace;font-size:36px;color:var(--cream72);
+  position:relative;line-height:1;opacity:.55}
+.fixrow .old:after{content:"";position:absolute;left:-3px;right:-3px;top:52%;height:2px;background:var(--coral)}
+.fixrow .arw{color:var(--cream72);font-size:20px}
+.fixrow .new{font-family:'IBM Plex Mono',monospace;font-size:50px;color:var(--gold);
+  line-height:1;letter-spacing:-2px}
+.fixbox .why{font-family:'Manrope',sans-serif;font-size:12.5px;color:var(--cream72);
+  margin-bottom:20px;line-height:1.65}
+.fixbox ul{list-style:none}
+.fixbox li{font-family:'Manrope',sans-serif;font-size:13px;color:var(--cream);
+  padding:7px 0 7px 18px;position:relative;opacity:.9}
+.fixbox li:before{content:"";position:absolute;left:0;top:16px;width:8px;height:1px;background:var(--gilt)}
 
-.confgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:22px}
+/* ---------- confidence columns ---------- */
+.confgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:34px;
+  border:1px solid var(--hair);border-radius:2px}
 @media(max-width:900px){.confgrid{grid-template-columns:1fr}}
-.confcol{background:var(--card2);border:1px solid var(--line);border-radius:4px;padding:18px 20px}
-.confcol h5{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;letter-spacing:1.8px;
-  text-transform:uppercase;margin-bottom:12px;font-weight:700}
-.confcol.hi{border-top:3px solid var(--green)} .confcol.hi h5{color:var(--green)}
-.confcol.md{border-top:3px solid var(--amber)} .confcol.md h5{color:#9a6c17}
-.confcol.no{border-top:3px solid var(--red)} .confcol.no h5{color:var(--red)}
+.confcol{background:transparent;border:none;border-right:1px solid var(--hair);padding:24px 26px}
+.confcol:last-child{border-right:none}
+.confcol h5{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:18px;font-weight:500;padding-bottom:12px;
+  border-bottom:1px solid var(--hair)}
+.confcol.hi h5{color:var(--teal)}
+.confcol.md h5{color:var(--gold)}
+.confcol.no h5{color:var(--claret)}
 .confcol ul{list-style:none}
-.confcol li{font-size:12.5px;color:#374252;padding:5px 0 5px 15px;position:relative;line-height:1.45}
-.confcol li:before{content:"\2022";position:absolute;left:0;color:var(--muted)}
+.confcol li{font-size:12.5px;color:var(--ink);opacity:.82;padding:7px 0 7px 16px;position:relative;line-height:1.55}
+.confcol li:before{content:"";position:absolute;left:0;top:15px;width:7px;height:1px;background:var(--ink30)}
 
-.actrow{display:flex;align-items:flex-start;gap:15px;background:var(--card2);border:1px solid var(--line);
-  border-radius:4px;padding:14px 16px;margin-bottom:9px}
-.actrow .n{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:700;
-  color:#22190a;background:var(--amber);border-radius:4px;min-width:30px;height:30px;display:flex;
-  align-items:center;justify-content:center;flex:0 0 30px}
-.actrow .t{font-size:15px;color:var(--ink);flex:0 0 250px}
-.actrow .d{font-size:13px;color:#374252;flex:1}
+/* ---------- actions ---------- */
+.actrow{display:flex;align-items:flex-start;gap:18px;background:transparent;border:none;
+  border-bottom:1px solid var(--hair);padding:18px 0;margin-bottom:0;border-radius:0}
+.actrow .n{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--gold);
+  background:transparent;min-width:26px;height:auto;display:block;flex:0 0 26px;padding-top:3px}
+.actrow .t{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:600;
+  color:var(--ink);flex:0 0 260px;letter-spacing:-0.3px;line-height:1.25}
+.actrow .d{font-size:13px;color:var(--ink);opacity:.82;flex:1;line-height:1.65}
 @media(max-width:760px){.actrow .t{flex:1 1 100%}}
-</style>
+
+/* ---------- metric small multiples ---------- */
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:34px;
+  border-top:1px solid var(--hair);border-left:1px solid var(--hair)}
+@media(max-width:1100px){.mgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.mgrid{grid-template-columns:1fr}}
+.mcard{background:transparent;border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  border-radius:0;padding:20px 20px 18px}
+.mcard .ml{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--teal);
+  margin-bottom:12px;min-height:22px;line-height:1.3}
+.mcard .mv{font-family:'IBM Plex Mono',monospace;font-size:25px;line-height:1;margin-bottom:12px;
+  display:flex;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums;letter-spacing:-0.8px}
+.mcard .mv .md{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0}
+.mcard .md.up{color:var(--teal)} .mcard .md.down{color:var(--claret)} .mcard .md.flat{color:var(--ink55)}
+.mcard .mc{height:70px;position:relative;margin-bottom:12px}
+.mcard .mf{font-size:9px;color:var(--ink55);line-height:1.5;border-top:1px solid var(--hair);padding-top:9px;letter-spacing:.4px}
+
+/* ---------- at-a-glance graphics ---------- */
+.gfx{background:var(--ink);border-radius:2px;padding:34px 36px 30px;margin-bottom:34px}
+.gfx .ghead{font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gilt);margin-bottom:26px}
+.gwrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+@media(max-width:980px){.gwrap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.gwrap{grid-template-columns:1fr}}
+.gtile{background:transparent;border:none;border-top:1px solid var(--hair-d);
+  border-right:1px solid var(--hair-d);border-radius:0;padding:24px 24px 20px;position:relative}
+.gtile:nth-child(3n){border-right:none}
+@media(max-width:980px){.gtile:nth-child(3n){border-right:1px solid var(--hair-d)}
+  .gtile:nth-child(2n){border-right:none}}
+.gtile .glabel{font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--cream72);margin-bottom:16px}
+.gtile .gbig{font-family:'IBM Plex Mono',monospace;font-size:42px;line-height:1;
+  letter-spacing:-1.8px;font-weight:400;display:flex;align-items:baseline;gap:5px}
+.gtile .gbig .gunit{font-size:17px;letter-spacing:0;opacity:.7}
+.gtile .gdelta{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1px;
+  padding:0;border-radius:0;background:transparent;text-transform:uppercase}
+.gtile .gdelta .arw{font-size:9px}
+.g-red{color:var(--coral)} .g-green{color:var(--gilt)}
+.g-amber{color:var(--gilt)} .g-teal{color:var(--cream72)}
+.gbars{display:flex;align-items:flex-end;gap:4px;height:42px;margin:20px 0 16px}
+.gbars i{flex:1;border-radius:0;display:block}
+.gtile .gnote{font-size:9px;color:var(--cream72);line-height:1.6;
+  border-top:1px solid var(--hair-d);padding-top:12px;letter-spacing:.4px}
+
+/* ---------- footer ---------- */
+.footwrap{max-width:1250px;margin:0 auto;padding:34px 48px 80px;border-top:1px solid var(--hair);
+  font-family:'Manrope',sans-serif;font-size:11.5px;color:var(--ink55);line-height:1.8}
+.footwrap b{color:var(--ink)}
+.footwrap .smallcaps{display:block;margin-top:8px;line-height:1.9}
+.hero:after{content:'';position:absolute;right:40px;top:34px;width:190px;height:190px;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNDAgNDAiIGZpbGw9Im5vbmUiPgogIDxwYXRoIGQ9Ik04IDMwYzAtOSA2LTE2IDE1LTE2IDQgMCA3IDEgOSA0LTItMS00LTEtNiAwIDMgMCA1IDIgNiA1LTQtMi04LTEtMTEgMi0zIDMtOCA0LTEzIDV6IiBmaWxsPSIjMTYyMTFGIi8+CiAgPGNpcmNsZSBjeD0iMzAuNSIgY3k9IjE1LjUiIHI9IjEuNCIgZmlsbD0iI0E5ODU0MyIvPgo8L3N2Zz4=) no-repeat center/contain;opacity:.05;pointer-events:none}</style>
 </head>
 <body>
 
-<div class="ribbon">SAMPLE</div>
+<div class="ribbon">Sample</div>
 
 <div class="confbar">Illustrative demonstration &nbsp;·&nbsp; Fictional company &amp; sponsor &nbsp;·&nbsp; <b>All figures invented for capability showcase</b> &nbsp;·&nbsp; Not investment advice</div>
 
-<header>
-  <div class="brand">
-    <div class="mark">&#9670;</div>
-    <div>
-      <h1>CREDIT<span>SWAN</span>.AI</h1>
-      <small>Decision-Grade Credit Diligence</small>
-    </div>
-  </div>
-  <div class="tag">Project Summit<br>Prepared for Meridian Ridge Capital</div>
-</header>
+<header><div class="brand"><div class="mark"><svg role="img" aria-label="CreditSwan" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 712.5 191.1" fill="none">
+  
+  <g transform="translate(35.0,39.5) scale(2.8000)">
+    <path d="M8 30c0-9 6-16 15-16 4 0 7 1 9 4-2-1-4-1-6 0 3 0 5 2 6 5-4-2-8-1-11 2-3 3-8 4-13 5z" fill="#16211F"/>
+    <circle cx="30.5" cy="15.5" r="1.4" fill="#A98543"/>
+  </g>
+  <g transform="translate(191.0,127.4) scale(0.10000)" fill="#16211F">
+    <path d="M421 -636Q456 -636 488.5 -632.5Q521 -629 549.5 -622.5Q578 -616 601 -605Q609 -601 611.5 -597.0Q614 -593 615 -582L627 -450Q627 -447 622.0 -446.0Q617 -445 615 -449Q589 -530 538.0 -573.5Q487 -617 410 -617Q336 -617 279.0 -580.5Q222 -544 190.0 -476.5Q158 -409 158 -316Q158 -248 177.5 -191.0Q197 -134 232.5 -93.0Q268 -52 315.0 -29.5Q362 -7 418 -7Q493 -7 541.0 -46.0Q589 -85 625 -168Q626 -171 631.0 -170.0Q636 -169 636 -167L623 -48Q622 -36 619.5 -32.5Q617 -29 609 -25Q560 -5 513.0 3.5Q466 12 417 12Q310 12 227.0 -28.5Q144 -69 96.5 -142.5Q49 -216 49 -311Q49 -383 77.0 -443.0Q105 -503 155.5 -546.0Q206 -589 274.0 -612.5Q342 -636 421 -636Z"/><path d="M858.0 -271 851.0 -283Q889.0 -328 915.5 -352.5Q942.0 -377 960.0 -386.5Q978.0 -396 994.0 -396Q1015.0 -396 1036.5 -381.5Q1058.0 -367 1058.0 -345Q1058.0 -327 1047.0 -315.0Q1036.0 -303 1016.0 -303Q998.0 -303 988.0 -313.0Q978.0 -323 969.0 -332.0Q960.0 -341 944.0 -341Q936.0 -341 927.0 -336.5Q918.0 -332 902.0 -317.0Q886.0 -302 858.0 -271ZM744.0 0Q741.0 0 741.0 -6.0Q741.0 -12 744.0 -12Q778.0 -12 789.0 -26.0Q800.0 -40 800.0 -81V-272Q800.0 -304 793.0 -319.0Q786.0 -334 768.0 -334Q759.0 -334 746.0 -330.0Q733.0 -326 718.0 -319Q714.0 -318 711.5 -323.5Q709.0 -329 712.0 -330L843.0 -394Q848.0 -396 850.0 -396Q860.0 -396 870.5 -373.0Q881.0 -350 881.0 -306V-81Q881.0 -54 889.0 -38.5Q897.0 -23 917.0 -17.5Q937.0 -12 973.0 -12Q977.0 -12 977.0 -6.0Q977.0 0 973.0 0Q947.0 0 913.5 -1.0Q880.0 -2 841.0 -2Q814.0 -2 788.5 -1.0Q763.0 0 744.0 0Z"/><path d="M1314.0 12Q1251.0 12 1207.0 -15.0Q1163.0 -42 1140.5 -86.5Q1118.0 -131 1118.0 -181Q1118.0 -241 1147.0 -289.0Q1176.0 -337 1226.0 -366.0Q1276.0 -395 1339.0 -395Q1398.0 -395 1431.0 -367.0Q1464.0 -339 1464.0 -280Q1464.0 -267 1462.0 -259.0Q1460.0 -251 1453.0 -251H1371.0Q1374.0 -309 1357.5 -342.0Q1341.0 -375 1303.0 -375Q1258.0 -375 1232.5 -333.5Q1207.0 -292 1207.0 -223Q1207.0 -165 1225.0 -122.5Q1243.0 -80 1278.0 -56.0Q1313.0 -32 1364.0 -32Q1395.0 -32 1416.0 -40.5Q1437.0 -49 1461.0 -62Q1463.0 -64 1466.5 -60.0Q1470.0 -56 1468.0 -53Q1432.0 -18 1394.5 -3.0Q1357.0 12 1314.0 12ZM1178.0 -250 1177.0 -267 1399.0 -271V-251Z"/><path d="M1703.0 13Q1661.0 13 1625.0 -10.5Q1589.0 -34 1567.5 -77.0Q1546.0 -120 1546.0 -181Q1546.0 -240 1568.0 -281.5Q1590.0 -323 1624.5 -349.0Q1659.0 -375 1699.0 -387.0Q1739.0 -399 1775.0 -399Q1811.0 -399 1842.0 -389.0Q1873.0 -379 1898.0 -363L1879.0 -287Q1857.0 -330 1828.5 -352.5Q1800.0 -375 1756.0 -375Q1701.0 -375 1668.5 -336.5Q1636.0 -298 1636.0 -212Q1636.0 -155 1651.0 -114.5Q1666.0 -74 1693.0 -52.5Q1720.0 -31 1753.0 -31Q1794.0 -31 1826.0 -54.0Q1858.0 -77 1887.0 -109L1896.0 -101Q1875.0 -77 1846.5 -50.5Q1818.0 -24 1782.5 -5.5Q1747.0 13 1703.0 13ZM1940.0 -714V-114Q1940.0 -79 1947.0 -64.5Q1954.0 -50 1971.0 -50Q1979.0 -50 1990.5 -53.0Q2002.0 -56 2016.0 -62Q2019.0 -64 2022.0 -58.5Q2025.0 -53 2022.0 -51L1894.0 11Q1891.0 12 1888.0 12Q1877.0 12 1868.0 -12.0Q1859.0 -36 1859.0 -82V-592Q1859.0 -626 1853.0 -642.0Q1847.0 -658 1829.0 -658Q1821.0 -658 1811.0 -654.5Q1801.0 -651 1789.0 -646Q1785.0 -644 1782.0 -650.0Q1779.0 -656 1782.0 -657L1922.0 -724Q1924.0 -725 1926.0 -725Q1930.0 -725 1935.0 -721.0Q1940.0 -717 1940.0 -714Z"/><path d="M2088.0 0Q2085.0 0 2085.0 -6.0Q2085.0 -12 2088.0 -12Q2122.0 -12 2133.5 -26.0Q2145.0 -40 2145.0 -81V-263Q2145.0 -297 2138.0 -312.5Q2131.0 -328 2114.0 -328Q2106.0 -328 2096.0 -325.0Q2086.0 -322 2074.0 -316Q2070.0 -315 2067.5 -321.0Q2065.0 -327 2068.0 -328L2212.0 -395Q2214.0 -396 2215.0 -396Q2219.0 -396 2223.5 -391.5Q2228.0 -387 2228.0 -384Q2228.0 -373 2227.0 -344.0Q2226.0 -315 2226.0 -264V-81Q2226.0 -40 2237.5 -26.0Q2249.0 -12 2283.0 -12Q2286.0 -12 2286.0 -6.0Q2286.0 0 2283.0 0Q2263.0 0 2238.0 -1.0Q2213.0 -2 2185.0 -2Q2158.0 -2 2132.5 -1.0Q2107.0 0 2088.0 0ZM2180.0 -501Q2154.0 -501 2139.5 -515.0Q2125.0 -529 2125.0 -555Q2125.0 -579 2139.5 -593.0Q2154.0 -607 2180.0 -607Q2205.0 -607 2218.5 -593.0Q2232.0 -579 2232.0 -555Q2232.0 -501 2180.0 -501Z"/><path d="M2515.0 12Q2491.0 12 2467.5 4.0Q2444.0 -4 2428.5 -23.0Q2413.0 -42 2413.0 -77V-303Q2413.0 -325 2408.5 -337.0Q2404.0 -349 2393.0 -353.5Q2382.0 -358 2362.0 -358Q2358.0 -358 2358.0 -366.0Q2358.0 -374 2362.0 -374Q2409.0 -376 2438.5 -396.5Q2468.0 -417 2480.0 -455Q2481.0 -459 2488.0 -459.0Q2495.0 -459 2495.0 -455V-110Q2495.0 -69 2515.5 -51.0Q2536.0 -33 2569.0 -33Q2593.0 -33 2613.5 -42.5Q2634.0 -52 2648.0 -63Q2651.0 -65 2655.0 -60.5Q2659.0 -56 2655.0 -53Q2618.0 -19 2585.5 -3.5Q2553.0 12 2515.0 12ZM2624.0 -336Q2584.0 -345 2546.5 -348.5Q2509.0 -352 2466.0 -352V-376Q2507.0 -376 2545.5 -379.0Q2584.0 -382 2628.0 -386Q2630.0 -386 2632.5 -379.0Q2635.0 -372 2635.0 -362Q2635.0 -353 2631.5 -344.0Q2628.0 -335 2624.0 -336Z"/><path d="M2851.0 -518Q2851.0 -479 2871.0 -450.5Q2891.0 -422 2922.5 -399.0Q2954.0 -376 2989.0 -354Q3027.0 -331 3061.5 -305.0Q3096.0 -279 3118.5 -245.5Q3141.0 -212 3141.0 -164Q3141.0 -112 3114.0 -72.5Q3087.0 -33 3039.5 -10.5Q2992.0 12 2928.0 12Q2901.0 12 2871.5 7.0Q2842.0 2 2816.5 -7.0Q2791.0 -16 2775.0 -26Q2771.0 -29 2768.5 -33.0Q2766.0 -37 2765.0 -45L2759.0 -196Q2758.0 -201 2763.5 -201.5Q2769.0 -202 2770.0 -198Q2782.0 -168 2798.5 -134.5Q2815.0 -101 2837.0 -73.0Q2859.0 -45 2887.5 -27.5Q2916.0 -10 2953.0 -10Q2979.0 -10 3002.0 -19.0Q3025.0 -28 3040.0 -50.5Q3055.0 -73 3055.0 -112Q3055.0 -159 3033.5 -192.5Q3012.0 -226 2979.0 -251.0Q2946.0 -276 2910.0 -298Q2875.0 -321 2843.0 -345.0Q2811.0 -369 2790.5 -400.5Q2770.0 -432 2770.0 -477Q2770.0 -532 2800.0 -567.0Q2830.0 -602 2876.5 -619.0Q2923.0 -636 2972.0 -636Q3005.0 -636 3039.0 -630.0Q3073.0 -624 3097.0 -613Q3106.0 -610 3109.0 -605.0Q3112.0 -600 3112.0 -594L3114.0 -459Q3114.0 -455 3109.5 -454.0Q3105.0 -453 3103.0 -456Q3098.0 -471 3088.0 -497.5Q3078.0 -524 3060.0 -551.0Q3042.0 -578 3015.0 -597.0Q2988.0 -616 2949.0 -616Q2919.0 -616 2897.0 -604.0Q2875.0 -592 2863.0 -570.5Q2851.0 -549 2851.0 -518Z"/><path d="M3669.0 -1 3520.0 -303Q3499.0 -347 3486.5 -360.5Q3474.0 -374 3455.0 -374Q3453.0 -374 3453.0 -380.0Q3453.0 -386 3455.0 -386Q3470.0 -386 3488.5 -385.0Q3507.0 -384 3535.0 -384Q3571.0 -384 3596.5 -385.0Q3622.0 -386 3644.0 -386Q3646.0 -386 3646.0 -380.0Q3646.0 -374 3644.0 -374Q3617.0 -374 3602.5 -364.5Q3588.0 -355 3598.0 -335L3720.0 -94L3678.0 -22L3789.0 -292Q3805.0 -332 3788.0 -353.0Q3771.0 -374 3728.0 -374Q3725.0 -374 3725.0 -380.0Q3725.0 -386 3728.0 -386Q3751.0 -386 3772.5 -385.0Q3794.0 -384 3828.0 -384Q3852.0 -384 3866.5 -385.0Q3881.0 -386 3902.0 -386Q3905.0 -386 3905.0 -380.0Q3905.0 -374 3902.0 -374Q3875.0 -374 3854.5 -354.5Q3834.0 -335 3814.0 -290L3691.0 -1Q3690.0 3 3680.5 3.0Q3671.0 3 3669.0 -1ZM3426.0 -1 3278.0 -303Q3256.0 -348 3241.0 -361.0Q3226.0 -374 3205.0 -374Q3202.0 -374 3202.0 -380.0Q3202.0 -386 3205.0 -386Q3221.0 -386 3241.0 -385.0Q3261.0 -384 3292.0 -384Q3327.0 -384 3353.0 -385.0Q3379.0 -386 3401.0 -386Q3404.0 -386 3404.0 -380.0Q3404.0 -374 3401.0 -374Q3374.0 -374 3357.5 -366.0Q3341.0 -358 3353.0 -335L3479.0 -94L3435.0 -22L3544.0 -285L3568.0 -280L3448.0 -1Q3447.0 3 3437.5 3.0Q3428.0 3 3426.0 -1Z"/><path d="M4219.0 6Q4215.0 8 4210.0 8Q4194.0 8 4178.0 -15.0Q4162.0 -38 4162.0 -82V-258Q4162.0 -321 4149.5 -349.0Q4137.0 -377 4110.0 -377Q4085.0 -377 4071.5 -362.5Q4058.0 -348 4052.0 -329.5Q4046.0 -311 4045.0 -298Q4042.0 -273 4029.5 -260.0Q4017.0 -247 3994.0 -247Q3971.0 -247 3961.0 -257.5Q3951.0 -268 3951.0 -282Q3951.0 -304 3971.5 -324.5Q3992.0 -345 4023.5 -361.0Q4055.0 -377 4089.0 -386.5Q4123.0 -396 4149.0 -396Q4190.0 -396 4216.5 -370.0Q4243.0 -344 4243.0 -288V-108Q4243.0 -77 4253.0 -61.0Q4263.0 -45 4282.0 -45Q4298.0 -45 4318.0 -54Q4323.0 -56 4325.0 -50.5Q4327.0 -45 4322.0 -43ZM4031.0 7Q3989.0 7 3968.5 -13.0Q3948.0 -33 3948.0 -64Q3948.0 -92 3963.0 -109.5Q3978.0 -127 4005.0 -138.5Q4032.0 -150 4065.0 -162L4172.0 -202L4175.0 -187L4102.0 -156Q4090.0 -152 4076.0 -144.5Q4062.0 -137 4052.5 -125.0Q4043.0 -113 4043.0 -93Q4043.0 -69 4059.0 -54.5Q4075.0 -40 4095.0 -40Q4104.0 -40 4113.0 -42.5Q4122.0 -45 4134.0 -53L4188.0 -89L4189.0 -74L4118.0 -24Q4095.0 -8 4075.5 -0.5Q4056.0 7 4031.0 7Z"/><path d="M4652.0 0Q4649.0 0 4649.0 -6.0Q4649.0 -12 4652.0 -12Q4686.0 -12 4697.0 -26.0Q4708.0 -40 4708.0 -81V-231Q4708.0 -287 4687.5 -313.5Q4667.0 -340 4623.0 -340Q4591.0 -340 4557.5 -322.5Q4524.0 -305 4502.0 -274L4497.0 -286Q4536.0 -339 4579.5 -368.5Q4623.0 -398 4673.0 -398Q4729.0 -398 4759.0 -364.5Q4789.0 -331 4789.0 -274V-81Q4789.0 -40 4800.5 -26.0Q4812.0 -12 4846.0 -12Q4849.0 -12 4849.0 -6.0Q4849.0 0 4846.0 0Q4827.0 0 4802.0 -1.0Q4777.0 -2 4749.0 -2Q4722.0 -2 4696.5 -1.0Q4671.0 0 4652.0 0ZM4383.0 0Q4380.0 0 4380.0 -6.0Q4380.0 -12 4383.0 -12Q4417.0 -12 4428.0 -26.0Q4439.0 -40 4439.0 -81V-272Q4439.0 -304 4432.0 -319.0Q4425.0 -334 4407.0 -334Q4398.0 -334 4385.0 -330.0Q4372.0 -326 4357.0 -319Q4353.0 -318 4350.5 -323.5Q4348.0 -329 4351.0 -330L4482.0 -394Q4487.0 -396 4489.0 -396Q4499.0 -396 4509.5 -373.0Q4520.0 -350 4520.0 -306V-81Q4520.0 -40 4531.5 -26.0Q4543.0 -12 4577.0 -12Q4580.0 -12 4580.0 -6.0Q4580.0 0 4577.0 0Q4558.0 0 4533.0 -1.0Q4508.0 -2 4480.0 -2Q4453.0 -2 4427.5 -1.0Q4402.0 0 4383.0 0Z"/>
+  </g>
+</svg></div></div><div class="tag">Project Summit<br>Prepared for Meridian Ridge Capital</div></header>
 
 <section class="hero">
   <div class="eyebrow">Integrated Credit &amp; Operational Diligence · Unitranche Committee Pack · LTM Jun-2026</div>
@@ -395,7 +518,7 @@ nav.tabs button.live.active .pulse{background:#22190a}
   <div class="console">
     <div>
       <div class="clabel">CLUB REPLENISHMENT ORDERS — 4-WEEK ROLLING YoY</div>
-      <div class="cbig" style="color:#e8837c">&minus;9.4%</div>
+      <div class="cbig" style="color:#FF8A80">&minus;9.4%</div>
       <div class="csub">Fifth consecutive week of decline &middot; first flagged W26</div>
       <div class="chartbox"><canvas id="wkTrend"></canvas></div>
     </div>
@@ -421,7 +544,7 @@ nav.tabs button.live.active .pulse{background:#22190a}
     </div>
   </div>
 
-  <div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Monitoring health by workstream</h4><div class="sub">Signal health index (100 = fully green)</div><div class="chartbox"><canvas id="wkScore"></canvas></div><div class="read"><b>Read:</b> Customer and supply-chain signals have deteriorated; earnings quality and sourcing remain stable. The index is what drives which workstream gets attention in the following week.</div></div><div class="card"><h4>Alerts raised vs. resolved</h4><div class="sub">Count by week &middot; trailing eight weeks</div><div class="chartbox"><canvas id="wkAlert"></canvas></div><div class="read"><b>Read:</b> Alert volume rose through W26–W28 as the club signal developed, then resolution caught up. The open red alert is the replenishment trend, which cannot resolve until the reauthorization is confirmed.</div></div></div>
+  <div class="sec-eyebrow">Weekly operating &amp; commercial metrics</div><h3 class="sec" style="font-size:22px;margin-bottom:6px">The week in <em>numbers</em></h3><p class="lead">Beneath the signal sits the full weekly flash — sales, units, margin, order economics and service levels, each compared to the prior week, the four-week average, and the same week last year. This is the operating layer the credit signals are derived from.</p><div class="grid g4" style="margin-bottom:22px"><div class="kpi"><div class="lbl">Net Sales — Week</div><div class="val">$5.81<small class="down">MM</small></div><div class="note">&minus;2.2% vs prior week</div></div><div class="kpi"><div class="lbl">Units Shipped</div><div class="val">1.42<small class="down">MM</small></div><div class="note">&minus;3.4% vs prior week</div></div><div class="kpi"><div class="lbl">Gross Margin</div><div class="val">38.0%<small class="up">+180bps</small></div><div class="note">vs same week last year</div></div><div class="kpi"><div class="lbl">In-Stock Rate</div><div class="val">93.4%<small class="down">&minus;2.1pts</small></div><div class="note">Below 96% target</div></div></div><div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Net sales and units — weekly</h4><div class="sub">Net sales ($MM, bars) and units shipped (K, line)</div><div class="chartbox"><canvas id="wkSales"></canvas></div><div class="read"><b>Read:</b> Sales and units have declined together for three weeks, with units falling faster &mdash; volume is coming out ahead of price, consistent with the club replenishment signal rather than trade-down.</div></div><div class="card"><h4>Order economics — AOV and transactions</h4><div class="sub">DTC orders (bars) and average order value ($, line)</div><div class="chartbox"><canvas id="wkAov"></canvas></div><div class="read"><b>Read:</b> Average order value keeps climbing while order count softens &mdash; a smaller, higher-value buyer base. Healthy for margin, but it does not replace the lost club volume.</div></div></div><div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Gross margin vs. promotional depth</h4><div class="sub">Weekly gross margin % against promo depth %</div><div class="chartbox"><canvas id="wkMargin"></canvas></div><div class="read"><b>Read:</b> Margin has held near 38% even as promo depth crept up, which is why the week reads as a volume problem rather than a pricing one. Promo depth is the number to watch next.</div></div><div class="card"><h4>Service levels — in-stock and fill rate</h4><div class="sub">In-stock % and OTIF fill rate against target</div><div class="chartbox"><canvas id="wkStock"></canvas></div><div class="read"><b>Read:</b> Both service measures are below target and still falling. In a replenishment-driven account, service failures are a leading cause of order-cadence decline &mdash; the two signals are linked.</div></div></div><div class="gfx"><div class="ghead">Week 30 at a glance &nbsp;·&nbsp; Jul 20–26, 2026</div><div class="gwrap"><div class="gtile"><div class="glabel">Sales $</div><div class="gbig g-amber">$5.81<span class="gunit">MM</span></div><div class="gdelta g-amber"><span class="arw">&#9660;</span>2.2% WoW</div><div class="gbars"><i style="height:100%;background:rgba(233,197,131,0.42)"></i><i style="height:85%;background:rgba(233,197,131,0.42)"></i><i style="height:78%;background:rgba(233,197,131,0.42)"></i><i style="height:63%;background:rgba(233,197,131,0.42)"></i><i style="height:55%;background:rgba(233,197,131,0.42)"></i><i style="height:41%;background:rgba(233,197,131,0.42)"></i><i style="height:70%;background:rgba(233,197,131,0.42)"></i><i style="height:22%;background:#E9C583"></i></div><div class="gnote">vs LY +3.1% &middot; 4-wk avg $5.88MM</div></div><div class="gtile"><div class="glabel">Units</div><div class="gbig g-amber">1,420<span class="gunit">K</span></div><div class="gdelta g-amber"><span class="arw">&#9660;</span>3.4% WoW</div><div class="gbars"><i style="height:100%;background:rgba(233,197,131,0.42)"></i><i style="height:92%;background:rgba(233,197,131,0.42)"></i><i style="height:87%;background:rgba(233,197,131,0.42)"></i><i style="height:79%;background:rgba(233,197,131,0.42)"></i><i style="height:71%;background:rgba(233,197,131,0.42)"></i><i style="height:61%;background:rgba(233,197,131,0.42)"></i><i style="height:87%;background:rgba(233,197,131,0.42)"></i><i style="height:22%;background:#E9C583"></i></div><div class="gnote">vs LY +1.2% &middot; 4-wk avg 1,452K</div></div><div class="gtile"><div class="glabel">Margin %</div><div class="gbig g-teal">38.0<span class="gunit">%</span></div><div class="gdelta g-teal"><span class="arw">&#9660;</span>40bps WoW</div><div class="gbars"><i style="height:100%;background:rgba(169,133,67,0.42)"></i><i style="height:84%;background:rgba(169,133,67,0.42)"></i><i style="height:84%;background:rgba(169,133,67,0.42)"></i><i style="height:69%;background:rgba(169,133,67,0.42)"></i><i style="height:53%;background:rgba(169,133,67,0.42)"></i><i style="height:38%;background:rgba(169,133,67,0.42)"></i><i style="height:84%;background:rgba(169,133,67,0.42)"></i><i style="height:22%;background:#A98543"></i></div><div class="gnote">vs LY +180bps &middot; plan 38.0%</div></div><div class="gtile"><div class="glabel">Average order value</div><div class="gbig g-green">$38.40</div><div class="gdelta g-green"><span class="arw">&#9650;</span>1.3% WoW</div><div class="gbars"><i style="height:22%;background:rgba(28,74,69,0.42)"></i><i style="height:32%;background:rgba(28,74,69,0.42)"></i><i style="height:42%;background:rgba(28,74,69,0.42)"></i><i style="height:56%;background:rgba(28,74,69,0.42)"></i><i style="height:66%;background:rgba(28,74,69,0.42)"></i><i style="height:71%;background:rgba(28,74,69,0.42)"></i><i style="height:76%;background:rgba(28,74,69,0.42)"></i><i style="height:100%;background:#1C4A45"></i></div><div class="gnote">vs LY +4.4% &middot; 4-wk avg $38.10</div></div><div class="gtile"><div class="glabel">Transaction volume</div><div class="gbig g-amber">46,800</div><div class="gdelta g-amber"><span class="arw">&#9660;</span>2.9% WoW</div><div class="gbars"><i style="height:100%;background:rgba(233,197,131,0.42)"></i><i style="height:80%;background:rgba(233,197,131,0.42)"></i><i style="height:71%;background:rgba(233,197,131,0.42)"></i><i style="height:58%;background:rgba(233,197,131,0.42)"></i><i style="height:45%;background:rgba(233,197,131,0.42)"></i><i style="height:28%;background:rgba(233,197,131,0.42)"></i><i style="height:68%;background:rgba(233,197,131,0.42)"></i><i style="height:22%;background:#E9C583"></i></div><div class="gnote">vs LY +2.4% &middot; club channel driving decline</div></div><div class="gtile"><div class="glabel">In-stock</div><div class="gbig g-red">93.4<span class="gunit">%</span></div><div class="gdelta g-red"><span class="arw">&#9660;</span>1.7pts WoW</div><div class="gbars"><i style="height:100%;background:rgba(92,43,46,0.42)"></i><i style="height:89%;background:rgba(92,43,46,0.42)"></i><i style="height:78%;background:rgba(92,43,46,0.42)"></i><i style="height:69%;background:rgba(92,43,46,0.42)"></i><i style="height:55%;background:rgba(92,43,46,0.42)"></i><i style="height:39%;background:rgba(92,43,46,0.42)"></i><i style="height:69%;background:rgba(92,43,46,0.42)"></i><i style="height:22%;background:#5C2B2E"></i></div><div class="gnote">vs LY &minus;2.1pts &middot; target 96.0%</div></div></div></div><div class="sec-eyebrow">Core commercial &amp; operational metrics</div><h3 class="sec" style="font-size:22px;margin-bottom:6px">Six views, in <em>detail</em></h3><p class="lead">The six metrics that carry the operating week, each on its own full-size view — with the prior year plotted alongside so a soft week can be separated from a soft comparison, and channel splits where the aggregate hides which part of the business is moving.</p><div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Sales $ — this year vs. last year</h4><div class="sub">Weekly net sales ($MM), current year against prior year</div><div class="chartbox"><canvas id="dtSales"></canvas></div><div class="read"><b>Read:</b> The year-over-year gap has narrowed from roughly five points to three across the window. Sales are still ahead of last year, but the cushion is thinning week by week — that erosion is the club replenishment signal.</div></div><div class="card"><h4>Units — this year vs. last year</h4><div class="sub">Weekly units shipped (K), current year against prior year</div><div class="chartbox"><canvas id="dtUnits"></canvas></div><div class="read"><b>Read:</b> Units have converged on last year almost exactly, and in the latest week sit only marginally ahead. Sales are holding up better than units, which confirms price is carrying the line, not volume.</div></div></div><div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Margin % — gross, contribution and target</h4><div class="sub">Weekly gross and contribution margin against the 38% plan</div><div class="chartbox"><canvas id="dtMargin"></canvas></div><div class="read"><b>Read:</b> Gross margin is tracking the plan almost exactly. Contribution margin is drifting slightly wider as trade and freight absorb more per unit — the gap between the two lines is the cost-to-serve story.</div></div><div class="card"><h4>Average order value — this year vs. last year</h4><div class="sub">Weekly DTC average order value ($)</div><div class="chartbox"><canvas id="dtAov"></canvas></div><div class="read"><b>Read:</b> Average order value is the strongest line in the operating set, running consistently ahead of last year and still climbing. Basket size is expanding even as order count softens.</div></div></div><div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Transaction volume by channel</h4><div class="sub">Weekly transactions (K), stacked by channel</div><div class="chartbox"><canvas id="dtTrans"></canvas></div><div class="read"><b>Read:</b> Total transactions are declining, and nearly all of the decline sits in the club bar. Direct and grocery volumes are stable — this is a single-channel problem, not a demand problem.</div></div><div class="card"><h4>In-stock rate by channel</h4><div class="sub">Current-week in-stock % against the 96% target</div><div class="chartbox"><canvas id="dtStock"></canvas></div><div class="read"><b>Read:</b> Only the direct channel clears the target. The club account — the one already showing order-cadence decline — has the worst availability at 91.2%, which is how a service failure becomes a commercial one.</div></div></div><div class="sec-eyebrow">Every metric, charted</div><h3 class="sec" style="font-size:22px;margin-bottom:6px">Eight-week trend, <em>metric by metric</em></h3><p class="lead">Each line in the scorecard, plotted on its own eight-week trend. The shape matters as much as the level — a metric sitting inside tolerance while bending the wrong way is exactly what a quarterly pack misses.</p><div class="mgrid"><div class="mcard"><div class="ml">Net sales</div><div class="mv">$5.81MM<span class="md down">&minus;2.2%</span></div><div class="mc"><canvas id="mm00"></canvas></div><div class="mf">4-wk avg $5.88MM &middot; vs LY +3.1%</div></div><div class="mcard"><div class="ml">Units shipped</div><div class="mv">1,420K<span class="md down">&minus;3.4%</span></div><div class="mc"><canvas id="mm01"></canvas></div><div class="mf">4-wk avg 1,452K &middot; vs LY +1.2%</div></div><div class="mcard"><div class="ml">Average order value</div><div class="mv">$38.40<span class="md up">+1.3%</span></div><div class="mc"><canvas id="mm02"></canvas></div><div class="mf">4-wk avg $38.10 &middot; vs LY +4.4%</div></div><div class="mcard"><div class="ml">DTC orders</div><div class="mv">21,400<span class="md down">&minus;2.3%</span></div><div class="mc"><canvas id="mm03"></canvas></div><div class="mf">4-wk avg 21,650 &middot; vs LY +6.8%</div></div><div class="mcard"><div class="ml">Transactions — all channels</div><div class="mv">46,800<span class="md down">&minus;2.9%</span></div><div class="mc"><canvas id="mm04"></canvas></div><div class="mf">4-wk avg 47,600 &middot; vs LY +2.4%</div></div><div class="mcard"><div class="ml">Gross margin</div><div class="mv">38.0%<span class="md down">&minus;1.0%</span></div><div class="mc"><canvas id="mm05"></canvas></div><div class="mf">4-wk avg 38.2% &middot; vs LY +180bps</div></div><div class="mcard"><div class="ml">Contribution margin</div><div class="mv">22.6%<span class="md down">&minus;2.2%</span></div><div class="mc"><canvas id="mm06"></canvas></div><div class="mf">4-wk avg 22.9% &middot; vs LY +90bps</div></div><div class="mcard"><div class="ml">In-stock rate</div><div class="mv">93.4%<span class="md down">&minus;1.8%</span></div><div class="mc"><canvas id="mm07"></canvas></div><div class="mf">4-wk avg 94.2% &middot; vs LY &minus;2.1pts</div></div><div class="mcard"><div class="ml">Fill rate / OTIF</div><div class="mv">91.0%<span class="md down">&minus;1.1%</span></div><div class="mc"><canvas id="mm08"></canvas></div><div class="mf">4-wk avg 91.6% &middot; vs LY &minus;5.0pts</div></div><div class="mcard"><div class="ml">Return rate</div><div class="mv">2.10%<span class="md down">+5.0%</span></div><div class="mc"><canvas id="mm09"></canvas></div><div class="mf">4-wk avg 2.05% &middot; vs LY +10bps</div></div><div class="mcard"><div class="ml">Days inventory (DIO)</div><div class="mv">71d<span class="md down">+1.4%</span></div><div class="mc"><canvas id="mm10"></canvas></div><div class="mf">4-wk avg 70d &middot; vs LY +13d</div></div><div class="mcard"><div class="ml">Chargebacks</div><div class="mv">$64K<span class="md down">+23.1%</span></div><div class="mc"><canvas id="mm11"></canvas></div><div class="mf">4-wk avg $57K &middot; vs LY +118%</div></div><div class="mcard"><div class="ml">Sessions</div><div class="mv">486K<span class="md up">+1.7%</span></div><div class="mc"><canvas id="mm12"></canvas></div><div class="mf">4-wk avg 481K &middot; vs LY +14.2%</div></div><div class="mcard"><div class="ml">Conversion rate</div><div class="mv">4.40%<span class="md down">&minus;2.2%</span></div><div class="mc"><canvas id="mm13"></canvas></div><div class="mf">4-wk avg 4.45% &middot; vs LY &minus;10bps</div></div><div class="mcard"><div class="ml">Ad spend</div><div class="mv">$214K<span class="md down">+3.9%</span></div><div class="mc"><canvas id="mm14"></canvas></div><div class="mf">4-wk avg $210K &middot; vs LY +22.4%</div></div><div class="mcard"><div class="ml">Blended ROAS</div><div class="mv">3.6x<span class="md down">&minus;5.3%</span></div><div class="mc"><canvas id="mm15"></canvas></div><div class="mf">4-wk avg 3.7x &middot; vs LY &minus;0.9x</div></div></div><div class="card" style="margin-bottom:22px"><h4>Weekly operating scorecard</h4><div class="sub">Week 30 &middot; Jul 20–26, 2026 &middot; all figures illustrative</div><table><thead><tr><th>Metric</th><th class="num">This week</th><th class="num">Prior week</th><th class="num">4-wk avg</th><th class="num">vs LY</th><th>Status</th></tr></thead><tbody><tr class="grp"><td colspan="6">Commercial</td></tr><tr><td>Net sales ($MM)</td><td class="num mn">5.81</td><td class="num mn">5.94</td><td class="num mn">5.88</td><td class="num mn">+3.1%</td><td><span class="tag-pill p-amber">Watch</span></td></tr><tr><td>Units shipped (K)</td><td class="num mn">1,420</td><td class="num mn">1,470</td><td class="num mn">1,452</td><td class="num mn">+1.2%</td><td><span class="tag-pill p-amber">Watch</span></td></tr><tr><td>Average order value ($)</td><td class="num mn">38.40</td><td class="num mn">37.90</td><td class="num mn">38.10</td><td class="num mn">+4.4%</td><td><span class="tag-pill p-green">On track</span></td></tr><tr><td>DTC orders</td><td class="num mn">21,400</td><td class="num mn">21,900</td><td class="num mn">21,650</td><td class="num mn">+6.8%</td><td><span class="tag-pill p-green">On track</span></td></tr><tr><td>Transactions — all channels</td><td class="num mn">46,800</td><td class="num mn">48,200</td><td class="num mn">47,600</td><td class="num mn">+2.4%</td><td><span class="tag-pill p-amber">Watch</span></td></tr><tr><td>Gross margin (%)</td><td class="num mn">38.0</td><td class="num mn">38.4</td><td class="num mn">38.2</td><td class="num mn">+180bps</td><td><span class="tag-pill p-green">On track</span></td></tr><tr><td>Contribution margin (%)</td><td class="num mn">22.6</td><td class="num mn">23.1</td><td class="num mn">22.9</td><td class="num mn">+90bps</td><td><span class="tag-pill p-green">On track</span></td></tr><tr class="grp"><td colspan="6">Operational</td></tr><tr><td>In-stock rate (%)</td><td class="num mn">93.4</td><td class="num mn">95.1</td><td class="num mn">94.2</td><td class="num mn">&minus;2.1pts</td><td><span class="tag-pill p-red">Off track</span></td></tr><tr><td>Fill rate / OTIF (%)</td><td class="num mn">91.0</td><td class="num mn">92.0</td><td class="num mn">91.6</td><td class="num mn">&minus;5.0pts</td><td><span class="tag-pill p-red">Off track</span></td></tr><tr><td>Return rate (%)</td><td class="num mn">2.1</td><td class="num mn">2.0</td><td class="num mn">2.05</td><td class="num mn">+10bps</td><td><span class="tag-pill p-amber">Watch</span></td></tr><tr><td>Days inventory (DIO)</td><td class="num mn">71</td><td class="num mn">70</td><td class="num mn">70.5</td><td class="num mn">+13d</td><td><span class="tag-pill p-amber">Watch</span></td></tr><tr><td>Chargebacks ($K)</td><td class="num mn">64</td><td class="num mn">52</td><td class="num mn">57</td><td class="num mn">+118%</td><td><span class="tag-pill p-red">Off track</span></td></tr><tr class="grp"><td colspan="6">Demand &amp; media</td></tr><tr><td>Sessions (K)</td><td class="num mn">486</td><td class="num mn">478</td><td class="num mn">481</td><td class="num mn">+14.2%</td><td><span class="tag-pill p-green">On track</span></td></tr><tr><td>Conversion rate (%)</td><td class="num mn">4.40</td><td class="num mn">4.50</td><td class="num mn">4.45</td><td class="num mn">&minus;10bps</td><td><span class="tag-pill p-amber">Watch</span></td></tr><tr><td>Ad spend ($K)</td><td class="num mn">214</td><td class="num mn">206</td><td class="num mn">210</td><td class="num mn">+22.4%</td><td><span class="tag-pill p-red">Off track</span></td></tr><tr><td>Blended ROAS (x)</td><td class="num mn">3.6</td><td class="num mn">3.8</td><td class="num mn">3.7</td><td class="num mn">&minus;0.9x</td><td><span class="tag-pill p-red">Off track</span></td></tr></tbody></table><div class="read"><b>Read:</b> The commercial block is soft but orderly &mdash; margin and order value are holding. The operational block is where the damage is: in-stock, fill rate and chargebacks are all off track together, and they point at the same account driving the week's headline signal.</div></div><div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Monitoring health by workstream</h4><div class="sub">Signal health index (100 = fully green)</div><div class="chartbox"><canvas id="wkScore"></canvas></div><div class="read"><b>Read:</b> Customer and supply-chain signals have deteriorated; earnings quality and sourcing remain stable. The index is what drives which workstream gets attention in the following week.</div></div><div class="card"><h4>Alerts raised vs. resolved</h4><div class="sub">Count by week &middot; trailing eight weeks</div><div class="chartbox"><canvas id="wkAlert"></canvas></div><div class="read"><b>Read:</b> Alert volume rose through W26–W28 as the club signal developed, then resolution caught up. The open red alert is the replenishment trend, which cannot resolve until the reauthorization is confirmed.</div></div></div>
   <div class="grid g2" style="margin-bottom:22px"><div class="card"><h4>Detection lead time by signal</h4><div class="sub">Weeks ahead of when it would surface in quarterly reporting</div><div class="chartbox"><canvas id="wkLead"></canvas></div><div class="read"><b>Read:</b> The replenishment signal was visible eight weeks before it would have reached a quarterly reporting package &mdash; the difference between managing the reauthorization and reacting to it.</div></div><div class="card"><h4>Evidence grading — this week</h4><div class="sub">Share of tracked figures by confidence tier</div><div class="chartbox"><canvas id="wkConf"></canvas></div><div class="read"><b>Read:</b> Roughly two-thirds of tracked figures are independently verified. The stated gaps are named rather than filled with an estimate &mdash; the same discipline applied in the original diligence.</div></div></div>
 
   <div class="sec-eyebrow">Data confidence &amp; gaps — every figure graded</div>
@@ -848,7 +971,7 @@ nav.tabs button.live.active .pulse{background:#22190a}
     <div class="card">
       <h4>Club deauthorization</h4>
       <div class="sub">Top customer, 21% of revenue</div>
-      <p style="font-size:13.5px;color:#374252;margin-bottom:12px">Loss of the national club account, partially backfilled over 3 quarters via mass and DTC.</p>
+      <p style="font-size:13.5px;color:#16211F;margin-bottom:12px">Loss of the national club account, partially backfilled over 3 quarters via mass and DTC.</p>
       <div class="pgrid">
         <div class="smallcaps">EBITDA impact</div><div></div><div class="num" style="color:var(--red);font-weight:600">-$8.9MM</div>
         <div class="smallcaps">Leverage impact</div><div></div><div class="num">+0.9&times;</div>
@@ -858,7 +981,7 @@ nav.tabs button.live.active .pulse{background:#22190a}
     <div class="card">
       <h4>Input-cost spike</h4>
       <div class="sub">Oats + film, single-sourced</div>
-      <p style="font-size:13.5px;color:#374252;margin-bottom:12px">15% cost inflation on the two single-sourced inputs, 60% recoverable via price over two quarters.</p>
+      <p style="font-size:13.5px;color:#16211F;margin-bottom:12px">15% cost inflation on the two single-sourced inputs, 60% recoverable via price over two quarters.</p>
       <div class="pgrid">
         <div class="smallcaps">EBITDA impact</div><div></div><div class="num" style="color:var(--red);font-weight:600">-$3.4MM</div>
         <div class="smallcaps">Leverage impact</div><div></div><div class="num">+0.4&times;</div>
@@ -868,7 +991,7 @@ nav.tabs button.live.active .pulse{background:#22190a}
     <div class="card">
       <h4>Promo intensification</h4>
       <div class="sub">Competitive price response</div>
-      <p style="font-size:13.5px;color:#374252;margin-bottom:12px">Sustained 300bps of incremental trade spend to hold share against GrainField's price cut.</p>
+      <p style="font-size:13.5px;color:#16211F;margin-bottom:12px">Sustained 300bps of incremental trade spend to hold share against GrainField's price cut.</p>
       <div class="pgrid">
         <div class="smallcaps">EBITDA impact</div><div></div><div class="num" style="color:var(--red);font-weight:600">-$2.6MM</div>
         <div class="smallcaps">Leverage impact</div><div></div><div class="num">+0.3&times;</div>
@@ -947,28 +1070,59 @@ document.querySelectorAll('#tabs button').forEach(function(b){
 
 function gotoTab(name){var b=document.querySelector('#tabs button[data-tab="'+name+'"]');if(b){b.click();window.scrollTo({top:0,behavior:'smooth'});}}
 /* ---------------- chart theme ---------------- */
-var INK='#0f1b2d', TEAL='#2e7d8f', TEALL='#93bcc6', RED='#b0413a', GREEN='#3f6e4e',
-    AMBER='#c9963f', MUTED='#6f6a60', LINE='#dcd6ca', GOLDY='#c8a24a';
-Chart.defaults.font.family="'Helvetica Neue',Arial,sans-serif";
-Chart.defaults.font.size=11;
+var INK='#16211F', TEAL='#A98543', TEALL='rgba(22,33,31,0.55)', RED='#5C2B2E', GREEN='#1C4A45',
+    AMBER='#E9C583', MUTED='rgba(22,33,31,0.55)', LINE='rgba(22,33,31,0.14)', GOLDY='#A98543';
+Chart.defaults.font.family="'IBM Plex Mono',monospace";
+Chart.defaults.font.size=10;
 Chart.defaults.color=MUTED;
-var GRID={color:'rgba(15,27,45,.07)'};
+var GRID={color:'rgba(22,33,31,0.10)'};
 function money(v){return '$'+v+'MM'}
 
 var made={};
 function mk(id,cfg){
   var el=document.getElementById(id);
   if(!el) return;
+  var p=el.closest(".panel");
+  if(p && !p.classList.contains("active")) return;   /* only build visible charts */
   if(made[id]){made[id].destroy();}
   made[id]=new Chart(el,cfg);
 }
 
 function renderCharts(){
-mk('wkTrend',{type:'line',data:{labels:['W23','W24','W25','W26','W27','W28','W29','W30'],datasets:[{label:'Index',data:[-1.2,-2.0,-3.4,-4.1,-5.8,-7.2,-8.5,-9.4],borderColor:'#c9963f',backgroundColor:'rgba(201,150,63,.10)',fill:true,tension:.25,pointRadius:[6,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6],pointBackgroundColor:['#d9635b','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#c9963f','#e8c887'],borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'%'}}}},scales:{y:{min:-11,max:1,grid:{color:'rgba(255,255,255,.06)'},ticks:{color:'#8aa0b3',callback:function(v){return v+'%'}}},x:{grid:{display:false},ticks:{color:'#8aa0b3',font:{size:10}}}}}});
-mk('wkScore',{type:'bar',data:{labels:["Earnings quality", "Sourcing", "Merchandising", "Digital", "Supply chain", "Customer"],datasets:[{data:[88, 84, 76, 68, 54, 41],backgroundColor:["#3f6e4e", "#3f6e4e", "#2e7d8f", "#c9963f", "#c9963f", "#b0413a"],borderRadius:2,barPercentage:.68}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ''+c.parsed.x+''}}}},scales:{x:{beginAtZero:true,max:100,grid:GRID,ticks:{callback:function(v){return ''+v+''}},title:{display:true,text:'Signal health index'}},y:{grid:{display:false}}}}});
-mk('wkAlert',{type:'bar',data:{labels:["W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"Raised",data:[1, 3, 4, 5, 3, 2],backgroundColor:'#c9963f',borderRadius:2},{label:"Resolved",data:[1, 1, 2, 3, 4, 3],backgroundColor:'#3f6e4e',borderRadius:2}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+''}}}},scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return ''+v+''}},title:{display:true,text:'Alerts'}},x:{grid:{display:false}}}}});
-mk('wkLead',{type:'bar',data:{labels:["Club replenishment", "OTIF slippage", "CAC inflation", "Input cost", "Trade variance"],datasets:[{data:[8, 6, 5, 4, 7],backgroundColor:["#b0413a", "#c9963f", "#c9963f", "#93bcc6", "#2e7d8f"],borderRadius:2,barPercentage:.68}]},options:{indexAxis:'x',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ''+c.parsed.y+'w'}}}},scales:{y:{beginAtZero:true,max:10,grid:GRID,ticks:{callback:function(v){return ''+v+'w'}},title:{display:true,text:'Weeks of lead time'}},x:{grid:{display:false}}}}});
-mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated gap"],datasets:[{data:[64, 26, 10],backgroundColor:["#3f6e4e", "#c9963f", "#b0413a"],borderColor:'#fdfcf8',borderWidth:2}]},options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'%'}}}}}});
+mk('dtSales',{type:'bar',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"This year",data:[6.02, 5.98, 5.96, 5.92, 5.9, 5.86, 5.94, 5.81],backgroundColor:'#A98543',borderRadius:2},{label:"Last year",data:[5.72, 5.74, 5.7, 5.76, 5.72, 5.68, 5.74, 5.63],backgroundColor:'rgba(22,33,31,0.30)',borderRadius:2}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+'$'+c.parsed.y+''}}}},scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return '$'+v+''}},title:{display:true,text:'$MM net sales'}},x:{grid:{display:false}}}}});
+mk('dtUnits',{type:'bar',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"This year",data:[1480, 1474, 1470, 1464, 1458, 1450, 1470, 1420],backgroundColor:'#A98543',borderRadius:2},{label:"Last year",data:[1448, 1444, 1440, 1442, 1438, 1432, 1444, 1403],backgroundColor:'rgba(22,33,31,0.30)',borderRadius:2}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+'K'}}}},scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return ''+v+'K'}},title:{display:true,text:'Units (K)'}},x:{grid:{display:false}}}}});
+mk('dtMargin',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"Gross margin %",data:[38.5, 38.4, 38.4, 38.3, 38.2, 38.1, 38.4, 38.0],borderColor:'#A98543',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},{label:"Contribution margin %",data:[23.4, 23.3, 23.2, 23.1, 23.0, 22.9, 23.1, 22.6],borderColor:'rgba(22,33,31,0.55)',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},{label:"Plan \u2014 gross",data:[38.0, 38.0, 38.0, 38.0, 38.0, 38.0, 38.0, 38.0],borderColor:'#E9C583',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2,borderDash:[6,4]}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+'%'}}}},scales:{y:{min:18,max:44,grid:GRID,ticks:{callback:function(v){return ''+v.toFixed(1)+'%'}},title:{display:true,text:'Percent'}},x:{grid:{display:false}}}}});
+mk('dtAov',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"This year",data:[36.8, 37.0, 37.2, 37.5, 37.7, 37.8, 37.9, 38.4],borderColor:'#1C4A45',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},{label:"Last year",data:[35.2, 35.4, 35.6, 35.9, 36.1, 36.2, 36.3, 36.8],borderColor:'rgba(22,33,31,0.55)',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2,borderDash:[6,4]}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+'$'+c.parsed.y+''}}}},scales:{y:{min:32,max:42,grid:GRID,ticks:{callback:function(v){return '$'+v.toFixed(2)+''}},title:{display:true,text:'AOV ($)'}},x:{grid:{display:false}}}}});
+mk('dtTrans',{type:'bar',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"Club",data:[19.4, 19.0, 18.6, 18.2, 17.9, 17.5, 18.0, 17.2],backgroundColor:'#E9C583',borderRadius:2,stack:'s'},{label:"Grocery / mass",data:[16.4, 16.3, 16.2, 16.2, 16.1, 16.0, 16.2, 16.0],backgroundColor:'#A98543',borderRadius:2,stack:'s'},{label:"Direct / marketplace",data:[9.2, 9.3, 9.4, 9.4, 9.5, 9.5, 9.6, 9.6],backgroundColor:'#1C4A45',borderRadius:2,stack:'s'},{label:"Convenience",data:[4.2, 4.1, 4.1, 4.0, 4.0, 4.0, 4.0, 4.0],backgroundColor:'rgba(22,33,31,0.55)',borderRadius:2,stack:'s'}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+'K'}}}},scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return ''+v+'K'}},title:{display:true,text:'Transactions (K)'}},x:{grid:{display:false}}}}});
+mk('dtStock',{type:'bar',data:{labels:["Club", "Grocery / mass", "Direct / marketplace", "Convenience"],datasets:[{label:"In-stock %",data:[91.2, 94.1, 96.4, 92.8],backgroundColor:'#A98543',borderRadius:2},{label:"Target",data:[96, 96, 96, 96],backgroundColor:'rgba(22,33,31,0.30)',borderRadius:2}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+'%'}}}},scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return ''+v+'%'}},title:{display:true,text:'In-stock rate'}},x:{grid:{display:false}}}}});
+
+mk('mm00',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[6.01, 6.01, 5.99, 6.0, 5.98, 5.97, 5.96, 5.81],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#E9C583',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return '$'+c.parsed.y+'MM'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm01',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[1479.0, 1473.0, 1479.0, 1477.0, 1473.0, 1469.0, 1465.0, 1420],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#E9C583',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'K'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm02',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[36.67, 36.97, 37.11, 37.31, 37.66, 37.64, 37.94, 38.4],borderColor:'#1C4A45',backgroundColor:'rgba(28,74,69,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#1C4A45',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return '$'+c.parsed.y+''}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm03',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[22566.0, 22398.0, 22284.0, 22172.0, 22197.0, 22099.0, 21869.0, 21400],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#E9C583',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+''}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm04',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[49149.0, 48915.0, 48821.0, 48762.0, 48477.0, 48426.0, 48344.0, 46800],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#E9C583',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+''}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm05',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[38.6, 38.6, 38.6, 38.5, 38.6, 38.3, 38.5, 38.0],borderColor:'#A98543',backgroundColor:'rgba(169,133,67,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#A98543',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'%'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm06',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[23.5, 23.4, 23.3, 23.3, 23.3, 23.1, 23.1, 22.6],borderColor:'#A98543',backgroundColor:'rgba(169,133,67,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#A98543',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'%'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm07',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[96.4, 95.7, 95.8, 95.5, 95.7, 95.3, 95.3, 93.4],borderColor:'#5C2B2E',backgroundColor:'rgba(92,43,46,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#5C2B2E',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'%'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm08',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[93.5, 93.8, 93.4, 92.9, 92.4, 92.6, 92.1, 91.0],borderColor:'#5C2B2E',backgroundColor:'rgba(92,43,46,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#5C2B2E',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'%'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm09',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[1.91, 1.91, 1.93, 1.96, 1.97, 1.98, 2.0, 2.1],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#E9C583',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'%'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm10',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[66.0, 66.0, 67.0, 68.0, 69.0, 69.0, 70.0, 71],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#E9C583',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'d'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm11',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[28.0, 32.0, 36.0, 40.0, 44.0, 48.0, 52.0, 64],borderColor:'#5C2B2E',backgroundColor:'rgba(92,43,46,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#5C2B2E',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return '$'+c.parsed.y+'K'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm12',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[462.0, 464.0, 467.0, 470.0, 473.0, 475.0, 477.0, 486],borderColor:'#1C4A45',backgroundColor:'rgba(28,74,69,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#1C4A45',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'K'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm13',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[4.59, 4.57, 4.57, 4.54, 4.54, 4.52, 4.48, 4.4],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#E9C583',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'%'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm14',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[188.0, 191.0, 195.0, 197.0, 200.0, 202.0, 205.0, 214],borderColor:'#5C2B2E',backgroundColor:'rgba(92,43,46,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#5C2B2E',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return '$'+c.parsed.y+'K'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+mk('mm15',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{data:[4.2, 4.1, 4.1, 4.0, 3.9, 3.9, 3.8, 3.6],borderColor:'#5C2B2E',backgroundColor:'rgba(92,43,46,0.12)',fill:true,tension:.35,pointRadius:[0,0,0,0,0,0,0,4],pointBackgroundColor:'#5C2B2E',borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:function(c){return ''+c.parsed.y+'x'}}}},scales:{y:{display:false,grace:'12%'},x:{display:false}},elements:{point:{hoverRadius:5}}}});
+
+mk('wkSales',{data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{type:'bar',label:"Net sales ($MM)",data:[6.02, 5.98, 5.96, 5.92, 5.9, 5.86, 5.94, 5.81],backgroundColor:'#A98543',borderRadius:2,order:2},{type:'line',label:"Units (K)",data:[1480, 1474, 1470, 1464, 1458, 1450, 1470, 1420],borderColor:'#E9C583',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y1',order:1}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+(c.datasetIndex===0?'$'+c.parsed.y+'':''+c.parsed.y+'')}}}},scales:{y:{beginAtZero:true,max:7,grid:GRID,ticks:{callback:function(v){return '$'+v+''}},title:{display:true,text:'$MM net sales'}},y1:{position:'right',beginAtZero:true,max:1600,grid:{display:false},ticks:{callback:function(v){return ''+v+''}},title:{display:true,text:'Units (K)'}},x:{grid:{display:false}}}}});
+mk('wkAov',{data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{type:'bar',label:"DTC orders",data:[22600, 22400, 22200, 22000, 21800, 21700, 21900, 21400],backgroundColor:'rgba(22,33,31,0.55)',borderRadius:2,order:2},{type:'line',label:"AOV ($)",data:[36.8, 37.0, 37.2, 37.5, 37.7, 37.8, 37.9, 38.4],borderColor:'#1C4A45',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y1',order:1}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+(c.datasetIndex===0?''+c.parsed.y+'':'$'+c.parsed.y+'')}}}},scales:{y:{beginAtZero:true,max:24000,grid:GRID,ticks:{callback:function(v){return ''+v+''}},title:{display:true,text:'Orders'}},y1:{position:'right',beginAtZero:true,max:42,grid:{display:false},ticks:{callback:function(v){return '$'+v+''}},title:{display:true,text:'AOV ($)'}},x:{grid:{display:false}}}}});
+mk('wkMargin',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"Gross margin %",data:[38.5, 38.4, 38.4, 38.3, 38.2, 38.1, 38.4, 38.0],borderColor:'#A98543',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},{label:"Promo depth %",data:[24.1, 24.6, 25.2, 25.8, 26.4, 27.1, 26.8, 27.6],borderColor:'#E9C583',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+'%'}}}},scales:{y:{min:20,max:42,grid:GRID,ticks:{callback:function(v){return ''+v.toFixed(1)+'%'}},title:{display:true,text:'Percent'}},x:{grid:{display:false}}}}});
+mk('wkStock',{type:'line',data:{labels:["W23", "W24", "W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"In-stock %",data:[96.2, 95.8, 95.4, 95.1, 94.6, 94.0, 95.1, 93.4],borderColor:'#A98543',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},{label:"Fill rate / OTIF %",data:[93.8, 93.2, 92.8, 92.4, 92.0, 91.6, 92.0, 91.0],borderColor:'#5C2B2E',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},{label:"Target",data:[96, 96, 96, 96, 96, 96, 96, 96],borderColor:'#E9C583',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2,borderDash:[6,4]}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+'%'}}}},scales:{y:{min:88,max:99,grid:GRID,ticks:{callback:function(v){return ''+v.toFixed(1)+'%'}},title:{display:true,text:'Percent'}},x:{grid:{display:false}}}}});
+
+mk('wkTrend',{type:'line',data:{labels:['W23','W24','W25','W26','W27','W28','W29','W30'],datasets:[{label:'Index',data:[-1.2,-2.0,-3.4,-4.1,-5.8,-7.2,-8.5,-9.4],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.25,pointRadius:[6,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,6],pointBackgroundColor:['#FF8A80','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583','#E9C583'],borderWidth:2}]},options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'%'}}}},scales:{y:{min:-11,max:1,grid:{color:'rgba(244,239,230,0.10)'},ticks:{color:'rgba(244,239,230,0.72)',callback:function(v){return v+'%'}}},x:{grid:{display:false},ticks:{color:'rgba(244,239,230,0.72)',font:{size:10}}}}}});
+mk('wkScore',{type:'bar',data:{labels:["Earnings quality", "Sourcing", "Merchandising", "Digital", "Supply chain", "Customer"],datasets:[{data:[88, 84, 76, 68, 54, 41],backgroundColor:["#1C4A45", "#1C4A45", "#A98543", "#E9C583", "#E9C583", "#5C2B2E"],borderRadius:2,barPercentage:.68}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ''+c.parsed.x+''}}}},scales:{x:{beginAtZero:true,max:100,grid:GRID,ticks:{callback:function(v){return ''+v+''}},title:{display:true,text:'Signal health index'}},y:{grid:{display:false}}}}});
+mk('wkAlert',{type:'bar',data:{labels:["W25", "W26", "W27", "W28", "W29", "W30"],datasets:[{label:"Raised",data:[1, 3, 4, 5, 3, 2],backgroundColor:'#E9C583',borderRadius:2},{label:"Resolved",data:[1, 1, 2, 3, 4, 3],backgroundColor:'#1C4A45',borderRadius:2}]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+''+c.parsed.y+''}}}},scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return ''+v+''}},title:{display:true,text:'Alerts'}},x:{grid:{display:false}}}}});
+mk('wkLead',{type:'bar',data:{labels:["Club replenishment", "OTIF slippage", "CAC inflation", "Input cost", "Trade variance"],datasets:[{data:[8, 6, 5, 4, 7],backgroundColor:["#5C2B2E", "#E9C583", "#E9C583", "rgba(22,33,31,0.55)", "#A98543"],borderRadius:2,barPercentage:.68}]},options:{indexAxis:'x',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ''+c.parsed.y+'w'}}}},scales:{y:{beginAtZero:true,max:10,grid:GRID,ticks:{callback:function(v){return ''+v+'w'}},title:{display:true,text:'Weeks of lead time'}},x:{grid:{display:false}}}}});
+mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated gap"],datasets:[{data:[64, 26, 10],backgroundColor:["#1C4A45", "#E9C583", "#5C2B2E"],borderColor:'#F4EFE6',borderWidth:2}]},options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'%'}}}}}});
 
   /* ---- Overview: leverage by basis ---- */
   mk('leverageBasisChart',{type:'bar',data:{labels:['Marketed\n$42.0MM','Sponsor QoE\n$36.5MM','Lender-Attributable\n$31.2MM'],datasets:[{data:[4.3,4.9,5.8],backgroundColor:[TEALL,AMBER,RED],borderRadius:3,barPercentage:.62}]},
@@ -991,7 +1145,7 @@ mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated ga
     ['R&D reclass',34.5,33.1,AMBER],
     ['Slotting timing',33.1,32.0,AMBER],
     ['Comp normalize',32.0,31.2,AMBER],
-    ['Attributable',0,31.2,'#12233b']
+    ['Attributable',0,31.2,'#16211F']
   ];
   mk('ebitdaBridgeChart',{type:'bar',data:{labels:steps.map(function(s){return s[0]}),
     datasets:[{data:steps.map(function(s){return [s[1],s[2]]}),backgroundColor:steps.map(function(s){return s[3]}),borderRadius:2,barPercentage:.7}]},
@@ -1000,18 +1154,18 @@ mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated ga
 
   /* ---- Margin durability ---- */
   mk('marginChart',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],
-    datasets:[{label:'Gross margin %',data:[35.8,35.6,37.1,37.4,38.0,38.2],borderColor:TEAL,backgroundColor:'rgba(46,125,143,.10)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:TEAL}]},
+    datasets:[{label:'Gross margin %',data:[35.8,35.6,37.1,37.4,38.0,38.2],borderColor:TEAL,backgroundColor:'rgba(169,133,67,0.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:TEAL}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% gross margin'}}}},
       scales:{y:{min:34,max:40,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
 
   /* ---- Channel mix ---- */
   mk('channelChart',{type:'doughnut',data:{labels:['Grocery / Mass','Club','DTC / Marketplace','Convenience'],
-    datasets:[{data:[46,22,19,13],backgroundColor:[TEAL,AMBER,GREEN,TEALL],borderColor:'#fdfcf8',borderWidth:2}]},
+    datasets:[{data:[46,22,19,13],backgroundColor:[TEAL,AMBER,GREEN,TEALL],borderColor:'#F4EFE6',borderWidth:2}]},
     options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'% of revenue'}}}}}});
 
   /* ---- Concentration ---- */
   mk('concentrationChart',{type:'bar',data:{labels:['Club retailer','Mass grocer A','Mass grocer B','Regional #4','Regional #5','All other'],
-    datasets:[{data:[21,15,11,7,5,41],backgroundColor:['#b0413a','#c9963f','#c9963f',TEALL,TEALL,'#cdd3c9'],borderRadius:2,barPercentage:.7}]},
+    datasets:[{data:[21,15,11,7,5,41],backgroundColor:['#5C2B2E','#E9C583','#E9C583',TEALL,TEALL,'rgba(22,33,31,0.30)'],borderRadius:2,barPercentage:.7}]},
     options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% of revenue'}}}},
       scales:{x:{beginAtZero:true,max:45,grid:GRID,ticks:{callback:function(v){return v+'%'}}},y:{grid:{display:false}}}}});
 
@@ -1027,12 +1181,12 @@ mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated ga
 
   /* ---- Competitive bubble ---- */
   mk('competitiveChart',{type:'bubble',data:{datasets:[
-    {label:'Northwind',data:[{x:11,y:38.2,r:20}],backgroundColor:'rgba(176,65,58,.75)',borderColor:RED,borderWidth:2},
-    {label:'GrainField',data:[{x:6,y:33,r:24}],backgroundColor:'rgba(46,125,143,.45)',borderColor:TEAL},
-    {label:'Terra & Oat',data:[{x:8,y:35,r:16}],backgroundColor:'rgba(46,125,143,.45)',borderColor:TEAL},
-    {label:'Wildseed',data:[{x:2,y:31,r:12}],backgroundColor:'rgba(111,106,96,.4)',borderColor:MUTED},
-    {label:'Harvest Rowe',data:[{x:19,y:36,r:8}],backgroundColor:'rgba(201,150,63,.5)',borderColor:AMBER},
-    {label:'Category avg',data:[{x:7,y:34,r:10}],backgroundColor:'rgba(147,188,198,.5)',borderColor:TEALL}
+    {label:'Northwind',data:[{x:11,y:38.2,r:20}],backgroundColor:'rgba(92,43,46,0.75)',borderColor:RED,borderWidth:2},
+    {label:'GrainField',data:[{x:6,y:33,r:24}],backgroundColor:'rgba(169,133,67,0.45)',borderColor:TEAL},
+    {label:'Terra & Oat',data:[{x:8,y:35,r:16}],backgroundColor:'rgba(169,133,67,0.45)',borderColor:TEAL},
+    {label:'Wildseed',data:[{x:2,y:31,r:12}],backgroundColor:'rgba(22,33,31,0.40)',borderColor:MUTED},
+    {label:'Harvest Rowe',data:[{x:19,y:36,r:8}],backgroundColor:'rgba(233,197,131,0.5)',borderColor:AMBER},
+    {label:'Category avg',data:[{x:7,y:34,r:10}],backgroundColor:'rgba(22,33,31,0.30)',borderColor:TEALL}
   ]},
     options:{plugins:{legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:10}}},
       tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.raw.x+'% growth, '+c.raw.y+'% margin'}}}},
@@ -1045,7 +1199,7 @@ mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated ga
     {label:'Upside',data:[5.8,5.6,5.3,5.0,4.7,4.4,4.2,4.0,3.9],borderColor:GREEN,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
     {label:'Base',data:[5.8,5.7,5.5,5.3,5.1,4.9,4.8,4.7,4.6],borderColor:TEAL,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
     {label:'Downside',data:[5.8,5.8,5.7,5.7,5.6,5.6,5.5,5.5,5.4],borderColor:RED,backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
-    {label:'Covenant',data:[5.25,5.25,5.25,5.25,4.75,4.75,4.75,4.75,4.75],borderColor:'#9a6c17',borderDash:[6,4],backgroundColor:'transparent',pointRadius:0,borderWidth:1.5}
+    {label:'Covenant',data:[5.25,5.25,5.25,5.25,4.75,4.75,4.75,4.75,4.75],borderColor:'rgba(22,33,31,0.55)',borderDash:[6,4],backgroundColor:'transparent',pointRadius:0,borderWidth:1.5}
   ]},
     options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'x'}}}},
       scales:{y:{min:3.5,max:6.2,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Net leverage'}},x:{grid:{display:false}}}}});
@@ -1055,7 +1209,7 @@ mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated ga
     {label:'Upside',data:[1.42,1.46,1.50,1.53,1.56,1.58,1.60,1.61,1.61],borderColor:GREEN,tension:.3,pointRadius:0,borderWidth:2},
     {label:'Base',data:[1.30,1.32,1.34,1.33,1.31,1.35,1.37,1.38,1.40],borderColor:TEAL,tension:.3,pointRadius:0,borderWidth:2},
     {label:'Downside',data:[1.22,1.18,1.14,1.11,1.09,1.08,1.12,1.15,1.19],borderColor:RED,tension:.3,pointRadius:0,borderWidth:2},
-    {label:'Floor',data:[1.20,1.20,1.20,1.20,1.20,1.20,1.20,1.20,1.20],borderColor:'#9a6c17',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
+    {label:'Floor',data:[1.20,1.20,1.20,1.20,1.20,1.20,1.20,1.20,1.20],borderColor:'rgba(22,33,31,0.55)',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
   ]},
     options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:10}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'x'}}}},
       scales:{y:{min:1.0,max:1.65,grid:GRID,ticks:{callback:function(v){return v.toFixed(2)+'x'}},title:{display:true,text:'FCCR'}},x:{grid:{display:false}}}}});
@@ -1070,164 +1224,164 @@ mk('wkConf',{type:'doughnut',data:{labels:["Verified", "Directional", "Stated ga
   mk('exitChart',{type:'line',data:{labels:['4.5x','5.0x','5.5x','6.0x','6.5x','7.0x'],datasets:[
     {label:'Base delevering',data:[1.4,1.7,2.1,2.5,2.9,3.3],borderColor:TEAL,tension:.25,pointRadius:3,borderWidth:2,fill:false},
     {label:'Downside delevering',data:[1.0,1.2,1.4,1.7,2.0,2.3],borderColor:RED,tension:.25,pointRadius:3,borderWidth:2,fill:false},
-    {label:'Principal money-good line',data:[1.0,1.0,1.0,1.0,1.0,1.0],borderColor:'#9a6c17',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
+    {label:'Principal money-good line',data:[1.0,1.0,1.0,1.0,1.0,1.0],borderColor:'rgba(22,33,31,0.55)',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
   ]},
     options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9,font:{size:10}}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'x MOIC (sponsor)'}}}},
       scales:{y:{min:.8,max:3.5,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Sponsor MOIC'}},x:{grid:{display:false},title:{display:true,text:'Exit multiple'}}}}});
 
   /* ---- Stress ranking (tornado) ---- */
   mk('stressChart',{type:'bar',data:{labels:['Club deauthorization','Input-cost spike','Promo intensification','FX / freight','Slotting reset','Recession demand'],
-    datasets:[{data:[-8.9,-3.4,-2.6,-1.5,-1.2,-4.1],backgroundColor:['#b0413a','#c9963f','#c9963f','#93bcc6','#93bcc6','#c9963f'],borderRadius:2,barPercentage:.72}]},
+    datasets:[{data:[-8.9,-3.4,-2.6,-1.5,-1.2,-4.1],backgroundColor:['#5C2B2E','#E9C583','#E9C583','rgba(22,33,31,0.55)','rgba(22,33,31,0.55)','#E9C583'],borderRadius:2,barPercentage:.72}]},
     options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return money(c.parsed.x.toFixed(1))+' attributable EBITDA'}}}},
       scales:{x:{max:0,min:-10,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM impact to attributable EBITDA'}},y:{grid:{display:false}}}}});
 
   /* ===== SEO & ORGANIC ===== */
   mk('seoTraffic',{type:'bar',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
-    {label:'Organic',data:[160,172,184,196,203,210],backgroundColor:'#2e7d8f',borderRadius:2,stack:'s'},
-    {label:'Paid',data:[70,74,78,80,82,83],backgroundColor:'#c9963f',borderRadius:2,stack:'s'}
+    {label:'Organic',data:[160,172,184,196,203,210],backgroundColor:'#A98543',borderRadius:2,stack:'s'},
+    {label:'Paid',data:[70,74,78,80,82,83],backgroundColor:'#E9C583',borderRadius:2,stack:'s'}
   ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'K sessions'}}}},
     scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return v+'K'}},title:{display:true,text:'Sessions / mo (K)'}},x:{grid:{display:false}}}}});
 
   mk('seoShare',{type:'bar',data:{labels:['Northwind','GrainField','Terra & Oat','Wildseed','Others'],datasets:[{data:[24,21,17,9,29],
-    backgroundColor:['#b0413a','#2e7d8f','#2e7d8f','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.7}]},
+    backgroundColor:['#5C2B2E','#A98543','#A98543','rgba(22,33,31,0.55)','rgba(22,33,31,0.30)'],borderRadius:2,barPercentage:.7}]},
     options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% share of search'}}}},
     scales:{x:{beginAtZero:true,max:32,grid:GRID,ticks:{callback:function(v){return v+'%'}}},y:{grid:{display:false}}}}});
 
   mk('seoBrandedMix',{type:'doughnut',data:{labels:['Branded','Non-branded'],datasets:[{data:[58,42],
-    backgroundColor:['#2e7d8f','#93bcc6'],borderColor:'#fdfcf8',borderWidth:2}]},
+    backgroundColor:['#A98543','rgba(22,33,31,0.55)'],borderColor:'#F4EFE6',borderWidth:2}]},
     options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'% of organic'}}}}}});
 
   mk('seoAI',{type:'bar',data:{labels:['GrainField','Northwind','Terra & Oat','Wildseed'],datasets:[{data:[26,22,14,6],
-    backgroundColor:['#93bcc6','#b0413a','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.66}]},
+    backgroundColor:['rgba(22,33,31,0.55)','#5C2B2E','rgba(22,33,31,0.55)','rgba(22,33,31,0.30)'],borderRadius:2,barPercentage:.66}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of AI answers cite brand'}}}},
     scales:{y:{beginAtZero:true,max:30,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'AI answer citation rate'}},x:{grid:{display:false}}}}});
 
   /* ===== BRAND HEALTH ===== */
   mk('brandAwareness',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
-    {label:'Northwind aided awareness',data:[30,33,36,38,40,41],borderColor:'#2e7d8f',backgroundColor:'rgba(46,125,143,.10)',fill:true,tension:.35,pointRadius:3,borderWidth:2},
-    {label:'Category average',data:[34,34,35,35,36,36],borderColor:'#6f6a60',borderDash:[6,4],backgroundColor:'transparent',pointRadius:0,borderWidth:1.5}
+    {label:'Northwind aided awareness',data:[30,33,36,38,40,41],borderColor:'#A98543',backgroundColor:'rgba(169,133,67,0.12)',fill:true,tension:.35,pointRadius:3,borderWidth:2},
+    {label:'Category average',data:[34,34,35,35,36,36],borderColor:'rgba(22,33,31,0.55)',borderDash:[6,4],backgroundColor:'transparent',pointRadius:0,borderWidth:1.5}
   ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'%'}}}},
     scales:{y:{min:25,max:45,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
 
   mk('brandNps',{type:'bar',data:{labels:['Northwind','Terra & Oat','GrainField','Category avg'],datasets:[{data:[62,51,48,45],
-    backgroundColor:['#3f6e4e','#93bcc6','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.66}]},
+    backgroundColor:['#1C4A45','rgba(22,33,31,0.55)','rgba(22,33,31,0.55)','rgba(22,33,31,0.30)'],borderRadius:2,barPercentage:.66}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return 'NPS '+c.parsed.y}}}},
     scales:{y:{beginAtZero:true,max:70,grid:GRID,title:{display:true,text:'Net promoter score'}},x:{grid:{display:false}}}}});
 
   mk('brandReviews',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'Reviews / mo (K)',
-    data:[1.8,2.1,2.4,2.7,3.0,3.3],borderColor:'#c9963f',backgroundColor:'rgba(201,150,63,.10)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#c9963f'}]},
+    data:[1.8,2.1,2.4,2.7,3.0,3.3],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#E9C583'}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'K reviews/mo'}}}},
     scales:{y:{beginAtZero:true,max:4,grid:GRID,ticks:{callback:function(v){return v+'K'}}},x:{grid:{display:false}}}}});
 
   mk('brandSentiment',{type:'bar',data:{labels:['Taste / quality','Health','Packaging','Value / price','Availability'],datasets:[{data:[68,42,9,-22,-16],
-    backgroundColor:['#3f6e4e','#3f6e4e','#93bcc6','#b0413a','#b0413a'],borderRadius:2,barPercentage:.7}]},
+    backgroundColor:['#1C4A45','#1C4A45','rgba(22,33,31,0.55)','#5C2B2E','#5C2B2E'],borderRadius:2,barPercentage:.7}]},
     options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return (c.parsed.x>0?'+':'')+c.parsed.x+'% net sentiment'}}}},
     scales:{x:{min:-40,max:80,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Net sentiment (positive − negative)'}},y:{grid:{display:false}}}}});
 
   /* ===== TRADE & RETAIL MEDIA ===== */
   mk('tradeByChannel',{type:'bar',data:{labels:['Club','Grocery / Mass','Convenience','DTC / Marketplace'],datasets:[{data:[19,13,10,4],
-    backgroundColor:['#b0413a','#c9963f','#93bcc6','#3f6e4e'],borderRadius:2,barPercentage:.66}]},
+    backgroundColor:['#5C2B2E','#E9C583','rgba(22,33,31,0.55)','#1C4A45'],borderRadius:2,barPercentage:.66}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of gross'}}}},
     scales:{y:{beginAtZero:true,max:22,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Trade % of gross sales'}},x:{grid:{display:false}}}}});
 
   mk('tradeRecon',{type:'bar',data:{labels:['Booked accrual','Matched to detail','Unreconciled gap'],datasets:[{data:[8.4,7.2,1.2],
-    backgroundColor:['#2e7d8f','#3f6e4e','#b0413a'],borderRadius:2,barPercentage:.6}]},
+    backgroundColor:['#A98543','#1C4A45','#5C2B2E'],borderRadius:2,barPercentage:.6}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.parsed.y.toFixed(1)+'MM'}}}},
     scales:{y:{beginAtZero:true,max:10,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM'}},x:{grid:{display:false}}}}});
 
   mk('tradeMedia',{type:'bar',data:{labels:['Marketplace','Mass retail media','Grocery delivery','Club digital'],datasets:[{data:[4.1,3.5,3.2,2.8],
-    backgroundColor:['#3f6e4e','#2e7d8f','#93bcc6','#c9963f'],borderRadius:2,barPercentage:.66}]},
+    backgroundColor:['#1C4A45','#A98543','rgba(22,33,31,0.55)','#E9C583'],borderRadius:2,barPercentage:.66}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'x ROAS'}}}},
     scales:{y:{beginAtZero:true,max:5,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Retail media ROAS'}},x:{grid:{display:false}}}}});
 
   mk('tradeLift',{type:'bar',data:{labels:['Display','Feature','Feature+display','TPR','Club BOGO'],datasets:[{data:[3.1,2.4,3.6,1.8,0.9],
-    backgroundColor:['#3f6e4e','#2e7d8f','#3f6e4e','#c9963f','#b0413a'],borderRadius:2,barPercentage:.7}]},
+    backgroundColor:['#1C4A45','#A98543','#1C4A45','#E9C583','#5C2B2E'],borderRadius:2,barPercentage:.7}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'x volume ROI'}}}},
     scales:{y:{beginAtZero:true,max:4,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Incremental volume ROI'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
 
   /* ===== DIGITAL MARKETING ===== */
   mk('dmCacLtv',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
-    {label:'Blended CAC ($)',data:[18,20,22,24,26,27],borderColor:'#b0413a',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y'},
-    {label:'LTV:CAC (x)',data:[5.3,4.9,4.4,4.0,3.8,3.6],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y1'}
+    {label:'Blended CAC ($)',data:[18,20,22,24,26,27],borderColor:'#5C2B2E',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y'},
+    {label:'LTV:CAC (x)',data:[5.3,4.9,4.4,4.0,3.8,3.6],borderColor:'#A98543',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2,yAxisID:'y1'}
   ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}}},
     scales:{y:{position:'left',grid:GRID,min:0,max:32,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'CAC ($)'}},
     y1:{position:'right',min:0,max:6,grid:{display:false},ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'LTV:CAC'}},x:{grid:{display:false}}}}});
 
   mk('dmChannelEff',{type:'bar',data:{labels:['Email / SMS','Marketplace','Short-form video','Paid search','Paid social'],datasets:[{data:[11.0,4.8,3.1,3.9,2.6],
-    backgroundColor:['#3f6e4e','#2e7d8f','#2e7d8f','#93bcc6','#b0413a'],borderRadius:2,barPercentage:.68}]},
+    backgroundColor:['#1C4A45','#A98543','#A98543','rgba(22,33,31,0.55)','#5C2B2E'],borderRadius:2,barPercentage:.68}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'x return'}}}},
     scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return v+'x'}},title:{display:true,text:'Blended ROAS / MER'}},x:{grid:{display:false}}}}});
 
   mk('dmMix',{type:'bar',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
-    {label:'New customer',data:[19,20,21,21,22,22],backgroundColor:'#93bcc6',borderRadius:2,stack:'s'},
-    {label:'Repeat customer',data:[15,17,19,21,23,26],backgroundColor:'#2e7d8f',borderRadius:2,stack:'s'}
+    {label:'New customer',data:[19,20,21,21,22,22],backgroundColor:'rgba(22,33,31,0.55)',borderRadius:2,stack:'s'},
+    {label:'Repeat customer',data:[15,17,19,21,23,26],backgroundColor:'#A98543',borderRadius:2,stack:'s'}
   ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:12}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': $'+c.parsed.y+'MM'}}}},
     scales:{y:{beginAtZero:true,grid:GRID,ticks:{callback:function(v){return '$'+v}},title:{display:true,text:'$MM DTC revenue'}},x:{grid:{display:false}}}}});
 
   mk('dmSubs',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'Subscription %',
-    data:[19,22,24,27,29,31],borderColor:'#2e7d8f',backgroundColor:'rgba(46,125,143,.10)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#2e7d8f'}]},
+    data:[19,22,24,27,29,31],borderColor:'#A98543',backgroundColor:'rgba(169,133,67,0.12)',fill:true,tension:.35,pointRadius:4,pointBackgroundColor:'#A98543'}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of DTC'}}}},
     scales:{y:{min:0,max:40,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
 
   /* ===== MERCHANDISING ===== */
   mk('mcPareto',{data:{labels:['Top 5','SKUs 6–12','SKUs 13–30','SKUs 31–84'],datasets:[
-    {type:'bar',label:'% of revenue',data:[42,26,20,12],backgroundColor:['#2e7d8f','#2e7d8f','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.7,order:2},
-    {type:'line',label:'Cumulative %',data:[42,68,88,100],borderColor:'#c9963f',backgroundColor:'transparent',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y1',order:1}
+    {type:'bar',label:'% of revenue',data:[42,26,20,12],backgroundColor:['#A98543','#A98543','rgba(22,33,31,0.55)','rgba(22,33,31,0.30)'],borderRadius:2,barPercentage:.7,order:2},
+    {type:'line',label:'Cumulative %',data:[42,68,88,100],borderColor:'#E9C583',backgroundColor:'transparent',tension:.2,pointRadius:3,borderWidth:2,yAxisID:'y1',order:1}
   ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:12,padding:10}}},
     scales:{y:{beginAtZero:true,max:50,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'% of revenue'}},
     y1:{position:'right',min:0,max:100,grid:{display:false},ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Cumulative'}},x:{grid:{display:false}}}}});
 
   mk('mcMargin',{type:'bar',data:{labels:['Core bars','Minis','Keto line','Multipack (club)','Bulk'],datasets:[{data:[44,40,34,31,29],
-    backgroundColor:['#3f6e4e','#2e7d8f','#c9963f','#b0413a','#b0413a'],borderRadius:2,barPercentage:.68}]},
+    backgroundColor:['#1C4A45','#A98543','#E9C583','#5C2B2E','#5C2B2E'],borderRadius:2,barPercentage:.68}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% margin'}}}},
     scales:{y:{beginAtZero:true,max:50,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Contribution margin'}},x:{grid:{display:false}}}}});
 
   mk('mcPromo',{type:'bar',data:{labels:['Club','Grocery / Mass','Convenience','DTC / Marketplace'],datasets:[{data:[42,28,22,9],
-    backgroundColor:['#b0413a','#c9963f','#93bcc6','#3f6e4e'],borderRadius:2,barPercentage:.68}]},
+    backgroundColor:['#5C2B2E','#E9C583','rgba(22,33,31,0.55)','#1C4A45'],borderRadius:2,barPercentage:.68}]},
     options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% on promo'}}}},
     scales:{x:{beginAtZero:true,max:50,grid:GRID,ticks:{callback:function(v){return v+'%'}}},y:{grid:{display:false}}}}});
 
   mk('mcPrice',{type:'bar',data:{labels:['Single-serve','DTC subscribe','Grocery multi','Club multipack'],datasets:[{data:[0.62,0.58,0.51,0.44],
-    backgroundColor:['#2e7d8f','#3f6e4e','#93bcc6','#b0413a'],borderRadius:2,barPercentage:.62}]},
+    backgroundColor:['#A98543','#1C4A45','rgba(22,33,31,0.55)','#5C2B2E'],borderRadius:2,barPercentage:.62}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return '$'+c.parsed.y.toFixed(2)+' / oz'}}}},
     scales:{y:{beginAtZero:true,max:0.7,grid:GRID,ticks:{callback:function(v){return '$'+v.toFixed(2)}},title:{display:true,text:'Price per ounce'}},x:{grid:{display:false}}}}});
 
   /* ===== SUPPLY CHAIN ===== */
   mk('scCap',{type:'bar',data:{labels:['Primary co-man','Acquired co-man','Secondary co-man'],datasets:[{data:[88,74,61],
-    backgroundColor:['#b0413a','#c9963f','#3f6e4e'],borderRadius:2,barPercentage:.6}]},
+    backgroundColor:['#5C2B2E','#E9C583','#1C4A45'],borderRadius:2,barPercentage:.6}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% utilized'}}},
     annotation:false},scales:{y:{beginAtZero:true,max:100,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Capacity utilization'}},x:{grid:{display:false}}}}});
 
   mk('scOtif',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
-    {label:'Overall OTIF',data:[95,95,94,94,94,94],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
-    {label:'To club account',data:[96,94,93,92,91,91],borderColor:'#b0413a',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2},
-    {label:'Target',data:[95,95,95,95,95,95],borderColor:'#9a6c17',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
+    {label:'Overall OTIF',data:[95,95,94,94,94,94],borderColor:'#A98543',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
+    {label:'To club account',data:[96,94,93,92,91,91],borderColor:'#5C2B2E',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2},
+    {label:'Target',data:[95,95,95,95,95,95],borderColor:'rgba(22,33,31,0.55)',borderDash:[6,4],pointRadius:0,borderWidth:1.5}
   ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'%'}}}},
     scales:{y:{min:88,max:98,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
 
   mk('scDio',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'DIO (days)',
-    data:[58,60,63,66,69,71],borderColor:'#c9963f',backgroundColor:'rgba(201,150,63,.10)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#c9963f'}]},
+    data:[58,60,63,66,69,71],borderColor:'#E9C583',backgroundColor:'rgba(233,197,131,0.14)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#E9C583'}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+' days'}}}},
     scales:{y:{min:50,max:76,grid:GRID,ticks:{callback:function(v){return v+'d'}}},x:{grid:{display:false}}}}});
 
   mk('scFreight',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[{label:'Freight % of COGS',
-    data:[9.8,9.1,8.4,7.9,7.6,7.4],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2}]},
+    data:[9.8,9.1,8.4,7.9,7.6,7.4],borderColor:'#A98543',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2}]},
     options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.y+'% of COGS'}}}},
     scales:{y:{min:6,max:11,grid:GRID,ticks:{callback:function(v){return v+'%'}}},x:{grid:{display:false}}}}});
 
   /* ===== GLOBAL SOURCING ===== */
   mk('gsGeo',{type:'doughnut',data:{labels:['Domestic (US)','Film supplier country','Ingredient country B','Ingredient country C','Other'],
-    datasets:[{data:[55,18,14,8,5],backgroundColor:['#3f6e4e','#b0413a','#c9963f','#93bcc6','#cdd3c9'],borderColor:'#fdfcf8',borderWidth:2}]},
+    datasets:[{data:[55,18,14,8,5],backgroundColor:['#1C4A45','#5C2B2E','#E9C583','rgba(22,33,31,0.55)','rgba(22,33,31,0.30)'],borderColor:'#F4EFE6',borderWidth:2}]},
     options:{cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:12,padding:10}},tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'% of spend'}}}}}});
 
   mk('gsTariff',{type:'bar',data:{labels:['Packaging film','Specialty ingredients','Inclusions','Equipment / other'],datasets:[{data:[12,4,2,1],
-    backgroundColor:['#b0413a','#c9963f','#93bcc6','#cdd3c9'],borderRadius:2,barPercentage:.66}]},
+    backgroundColor:['#5C2B2E','#E9C583','rgba(22,33,31,0.55)','rgba(22,33,31,0.30)'],borderRadius:2,barPercentage:.66}]},
     options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.parsed.x+'% of COGS'}}}},
     scales:{x:{beginAtZero:true,max:14,grid:GRID,ticks:{callback:function(v){return v+'%'}},title:{display:true,text:'Tariff-exposed % of COGS'}},y:{grid:{display:false}}}}});
 
   mk('gsInput',{type:'line',data:{labels:['Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26'],datasets:[
-    {label:'Oats',data:[100,104,109,107,112,110],borderColor:'#2e7d8f',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
-    {label:'Packaging film',data:[100,108,121,118,132,129],borderColor:'#b0413a',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2}
+    {label:'Oats',data:[100,104,109,107,112,110],borderColor:'#A98543',backgroundColor:'transparent',tension:.3,pointRadius:0,borderWidth:2},
+    {label:'Packaging film',data:[100,108,121,118,132,129],borderColor:'#5C2B2E',backgroundColor:'transparent',tension:.3,pointRadius:3,borderWidth:2}
   ]},options:{plugins:{legend:{position:'top',labels:{boxWidth:14,padding:9}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y}}}},
     scales:{y:{min:95,max:140,grid:GRID,title:{display:true,text:'Cost index (start = 100)'}},x:{grid:{display:false}}}}});
 }
